@@ -110,10 +110,11 @@ export async function getAdminStats() {
         const conn = await dbConnect();
         if (!conn) return { success: false, error: "Database connection failed. Please check IP whitelist." };
 
-        const [totalArtworks, pendingArtworks, totalArtists] = await Promise.all([
+        const [totalArtworks, pendingArtworks, totalArtists, pendingArtists] = await Promise.all([
             Artwork.countDocuments({}),
             Artwork.countDocuments({ status: 'pending' }),
-            User.countDocuments({ role: 'partner' })
+            User.countDocuments({ role: 'partner' }),
+            User.countDocuments({ role: 'user', status: 'pending' })
         ]);
 
         return {
@@ -122,6 +123,7 @@ export async function getAdminStats() {
                 totalArtworks,
                 pendingArtworks,
                 totalArtists,
+                pendingArtists,
                 // 임시 매출 데이터 (추후 확장 가능)
                 monthlyRevenue: 12500000
             }
@@ -138,15 +140,24 @@ export async function createArtist(data: any) {
         const conn = await dbConnect();
         if (!conn) return { success: false, error: "Database connection failed. Please check IP whitelist." };
 
-        // 이메일 중복 체크
-        const existingUser = await User.findOne({ email: data.email });
-        if (existingUser) {
-            return { success: false, error: "이미 등록된 이메일 주소입니다." };
+        // 이메일이 없는 경우 가상 이메일 생성
+        let emailToUse = data.email;
+        if (!emailToUse || emailToUse.trim() === '') {
+            const timestamp = Date.now();
+            const randomStr = Math.random().toString(36).substring(2, 8);
+            emailToUse = `no_email_${timestamp}_${randomStr}@artsfactory.internal`;
+        } else {
+            // 이메일 중복 체크 (이메일이 있는 경우에만)
+            const existingUser = await User.findOne({ email: emailToUse });
+            if (existingUser) {
+                return { success: false, error: "이미 등록된 이메일 주소입니다." };
+            }
         }
 
         // 비밀번호는 임시로 설정하거나 추후 이메일 인증을 통해 설정하도록 비워둡니다 (필요시 임시비번 생성)
         const newUser = await User.create({
             ...data,
+            email: emailToUse,
             role: 'partner',
         });
 
@@ -156,6 +167,37 @@ export async function createArtist(data: any) {
         return { success: true, user: JSON.parse(JSON.stringify(newUser)) };
     } catch (error: any) {
         console.error("Error creating artist:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// 5. 파트너 신청 승인/거절
+export async function updatePartnerStatus(id: string, status: 'approved' | 'rejected') {
+    try {
+        await dbConnect();
+
+        const updateData: any = { status };
+        if (status === 'approved') {
+            updateData.role = 'partner';
+        }
+
+        const user = await User.findByIdAndUpdate(id, updateData, { new: true });
+        if (!user) return { success: false, error: 'User not found' };
+
+        // 알림 생성
+        await createNotification({
+            recipient_id: id,
+            type: status === 'approved' ? 'artwork_approval' : 'artwork_rejection', // 기존 타입 재사용 혹은 신규 정의
+            title: status === 'approved' ? '파트너 승인이 완료되었습니다!' : '파트너 신청이 반려되었습니다.',
+            message: status === 'approved'
+                ? '이제 아티스트 대시보드에서 작품을 등록하실 수 있습니다.'
+                : '신청 내용을 보완하여 다시 신청해 주시기 바랍니다.',
+            link: status === 'approved' ? '/partner' : '/partner/join'
+        });
+
+        revalidatePath('/admin');
+        return { success: true };
+    } catch (error: any) {
         return { success: false, error: error.message };
     }
 }
@@ -178,6 +220,36 @@ export async function toggleMagazineFeatured(id: string, isFeatured: boolean) {
 
         return { success: true, magazine: JSON.parse(JSON.stringify(magazine)) };
     } catch (error: any) {
+        return { success: false, error: error.message };
+    }
+}
+
+/**
+ * 작가 정보 수정
+ */
+export async function updateArtist(id: string, data: any) {
+    try {
+        const conn = await dbConnect();
+        if (!conn) return { success: false, error: "Database connection failed. Please check IP whitelist." };
+
+        // 이메일 변경 시 중복 체크 (자신의 이메일은 제외)
+        if (data.email) {
+            const existingUser = await User.findOne({ email: data.email, _id: { $ne: id } });
+            if (existingUser) {
+                return { success: false, error: "이미 등록된 이메일 주소입니다." };
+            }
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(id, data, { new: true });
+
+        if (!updatedUser) return { success: false, error: "작가를 찾을 수 없습니다." };
+
+        revalidatePath('/admin');
+        revalidatePath('/artists');
+
+        return { success: true, user: JSON.parse(JSON.stringify(updatedUser)) };
+    } catch (error: any) {
+        console.error("Error updating artist:", error);
         return { success: false, error: error.message };
     }
 }

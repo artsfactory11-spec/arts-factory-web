@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
+
+import React, { useState, useRef, useEffect } from 'react';
 import { storage } from '@/lib/firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import imageCompression from 'browser-image-compression';
@@ -22,13 +23,15 @@ import {
     Video,
     AlertCircle
 } from 'lucide-react';
-import { createArtist } from '@/app/actions/admin';
+import { createArtist, updateArtist } from '@/app/actions/admin';
 
 interface AdminArtistRegisterViewProps {
     onSuccess?: () => void;
+    initialData?: any;
+    isEdit?: boolean;
 }
 
-const AdminArtistRegisterView = ({ onSuccess }: AdminArtistRegisterViewProps) => {
+const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: AdminArtistRegisterViewProps) => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -53,6 +56,29 @@ const AdminArtistRegisterView = ({ onSuccess }: AdminArtistRegisterViewProps) =>
         avatar_url: '',
         signature_url: ''
     });
+
+    useEffect(() => {
+        if (initialData) {
+            setFormData({
+                email: initialData.email || '',
+                name: initialData.name || '',
+                artist_specialty: initialData.artist_specialty || '',
+                artist_bio: initialData.artist_bio || '',
+                activity_region: initialData.activity_region || '',
+                activity_material: initialData.activity_material || '',
+                activity_exhibitions: initialData.activity_exhibitions || '',
+                instagram_url: initialData.instagram_url || '',
+                youtube_url: initialData.youtube_url || '',
+                blog_url: initialData.blog_url || '',
+                tiktok_url: initialData.tiktok_url || '',
+                avatar_url: initialData.avatar_url || '',
+                signature_url: initialData.signature_url || ''
+            });
+
+            if (initialData.avatar_url) setAvatarPreview(initialData.avatar_url);
+            if (initialData.signature_url) setSignaturePreview(initialData.signature_url);
+        }
+    }, [initialData]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -97,26 +123,31 @@ const AdminArtistRegisterView = ({ onSuccess }: AdminArtistRegisterViewProps) =>
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!formData.email || !formData.name) {
-            setError("이메일과 이름은 필수 항목입니다.");
+        if (!formData.name) {
+            setError("이름은 필수 항목입니다.");
             return;
         }
 
         setLoading(true);
         setError(null);
         try {
-            const res = await createArtist(formData);
+            let res;
+            if (isEdit && initialData?._id) {
+                res = await updateArtist(initialData._id, formData);
+            } else {
+                res = await createArtist(formData);
+            }
 
             if (res.success) {
                 setSuccess(true);
                 if (onSuccess) {
-                    setTimeout(() => onSuccess(), 2000);
+                    setTimeout(() => onSuccess(), 1000);
                 }
             } else {
-                setError(res.error || "작가 등록에 실패했습니다.");
+                setError(res.error || "처리 실패");
             }
         } catch (error) {
-            console.error("Failed to register artist:", error);
+            console.error("Failed to process artist:", error);
             setError("서버 통신 중 오류가 발생했습니다.");
         } finally {
             setLoading(false);
@@ -165,7 +196,7 @@ const AdminArtistRegisterView = ({ onSuccess }: AdminArtistRegisterViewProps) =>
                             />
                         </div>
 
-                        <h3 className="text-xl font-bold text-gray-900 mt-6">{formData.name || '신규 작가'}</h3>
+                        <h3 className="text-xl font-bold text-gray-900 mt-6">{formData.name || '작가명'}</h3>
                         <p className="text-gray-500 text-sm mt-1">{formData.artist_specialty || '전문 분야 미입력'}</p>
 
                         <div className="mt-8 w-full">
@@ -237,7 +268,7 @@ const AdminArtistRegisterView = ({ onSuccess }: AdminArtistRegisterViewProps) =>
                 <div className="lg:col-span-2 space-y-6">
                     <div className="bg-white p-10 rounded-3xl border border-gray-100 shadow-sm">
                         <div className="flex items-center justify-between mb-10">
-                            <h3 className="text-2xl font-bold text-gray-900 tracking-tight">작가 상세 정보</h3>
+                            <h3 className="text-2xl font-bold text-gray-900 tracking-tight">{isEdit ? '작가 정보 수정' : '작가 상세 정보'}</h3>
                             <button
                                 type="submit"
                                 disabled={loading}
@@ -246,7 +277,7 @@ const AdminArtistRegisterView = ({ onSuccess }: AdminArtistRegisterViewProps) =>
                                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> :
                                     success ? <CheckCircle2 className="w-4 h-4 text-green-400" /> :
                                         <Save className="w-4 h-4" />}
-                                {success ? '등록 완료' : '신규 작가 등록하기'}
+                                {success ? (isEdit ? '수정 완료' : '등록 완료') : (isEdit ? '변경사항 저장' : '신규 작가 등록하기')}
                             </button>
                         </div>
 
@@ -278,7 +309,7 @@ const AdminArtistRegisterView = ({ onSuccess }: AdminArtistRegisterViewProps) =>
                                 <label className="text-sm font-bold text-gray-900 ml-1">작가 소개 (Bio)</label>
                                 <textarea
                                     name="artist_bio"
-                                    rows={4}
+                                    rows={6}
                                     value={formData.artist_bio}
                                     onChange={handleInputChange}
                                     className="w-full px-5 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-gray-900 font-medium transition-all outline-none resize-none shadow-sm leading-relaxed"
@@ -286,16 +317,16 @@ const AdminArtistRegisterView = ({ onSuccess }: AdminArtistRegisterViewProps) =>
                             </div>
 
                             <div className="space-y-2.5 px-1">
-                                <label className="text-sm font-bold text-gray-900 ml-1">이메일 주소 (ID) <span className="text-red-500">*</span></label>
+                                <label className="text-sm font-bold text-gray-900 ml-1">이메일 주소 (ID) <span className="text-gray-400 font-normal text-xs">(자동생성 가능)</span></label>
                                 <div className="relative">
                                     <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                     <input
                                         type="email"
                                         name="email"
-                                        required
                                         value={formData.email}
                                         onChange={handleInputChange}
-                                        className="w-full pl-12 pr-5 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-gray-900 font-medium transition-all outline-none shadow-sm"
+                                        placeholder="비워두면 시스템이 임시 ID를 생성합니다"
+                                        className="w-full pl-12 pr-5 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-gray-900 font-medium transition-all outline-none shadow-sm placeholder:text-gray-400"
                                     />
                                 </div>
                             </div>

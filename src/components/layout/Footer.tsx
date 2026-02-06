@@ -30,16 +30,16 @@ export default async function Footer() {
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
                         <h2 className="text-2xl font-serif font-light tracking-tighter italic text-white">{s.siteName}</h2>
                         <nav className="flex gap-x-5 text-[10px] font-black tracking-widest uppercase text-gray-400">
-                            <Link href="/about" className="hover:text-accent transition-colors">About</Link>
-                            <Link href="/terms" className="hover:text-accent transition-colors">Terms</Link>
-                            <Link href="/privacy" className="hover:text-accent transition-colors">Privacy</Link>
+                            <Link href="/about" className="hover:text-accent transition-colors">소개</Link>
+                            <Link href="/terms" className="hover:text-accent transition-colors">이용약관</Link>
+                            <Link href="/privacy" className="hover:text-accent transition-colors">개인정보처리방침</Link>
                         </nav>
                     </div>
 
                     {/* CS & Hours - Slim */}
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12">
                         <div className="flex items-center gap-4">
-                            <div className="text-[10px] font-black tracking-[0.2em] text-accent uppercase">Customer</div>
+                            <div className="text-[10px] font-black tracking-[0.2em] text-accent uppercase">고객센터</div>
                             <div className="text-2xl font-serif italic text-white tracking-tight">{s.phone}</div>
                         </div>
                         <div className="text-[10px] text-gray-400 font-serif italic tracking-wide">

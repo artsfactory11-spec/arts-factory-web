@@ -7,6 +7,7 @@ import NextImage from "next/image";
 import GalleryItem from "@/components/gallery/GalleryItem";
 import { ChevronLeft, Instagram, Youtube, Globe, MapPin, Palette, History } from "lucide-react";
 import { Metadata, ResolvingMetadata } from "next";
+import ArtistInquiryButton from "@/components/artist/ArtistInquiryButton";
 
 interface Props {
     params: { id: string };
@@ -141,12 +142,7 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
 
                         {/* Art Factory Centralized Contact */}
                         <div className="flex flex-col sm:flex-row gap-6 pt-12">
-                            <Link
-                                href="/partner"
-                                className="flex-1 px-8 py-5 bg-black text-white rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-center hover:bg-zinc-800 transition-all shadow-2xl shadow-black/20"
-                            >
-                                Inquire about Artist
-                            </Link>
+                            <ArtistInquiryButton artistName={artist.name} />
                             <a
                                 href="https://instagram.com/artsfactory_official"
                                 target="_blank"

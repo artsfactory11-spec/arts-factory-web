@@ -14,13 +14,15 @@ import {
     Star,
     Loader2
 } from 'lucide-react';
-import { toggleArtistSpotlight } from '@/app/actions/admin';
+import { toggleArtistSpotlight, updatePartnerStatus } from '@/app/actions/admin';
+import { Check, X } from 'lucide-react';
 
 interface AdminArtistListViewProps {
     users: any[];
+    onEdit?: (artist: any) => void;
 }
 
-const AdminArtistListView = ({ users: initialUsers }: AdminArtistListViewProps) => {
+const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListViewProps) => {
     const [users, setUsers] = useState(initialUsers);
     const [searchTerm, setSearchTerm] = useState('');
     const [loadingId, setLoadingId] = useState<string | null>(null);
@@ -29,6 +31,27 @@ const AdminArtistListView = ({ users: initialUsers }: AdminArtistListViewProps) 
         user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.email?.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const handleUpdateStatus = async (id: string, status: 'approved' | 'rejected') => {
+        setLoadingId(id);
+        try {
+            const res = await updatePartnerStatus(id, status);
+            if (res.success) {
+                setUsers(prev => prev.map(u => {
+                    if (u._id === id) {
+                        return {
+                            ...u,
+                            status,
+                            role: status === 'approved' ? 'partner' : u.role
+                        };
+                    }
+                    return u;
+                }));
+            }
+        } finally {
+            setLoadingId(null);
+        }
+    };
 
     const handleToggleSpotlight = async (id: string, isSpotlight: boolean) => {
         setLoadingId(id);
@@ -69,9 +92,11 @@ const AdminArtistListView = ({ users: initialUsers }: AdminArtistListViewProps) 
             {/* List Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredUsers.map((user) => (
-                    <div key={user._id} className="bg-white rounded-[32px] border border-gray-100 p-8 shadow-sm hover:shadow-md transition-all group">
+                    <div key={user._id} className="bg-white rounded-[32px] border border-gray-100 p-8 shadow-sm hover:shadow-md transition-all group relative">
+                        {/* Card Click Area */}
+
                         <div className="flex items-start justify-between mb-8">
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-4 cursor-pointer" onClick={() => onEdit && onEdit(user)}>
                                 <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 flex-shrink-0">
                                     {user.avatar_url ? (
                                         <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
@@ -85,11 +110,14 @@ const AdminArtistListView = ({ users: initialUsers }: AdminArtistListViewProps) 
                                     <div className="flex items-center gap-3">
                                         <h3 className="text-xl font-black text-gray-900 group-hover:text-black transition-colors">{user.name} 작가</h3>
                                         <button
-                                            onClick={() => handleToggleSpotlight(user._id, !user.isSpotlight)}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleToggleSpotlight(user._id, !user.isSpotlight);
+                                            }}
                                             disabled={loadingId === user._id}
                                             className={`p-2 rounded-xl transition-all shadow-sm ${user.isSpotlight
-                                                    ? 'bg-yellow-50 text-yellow-400 border border-yellow-100'
-                                                    : 'bg-gray-50 text-gray-300 border border-gray-100 hover:text-gray-500 hover:bg-gray-100'
+                                                ? 'bg-yellow-50 text-yellow-400 border border-yellow-100'
+                                                : 'bg-gray-50 text-gray-300 border border-gray-100 hover:text-gray-500 hover:bg-gray-100'
                                                 }`}
                                             title="홈페이지 스포트라이트 작가 지정"
                                         >
@@ -100,12 +128,47 @@ const AdminArtistListView = ({ users: initialUsers }: AdminArtistListViewProps) 
                                             )}
                                         </button>
                                     </div>
-                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-tighter mt-1">{user.artist_specialty || '분야 미입력'}</p>
+                                    <div className="flex items-center gap-2 mt-1">
+                                        <p className="text-xs text-gray-400 font-bold uppercase tracking-tighter">{user.artist_specialty || '분야 미입력'}</p>
+                                        <span className={`text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-widest ${user.status === 'pending'
+                                            ? 'bg-amber-50 text-amber-500 border border-amber-100'
+                                            : user.status === 'approved'
+                                                ? 'bg-emerald-50 text-emerald-500 border border-emerald-100'
+                                                : 'bg-gray-50 text-gray-400 border border-gray-100'
+                                            }`}>
+                                            {user.status === 'pending' ? 'Pending' : user.status === 'approved' ? 'Approved' : 'None'}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <button className="p-2 bg-gray-50 text-gray-300 rounded-xl group-hover:bg-black group-hover:text-white transition-all">
-                                <ChevronRight className="w-5 h-5" />
-                            </button>
+                            <div className="flex items-center gap-2">
+                                {user.status === 'pending' && (
+                                    <>
+                                        <button
+                                            onClick={() => handleUpdateStatus(user._id, 'approved')}
+                                            disabled={loadingId === user._id}
+                                            className="p-2 bg-emerald-50 text-emerald-500 rounded-xl hover:bg-emerald-500 hover:text-white transition-all shadow-sm"
+                                            title="승인"
+                                        >
+                                            <Check className="w-5 h-5" />
+                                        </button>
+                                        <button
+                                            onClick={() => handleUpdateStatus(user._id, 'rejected')}
+                                            disabled={loadingId === user._id}
+                                            className="p-2 bg-red-50 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                                            title="거절"
+                                        >
+                                            <X className="w-5 h-5" />
+                                        </button>
+                                    </>
+                                )}
+                                <button
+                                    onClick={() => onEdit && onEdit(user)}
+                                    className="p-2 bg-gray-50 text-gray-300 rounded-xl hover:bg-black hover:text-white transition-all cursor-pointer"
+                                >
+                                    <ChevronRight className="w-5 h-5" />
+                                </button>
+                            </div>
                         </div>
 
                         <div className="space-y-4">

@@ -135,12 +135,12 @@ export default function GalleryItem({ artwork }: GalleryItemProps) {
                         <div className="flex flex-col border-t border-white/20 pt-4 gap-1">
                             {artwork.rental_price && (
                                 <div className="flex justify-between items-center">
-                                    <span className="text-[10px] font-extralight uppercase">Monthly Rental</span>
+                                    <span className="text-[10px] font-extralight uppercase">월 렌탈료</span>
                                     <span className="text-sm font-light">₩ {artwork.rental_price.toLocaleString()}</span>
                                 </div>
                             )}
                             <div className="flex justify-between items-center opacity-80">
-                                <span className="text-[10px] font-extralight uppercase">Buy</span>
+                                <span className="text-[10px] font-extralight uppercase">구매가</span>
                                 <span className="text-sm font-light">₩ {artwork.price.toLocaleString()}</span>
                             </div>
                         </div>
@@ -157,7 +157,7 @@ export default function GalleryItem({ artwork }: GalleryItemProps) {
                     </div>
                     <p className="text-[10px] text-gray-400 uppercase tracking-[0.2em] font-black">{artwork.artist_name}</p>
                     <p className="text-xs text-black font-medium pt-1">
-                        <span className="text-gray-400 font-light mr-1">from</span>
+                        <span className="text-gray-400 font-light mr-1">월</span>
                         ₩ {artwork.rental_price ? `${artwork.rental_price.toLocaleString()}` : artwork.price.toLocaleString()}
                     </p>
                 </div>

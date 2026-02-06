@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IUser extends Document {
     email: string;
     password?: string;
-    role: 'admin' | 'partner';
+    role: 'admin' | 'partner' | 'user';
     name: string;
     artist_specialty?: string;
     artist_bio?: string;
@@ -18,15 +18,21 @@ export interface IUser extends Document {
     tiktok_url?: string;
     isApproved: boolean;
     isSpotlight: boolean;
-    status: 'pending' | 'approved' | 'rejected';
+    status: 'pending' | 'approved' | 'rejected' | 'none';
     wishlist: mongoose.Types.ObjectId[];
+    // Extended Profile for Commerce
+    phone?: string;
+    address?: string;
+    detailAddress?: string;
+    zipCode?: string;
     createdAt: Date;
+    updatedAt: Date;
 }
 
 const UserSchema: Schema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String },
-    role: { type: String, enum: ['admin', 'partner'], default: 'partner' },
+    role: { type: String, enum: ['admin', 'partner', 'user'], default: 'user' },
     name: { type: String, required: true },
     artist_specialty: { type: String },
     artist_bio: { type: String },
@@ -39,10 +45,18 @@ const UserSchema: Schema = new Schema({
     youtube_url: { type: String },
     blog_url: { type: String },
     tiktok_url: { type: String },
-    isApproved: { type: Boolean, default: false },
     isSpotlight: { type: Boolean, default: false },
-    status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' },
+    status: { type: String, enum: ['pending', 'approved', 'rejected', 'none'], default: 'none' },
     wishlist: [{ type: Schema.Types.ObjectId, ref: 'Artwork' }],
+    // Commerce Fields
+    phone: { type: String },
+    address: { type: String },
+    detailAddress: { type: String },
+    zipCode: { type: String },
 }, { timestamps: true });
 
-export default mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
+if (mongoose.models.User) {
+    delete (mongoose.models as any).User;
+}
+
+export default mongoose.model<IUser>('User', UserSchema);

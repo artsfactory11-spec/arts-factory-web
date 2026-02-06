@@ -1,30 +1,49 @@
 import dbConnect from "@/lib/mongodb";
-import Artwork from "@/models/Artwork";
+import { getArtworks } from "@/app/actions/artwork";
 import GalleryContainer from "@/components/gallery/GalleryContainer";
-import Navbar from "@/components/layout/Navbar";
+import GalleryFilter from "@/components/gallery/GalleryFilter";
 
 export const dynamic = 'force-dynamic';
 
-export default async function GalleryPage() {
-    await dbConnect();
-    const artworks = await Artwork.find({ status: 'approved' })
-        .sort({ createdAt: -1 })
-        .populate('artist_id', 'name');
+interface Props {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
 
-    const formattedArtworks = JSON.parse(JSON.stringify(artworks));
+export default async function GalleryPage({ searchParams }: Props) {
+    await dbConnect(); // ensure DB connection
+
+    const resolvedSearchParams = await searchParams;
+
+    // Parse search params
+    const category = typeof resolvedSearchParams.category === 'string' ? resolvedSearchParams.category : 'all';
+    const minPrice = typeof resolvedSearchParams.minPrice === 'string' ? parseInt(resolvedSearchParams.minPrice) : undefined;
+    const maxPrice = typeof resolvedSearchParams.maxPrice === 'string' ? parseInt(resolvedSearchParams.maxPrice) : undefined;
+    const search = typeof resolvedSearchParams.search === 'string' ? resolvedSearchParams.search : undefined;
+
+    const res = await getArtworks({
+        status: 'approved',
+        category,
+        minPrice,
+        maxPrice,
+        search
+    });
+
+    const artworks = res.success ? res.artworks : [];
 
     return (
         <main className="min-h-screen bg-white pt-32 pb-20">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <header className="mb-20">
-                    <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-4 block">Archive</span>
-                    <h1 className="text-6xl font-serif font-light tracking-tight italic">All Collections</h1>
+                    <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-4 block">아카이브</span>
+                    <h1 className="text-6xl font-serif font-light tracking-tight italic">전체 컬렉션</h1>
                     <p className="text-gray-400 mt-6 text-lg font-serif italic max-w-xl">
                         "아트팩토리가 큐레이션한 모든 작품들을 한자리에서 만나보세요."
                     </p>
                 </header>
 
-                <GalleryContainer initialArtworks={formattedArtworks} />
+                <GalleryFilter />
+
+                <GalleryContainer initialArtworks={artworks} />
             </div>
         </main>
     );

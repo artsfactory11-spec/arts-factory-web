@@ -36,7 +36,7 @@ export const authOptions = {
                 }
 
                 // Check for partner approval
-                if (user.role === 'partner' && !user.isApproved) {
+                if (user.role === 'partner' && user.status !== 'approved') {
                     throw new Error("관리자의 사용 승인이 대기 중입니다.");
                 }
 
@@ -58,15 +58,27 @@ export const authOptions = {
             return token;
         },
         async session({ session, token }: { session: any, token: any }) {
-            if (session.user) {
-                session.user.role = token.role;
+            if (session.user && token.id) {
+                try {
+                    await dbConnect();
+                    // Fetch latest role to handle real-time updates (e.g. partner approval)
+                    const freshUser = await User.findById(token.id).select('role status');
+                    if (freshUser) {
+                        session.user.role = freshUser.role;
+                    } else {
+                        session.user.role = token.role;
+                    }
+                } catch (error) {
+                    console.error("Session refresh error:", error);
+                    session.user.role = token.role;
+                }
                 session.user.id = token.id;
             }
             return session;
         }
     },
     pages: {
-        signIn: '/partner/login',
+        signIn: '/login',
     },
     session: {
         strategy: "jwt" as const,

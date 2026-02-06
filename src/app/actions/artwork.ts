@@ -41,11 +41,66 @@ export async function createArtwork(data: {
     }
 }
 
-export async function getArtworks(filter: { artist_id?: string } = {}) {
+export interface FilterParams {
+    category?: string;
+    minPrice?: number;
+    maxPrice?: number;
+    status?: string | string[];
+    sort?: string;
+    search?: string;
+    artist_id?: string;
+}
+
+export async function getArtworks(params: FilterParams = {}) {
     try {
         await dbConnect();
-        const artworks = await Artwork.find(filter)
-            .sort({ createdAt: -1 })
+
+        // Base query
+        const query: any = {};
+
+        // Status Filter
+        if (params.status) {
+            if (Array.isArray(params.status)) {
+                query.status = { $in: params.status };
+            } else if (params.status !== 'all') {
+                query.status = params.status;
+            }
+        } else {
+            // Default to approved if not specified, unless strictly querying something else?
+            // Actually, existing usage might expect all if param empty?
+            // Previous code: `Artwork.find(filter)` where filter default was {}.
+            // If I change default, it affects callers.
+            // BUT, for Gallery Page, we want only 'approved'.
+            // Let's NOT force default here, caller must specify.
+        }
+
+        if (params.artist_id) {
+            query.artist_id = params.artist_id;
+        }
+
+        if (params.category && params.category !== 'all') {
+            query.category = params.category;
+        }
+
+        if (params.minPrice || params.maxPrice) {
+            query.price = {};
+            if (params.minPrice) query.price.$gte = Number(params.minPrice);
+            if (params.maxPrice) query.price.$lte = Number(params.maxPrice);
+        }
+
+        if (params.search) {
+            query.$or = [
+                { title: { $regex: params.search, $options: 'i' } },
+                { description: { $regex: params.search, $options: 'i' } },
+            ];
+        }
+
+        let sortOption: any = { createdAt: -1 };
+        if (params.sort === 'price_asc') sortOption = { price: 1 };
+        if (params.sort === 'price_desc') sortOption = { price: -1 };
+
+        const artworks = await Artwork.find(query)
+            .sort(sortOption)
             .populate('artist_id', 'name');
 
         return { success: true, artworks: JSON.parse(JSON.stringify(artworks)) };
@@ -54,6 +109,7 @@ export async function getArtworks(filter: { artist_id?: string } = {}) {
         return { success: false, error: error.message };
     }
 }
+
 export async function updateArtwork(id: string, data: any) {
     try {
         await dbConnect();
@@ -106,4 +162,3 @@ export async function getPartnerStats(artist_id: string) {
         return { success: false, error: error.message };
     }
 }
-

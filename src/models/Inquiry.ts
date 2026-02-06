@@ -5,8 +5,8 @@ export interface IInquiry extends Document {
     email: string;
     phone: string;
     organization?: string;
-    type: 'purchase' | 'rental';
-    artwork_id: mongoose.Types.ObjectId;
+    type: 'purchase' | 'rental' | 'general';
+    artwork_id?: mongoose.Types.ObjectId;
     message?: string;
     status: 'pending' | 'contacted' | 'completed';
     createdAt: Date;
@@ -18,8 +18,8 @@ const InquirySchema: Schema = new Schema({
     email: { type: String, required: true },
     phone: { type: String, required: true },
     organization: { type: String },
-    type: { type: String, enum: ['purchase', 'rental'], required: true },
-    artwork_id: { type: Schema.Types.ObjectId, ref: 'Artwork', required: true },
+    type: { type: String, enum: ['purchase', 'rental', 'general'], required: true },
+    artwork_id: { type: Schema.Types.ObjectId, ref: 'Artwork' },
     message: { type: String },
     status: { type: String, enum: ['pending', 'contacted', 'completed'], default: 'pending' },
 }, { timestamps: true });

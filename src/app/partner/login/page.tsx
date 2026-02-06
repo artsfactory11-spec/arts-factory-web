@@ -30,10 +30,8 @@ export default function LoginPage() {
             if (res?.error) {
                 setError(res.error);
             } else {
-                // Redirect based on role
-                // Note: role info is in the session, but we can't easily access it here without another hook call
-                // For now, redirect to /partner and middleware will handle further routing
-                router.push('/partner');
+                // 로그인 성공 시 홈으로 이동 (필요시 역할별 분기 가능)
+                router.push('/');
                 router.refresh();
             }
         } catch (err) {
@@ -128,14 +126,22 @@ export default function LoginPage() {
 
                     <div className="text-center space-y-4 pt-6">
                         <p className="text-[10px] text-gray-400 font-medium uppercase tracking-tight">
-                            Don't have a partner account?
+                            아직 계정이 없으신가요?
                         </p>
-                        <Link
-                            href="/partner/join"
-                            className="inline-block text-[10px] font-black tracking-[0.2em] text-accent uppercase border-b border-accent/20 hover:border-accent transition-all"
-                        >
-                            Apply to be a Partner
-                        </Link>
+                        <div className="flex flex-col gap-4">
+                            <Link
+                                href="/signup"
+                                className="inline-block text-[10px] font-black tracking-[0.2em] text-charcoal uppercase border-b border-charcoal/20 hover:border-charcoal transition-all"
+                            >
+                                일반 회원가입
+                            </Link>
+                            <Link
+                                href="/partner/join"
+                                className="inline-block text-[10px] font-black tracking-[0.2em] text-accent uppercase border-b border-accent/20 hover:border-accent transition-all"
+                            >
+                                작가(파트너) 신청하기
+                            </Link>
+                        </div>
                     </div>
                 </form>
             </motion.div>

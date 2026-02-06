@@ -2,13 +2,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent: #b08d57;
-  --color-surface: #fafafa;
+  --color-accent: #C5A059;
+  --color-surface: #F4F1EE;
+  --color-charcoal: #121212;
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Inter', sans-serif;
 
-  --animate-fade-in: fade-in 1s ease-out;
-  --animate-slide-in-bottom: slide-in-bottom 1s ease-out;
+  --animate-fade-in: fade-in 1.2s cubic-bezier(0.2, 0, 0.2, 1);
+  --animate-slide-in-bottom: slide-in-bottom 1.2s cubic-bezier(0.2, 0, 0.2, 1);
 
   @keyframes fade-in {
     from {
@@ -22,7 +23,7 @@
 
   @keyframes slide-in-bottom {
     from {
-      transform: translateY(20px);
+      transform: translateY(30px);
       opacity: 0;
     }
 
@@ -35,8 +36,9 @@
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #111111;
+    --background: #F4F1EE;
+    --foreground: #121212;
+    --accent: #C5A059;
   }
 
   body {

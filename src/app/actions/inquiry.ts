@@ -11,8 +11,8 @@ export async function createInquiry(data: {
     email: string;
     phone: string;
     organization?: string;
-    type: 'purchase' | 'rental';
-    artwork_id: string;
+    type: 'purchase' | 'rental' | 'general';
+    artwork_id?: string;
     message?: string;
 }) {
     try {

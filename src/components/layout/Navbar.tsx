@@ -4,14 +4,41 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User } from 'lucide-react';
 import NotificationBell from './NotificationBell';
+import { useSession } from 'next-auth/react';
+
+function UserIconLink() {
+    const { data: session } = useSession();
+    const href = session ? '/mypage' : '/login';
+
+    if (!session) {
+        return (
+            <Link
+                href="/login"
+                className="text-xs font-bold text-gray-500 hover:text-charcoal transition-colors uppercase tracking-widest"
+            >
+                Login
+            </Link>
+        );
+    }
+
+    return (
+        <Link
+            href={href}
+            className="text-gray-400 hover:text-charcoal transition-colors"
+            title="마이 페이지"
+        >
+            <User className="w-5 h-5" />
+        </Link>
+    );
+}
 
 const navItems = [
-    { name: 'Artworks', href: '/gallery' },
-    { name: 'Artists', href: '/artists' },
-    { name: 'Magazine', href: '/magazine' },
-    { name: 'Partner', href: '/partner' },
+    { name: '작품', href: '/gallery' },
+    { name: '작가', href: '/artists' },
+    { name: '매거진', href: '/magazine' },
+    { name: '파트너', href: '/partner' },
 ];
 
 export default function Navbar() {
@@ -34,43 +61,44 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-4 glass shadow-sm' : 'py-8 bg-transparent'
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${scrolled ? 'py-4 bg-white/60 backdrop-blur-xl border-b border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'py-10 bg-transparent'
                 }`}
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
                 <Link href="/" className="group">
-                    <span className="text-2xl font-serif font-bold tracking-tighter text-black">
+                    <span className={`text-2xl font-serif font-bold tracking-tighter transition-colors duration-500 ${scrolled ? 'text-charcoal' : 'text-charcoal'}`}>
                         ARTS FACTORY
                     </span>
-                    <div className="h-px w-0 group-hover:w-full bg-black transition-all duration-500 mt-0.5" />
+                    <div className="h-px w-0 group-hover:w-full bg-accent transition-all duration-500 mt-0.5" />
                 </Link>
 
                 {/* Desktop Menu */}
-                <div className="hidden md:flex items-center gap-12">
+                <div className="hidden md:flex items-center gap-14">
                     {navItems.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`text-[10px] font-black tracking-[0.3em] uppercase transition-colors relative ${pathname === item.href ? 'text-black' : 'text-gray-400 hover:text-black'
+                            className={`text-[13px] font-bold tracking-tight transition-colors relative ${pathname === item.href ? 'text-charcoal' : 'text-gray-500 hover:text-charcoal'
                                 }`}
                         >
                             {item.name}
                             {pathname === item.href && (
                                 <motion.div
                                     layoutId="nav-underline"
-                                    className="absolute -bottom-2 left-0 right-0 h-0.5 bg-black"
+                                    className="absolute -bottom-2 left-0 right-0 h-[2px] bg-accent"
                                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                                 />
                             )}
                         </Link>
                     ))}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-6">
+                        <UserIconLink />
                         <NotificationBell />
                         <Link
-                            href="/partner"
-                            className="px-6 py-2.5 bg-black text-white text-[10px] font-black uppercase tracking-widest hover:bg-black/80 transition-all shadow-xl shadow-black/10"
+                            href="/inquiry"
+                            className="px-8 py-3 bg-charcoal text-white text-[12px] font-bold hover:bg-accent transition-all duration-500 shadow-2xl shadow-charcoal/10 rounded-full"
                         >
-                            Inquiry
+                            문의하기
                         </Link>
                     </div>
                 </div>

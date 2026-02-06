@@ -10,8 +10,11 @@ import {
     Loader2,
     X,
     Info,
-    Download
+    Download,
+    Sparkles
 } from 'lucide-react';
+import imageCompression from 'browser-image-compression';
+import { generateArtworkDescription } from '@/app/actions/ai';
 import { storage } from '@/lib/firebase';
 import { ref } from "firebase/storage";
 import { uploadImageAsWebP } from '@/lib/upload';
@@ -42,6 +45,10 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
     const [items, setItems] = useState<BulkItem[]>([]);
     const [uploading, setUploading] = useState(false);
     const [overallStatus, setOverallStatus] = useState<'idle' | 'processing' | 'done'>('idle');
+
+    // AI Generation Logic
+    const [aiGenerating, setAiGenerating] = useState(false);
+    const [aiProgress, setAiProgress] = useState({ current: 0, total: 0 });
 
     // 엑셀 템플릿 다운로드 시뮬레이션
     const downloadTemplate = () => {
@@ -113,6 +120,73 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
             }
             return item;
         }));
+    };
+
+    // AI 일괄 설명 생성
+    const handleBulkAiGenerate = async () => {
+        // 이미지가 있고, 설명이 비어있으며, 아직 처리되지 않은 항목 필터링
+        const targets = items.filter(item =>
+            item.fileContent &&
+            (!item.description || item.description.trim() === '') &&
+            item.status !== 'success'
+        );
+
+        if (targets.length === 0) {
+            alert("설명 생성이 필요한 항목이 없습니다. (이미지가 필수입니다)");
+            return;
+        }
+
+        if (!confirm(`총 ${targets.length}개의 작품에 대해 설명을 생성하시겠습니까?\n(시간이 다소 소요될 수 있습니다)`)) return;
+
+        setAiGenerating(true);
+        setAiProgress({ current: 0, total: targets.length });
+
+        const aiImageOptions = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1024,
+            useWebWorker: true,
+        };
+
+        for (let i = 0; i < targets.length; i++) {
+            const item = targets[i];
+            setAiProgress({ current: i + 1, total: targets.length });
+
+            try {
+                // 이미지 압축 및 Base64 변환
+                const compressedFile = await imageCompression(item.fileContent!, aiImageOptions);
+                const reader = new FileReader();
+                const imageBase64 = await new Promise<string>((resolve, reject) => {
+                    reader.onload = () => resolve(reader.result as string);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(compressedFile);
+                });
+
+                // AI 호출
+                const res = await generateArtworkDescription({
+                    title: item.title,
+                    category: item.category,
+                    material: item.material || '',
+                    keywords: '',
+                    imageBase64: imageBase64
+                });
+
+                if (res.success && res.description) {
+                    setItems(prev => prev.map(current =>
+                        current.id === item.id
+                            ? { ...current, description: res.description }
+                            : current
+                    ));
+                }
+            } catch (error) {
+                console.error(`Item ${item.id} AI generation failed:`, error);
+            }
+
+            // Rate Limit 방지용 딜레이 (1초)
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+
+        setAiGenerating(false);
+        alert("일괄 설명 생성이 완료되었습니다.");
     };
 
     // 일괄 등록 실행
@@ -228,13 +302,25 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                             <h3 className="text-xl font-bold">업로드 검토 및 매칭</h3>
                             <span className="px-3 py-1 bg-black text-white text-[10px] font-black rounded-full uppercase tracking-tighter">{items.length} Items</span>
                         </div>
-                        <button
-                            onClick={handleBulkSubmit}
-                            disabled={uploading || items.every(i => i.status === 'success')}
-                            className="px-8 py-3 bg-black text-white rounded-xl text-sm font-black uppercase tracking-widest hover:bg-gray-800 disabled:bg-gray-100 disabled:text-gray-400 transition-all shadow-xl shadow-black/10"
-                        >
-                            {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : "일괄 등록 시작하기"}
-                        </button>
+
+                        <div className="flex items-center gap-3">
+                            <button
+                                onClick={handleBulkAiGenerate}
+                                disabled={aiGenerating || uploading}
+                                className="px-5 py-3 bg-blue-50 text-blue-600 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-blue-100 disabled:opacity-50 transition-all flex items-center gap-2"
+                            >
+                                {aiGenerating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+                                {aiGenerating ? `생성 중... (${aiProgress.current}/${aiProgress.total})` : "AI 일괄 설명 생성"}
+                            </button>
+
+                            <button
+                                onClick={handleBulkSubmit}
+                                disabled={uploading || items.every(i => i.status === 'success') || aiGenerating}
+                                className="px-8 py-3 bg-black text-white rounded-xl text-sm font-black uppercase tracking-widest hover:bg-gray-800 disabled:bg-gray-100 disabled:text-gray-400 transition-all shadow-xl shadow-black/10"
+                            >
+                                {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : "일괄 등록 시작하기"}
+                            </button>
+                        </div>
                     </div>
 
                     <div className="overflow-x-auto">
@@ -250,9 +336,14 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                             <tbody className="divide-y divide-gray-50">
                                 {items.map((item) => (
                                     <tr key={item.id} className="hover:bg-gray-50/30 transition-colors">
-                                        <td className="px-10 py-5">
+                                        <td className="px-10 py-5 max-w-sm">
                                             <div className="font-bold text-gray-900 text-sm">{item.title}</div>
                                             <div className="text-[10px] text-gray-400 uppercase tracking-tighter mt-1">{item.category} / ₩{item.price.toLocaleString()}</div>
+                                            {item.description && (
+                                                <div className="mt-2 text-xs text-gray-500 bg-gray-50 p-2 rounded-lg whitespace-pre-wrap">
+                                                    {item.description}
+                                                </div>
+                                            )}
                                         </td>
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-2">

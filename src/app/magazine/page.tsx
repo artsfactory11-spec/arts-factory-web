@@ -43,7 +43,7 @@ async function MagazineList() {
                             {(mag.content || '').replace(/<[^>]*>/g, '').substring(0, 160)}...
                         </p>
                         <div className="flex items-center gap-2 text-black font-black text-xs uppercase tracking-[0.2em] pt-2 group-hover:translate-x-2 transition-transform">
-                            Read More <ChevronRight className="w-4 h-4" />
+                            기사 읽기 <ChevronRight className="w-4 h-4" />
                         </div>
                     </div>
                 </Link>
@@ -61,10 +61,10 @@ export default function MagazinePage() {
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                         <div>
                             <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-6 block animate-in fade-in slide-in-from-bottom-2 duration-700">
-                                Arts Factory News
+                                아트팩토리 소식
                             </span>
                             <h1 className="text-8xl font-serif font-light tracking-tighter text-black mb-10 animate-in fade-in slide-in-from-bottom-3 duration-1000">
-                                Magazine
+                                매거진
                             </h1>
                             <p className="max-w-xl text-xl text-gray-400 font-serif italic leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
                                 예술공장이 전하는 예술가들의 이야기와 <br />

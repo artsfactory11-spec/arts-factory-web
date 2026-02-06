@@ -12,6 +12,8 @@ import SettingsView from './views/SettingsView';
 import AdminMagazineListView from './views/AdminMagazineListView';
 import AdminMagazineEditorView from './views/AdminMagazineEditorView';
 import AdminInquiryListView from './views/AdminInquiryListView';
+import OrderManagementView from './views/OrderManagementView';
+import SubscriptionManagementView from './views/SubscriptionManagementView';
 
 interface AdminDashboardProps {
     initialArtworks: any[];
@@ -24,6 +26,7 @@ const AdminDashboard = ({ initialArtworks, initialUsers, stats }: AdminDashboard
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [editingMagazine, setEditingMagazine] = useState<any>(null);
     const [editingArtwork, setEditingArtwork] = useState<any>(null);
+    const [editingArtist, setEditingArtist] = useState<any>(null);
 
     const renderView = () => {
         switch (currentView) {
@@ -53,9 +56,25 @@ const AdminDashboard = ({ initialArtworks, initialUsers, stats }: AdminDashboard
             case 'bulk-upload':
                 return <BulkUploadView users={initialUsers} />;
             case 'artists':
-                return <AdminArtistListView users={initialUsers} />;
+                return (
+                    <AdminArtistListView
+                        users={initialUsers}
+                        onEdit={(artist) => {
+                            setEditingArtist(artist);
+                            setCurrentView('artist-edit');
+                        }}
+                    />
+                );
             case 'artist-register':
                 return <AdminArtistRegisterView onSuccess={() => setCurrentView('artists')} />;
+            case 'artist-edit':
+                return (
+                    <AdminArtistRegisterView
+                        initialData={editingArtist}
+                        isEdit={true}
+                        onSuccess={() => setCurrentView('artists')}
+                    />
+                );
             case 'settings':
                 return <SettingsView />;
             case 'magazine':
@@ -81,6 +100,10 @@ const AdminDashboard = ({ initialArtworks, initialUsers, stats }: AdminDashboard
                 );
             case 'inquiries':
                 return <AdminInquiryListView />;
+            case 'orders':
+                return <OrderManagementView />;
+            case 'subscriptions':
+                return <SubscriptionManagementView />;
             default:
                 return <StatsView stats={stats} setView={setCurrentView} />;
         }
@@ -93,6 +116,10 @@ const AdminDashboard = ({ initialArtworks, initialUsers, stats }: AdminDashboard
                 setView={setCurrentView}
                 isCollapsed={isCollapsed}
                 setIsCollapsed={setIsCollapsed}
+                pendingCounts={{
+                    artworks: stats.pendingArtworks || 0,
+                    artists: stats.pendingArtists || 0
+                }}
             />
 
             <main className={`flex-1 ${isCollapsed ? 'ml-20' : 'ml-64'} min-h-screen bg-[#fcfcfc] overflow-y-auto transition-all duration-300 relative`}>

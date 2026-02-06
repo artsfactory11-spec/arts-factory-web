@@ -97,7 +97,7 @@ const InquiryModal = ({ isOpen, onClose, artwork, defaultType }: InquiryModalPro
                                         <X className="w-6 h-6" />
                                     </button>
                                     <span className="text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase mb-4 block">
-                                        B2B INQUIRY
+                                        비즈니스 문의
                                     </span>
                                     <h2 className="text-4xl font-black tracking-tighter text-black mb-2">
                                         {formData.type === 'purchase' ? '작품 구매 문의' : '작품 대여 신청'}
@@ -192,7 +192,7 @@ const InquiryModal = ({ isOpen, onClose, artwork, defaultType }: InquiryModalPro
                                             <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                         ) : (
                                             <>
-                                                <Send className="w-4 h-4" /> Send Inquiry
+                                                <Send className="w-4 h-4" /> 문의 보내기
                                             </>
                                         )}
                                     </button>

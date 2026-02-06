@@ -30,15 +30,14 @@ export function ParallaxText({ text, speed = 200, className = "" }: { text: stri
 export function ArtHeroWrapper({ children, stats }: { children: ReactNode, stats: { artworks: number, artists: number } }) {
     const { scrollY } = useScroll();
     const y = useTransform(scrollY, [0, 500], [0, 200]);
-    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
     return (
-        <header className="relative min-h-[85vh] flex items-center px-6 lg:px-12 overflow-hidden bg-surface">
+        <header className="relative min-h-[95vh] flex items-center px-6 lg:px-12 overflow-hidden bg-surface grain">
             <motion.div
                 style={{ y }}
-                className="absolute -top-20 -right-20 lg:right-0 opacity-[0.03] select-none pointer-events-none"
+                className="absolute -top-20 -right-20 lg:right-0 opacity-[0.05] select-none pointer-events-none"
             >
-                <span className="text-[40vw] font-serif font-black leading-none italic uppercase">Art</span>
+                <span className="text-[45vw] font-serif font-black leading-none italic uppercase text-charcoal">Art</span>
             </motion.div>
 
             <div className="max-w-7xl mx-auto w-full relative z-10">

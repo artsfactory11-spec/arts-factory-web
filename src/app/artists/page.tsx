@@ -35,10 +35,10 @@ export default function ArtistsPage() {
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                         <div>
                             <span className="text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase mb-4 block animate-in fade-in slide-in-from-bottom-2 duration-700">
-                                Meet our creators
+                                우리의 작가들을 만나보세요
                             </span>
                             <h1 className="text-7xl font-extralight tracking-tighter text-black mb-8 animate-in fade-in slide-in-from-bottom-3 duration-1000">
-                                ARTISTS
+                                작가
                             </h1>
                             <p className="max-w-xl text-lg text-gray-500 font-light leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
                                 아트팩토리와 함께하는 재능 있는 아티스트들을 소개합니다. <br />
@@ -47,10 +47,10 @@ export default function ArtistsPage() {
                             </p>
                         </div>
                         <div className="flex gap-12 text-xs font-black tracking-[0.3em] uppercase text-gray-300 animate-in fade-in slide-in-from-right-4 duration-1000 delay-500">
-                            <Link href="/" className="hover:text-black transition-colors">Artworks</Link>
-                            <Link href="/artists" className="text-black hover:text-black transition-colors">Artists</Link>
-                            <Link href="/magazine" className="hover:text-black transition-colors">Magazine</Link>
-                            <Link href="/partner" className="hover:text-black transition-colors">Partner</Link>
+                            <Link href="/" className="hover:text-black transition-colors">작품</Link>
+                            <Link href="/artists" className="text-black hover:text-black transition-colors">작가</Link>
+                            <Link href="/magazine" className="hover:text-black transition-colors">매거진</Link>
+                            <Link href="/partner" className="hover:text-black transition-colors">파트너</Link>
                         </div>
                     </div>
                 </div>

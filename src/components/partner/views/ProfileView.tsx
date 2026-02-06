@@ -6,9 +6,6 @@ import {
     User,
     MapPin,
     Globe,
-    Instagram,
-    Youtube,
-    Chrome,
     Mail,
     Phone,
     Camera,
@@ -16,8 +13,7 @@ import {
     Plus,
     Loader2,
     CheckCircle2,
-    FileText,
-    Video
+    FileText
 } from 'lucide-react';
 import { updateArtistProfile, getArtistProfileById } from '@/app/actions/user';
 
@@ -323,66 +319,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                         </div>
                     </div>
 
-                    <div className="bg-white p-10 rounded-3xl border border-gray-100 shadow-sm">
-                        <h3 className="text-xl font-bold text-gray-900 mb-8 tracking-tight">온라인 링크 관리</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="flex items-center gap-4 group">
-                                <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center text-pink-500 group-focus-within:bg-pink-500 group-focus-within:text-white transition-all">
-                                    <Instagram className="w-6 h-6" />
-                                </div>
-                                <input
-                                    type="text"
-                                    name="instagram"
-                                    placeholder="Instagram URL"
-                                    value={profile.instagram}
-                                    onChange={handleInputChange}
-                                    className="flex-1 px-5 py-4 bg-gray-50 border-2 border-transparent rounded-2xl text-gray-900 font-medium focus:bg-white focus:border-black outline-none transition-all shadow-sm"
-                                />
-                            </div>
 
-                            <div className="flex items-center gap-4 group">
-                                <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center text-red-500 group-focus-within:bg-red-500 group-focus-within:text-white transition-all">
-                                    <Youtube className="w-6 h-6" />
-                                </div>
-                                <input
-                                    type="text"
-                                    name="youtube"
-                                    placeholder="Youtube URL"
-                                    value={profile.youtube}
-                                    onChange={handleInputChange}
-                                    className="flex-1 px-5 py-4 bg-gray-50 border-2 border-transparent rounded-2xl text-gray-900 font-medium focus:bg-white focus:border-black outline-none transition-all shadow-sm"
-                                />
-                            </div>
-
-                            <div className="flex items-center gap-4 group">
-                                <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-500 group-focus-within:bg-green-500 group-focus-within:text-white transition-all">
-                                    <Chrome className="w-6 h-6" />
-                                </div>
-                                <input
-                                    type="text"
-                                    name="blog"
-                                    placeholder="Blog or Website URL"
-                                    value={profile.blog}
-                                    onChange={handleInputChange}
-                                    className="flex-1 px-5 py-4 bg-gray-50 border-2 border-transparent rounded-2xl text-gray-900 font-medium focus:bg-white focus:border-black outline-none transition-all shadow-sm"
-                                />
-                            </div>
-
-                            <div className="flex items-center gap-4 group">
-                                <div className="w-12 h-12 bg-black/5 rounded-xl flex items-center justify-center text-black group-focus-within:bg-black group-focus-within:text-white transition-all">
-                                    <Video className="w-6 h-6" />
-                                </div>
-                                <input
-                                    type="text"
-                                    name="tiktok"
-                                    placeholder="TikTok URL"
-                                    value={profile.tiktok}
-                                    onChange={handleInputChange}
-                                    className="flex-1 px-5 py-4 bg-gray-50 border-2 border-transparent rounded-2xl text-gray-900 font-medium focus:bg-white focus:border-black outline-none transition-all shadow-sm"
-                                />
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

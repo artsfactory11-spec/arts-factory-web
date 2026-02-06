@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-export type AdminViewType = 'home' | 'artworks' | 'artwork-edit' | 'upload' | 'bulk-upload' | 'artists' | 'artist-register' | 'settings' | 'magazine' | 'magazine-edit' | 'inquiries';
+export type AdminViewType = 'home' | 'artworks' | 'artwork-edit' | 'upload' | 'bulk-upload' | 'artists' | 'artist-register' | 'artist-edit' | 'settings' | 'magazine' | 'magazine-edit' | 'inquiries' | 'orders' | 'subscriptions';
 
 interface SidebarItemProps {
     icon: React.ComponentType<{ className?: string }>;
@@ -26,18 +26,30 @@ interface SidebarItemProps {
     active: boolean;
     onClick: () => void;
     collapsed?: boolean;
+    badgeCount?: number;
 }
 
-const SidebarItem = ({ icon: Icon, label, active, onClick, collapsed }: SidebarItemProps) => (
+const SidebarItem = ({ icon: Icon, label, active, onClick, collapsed, badgeCount }: SidebarItemProps) => (
     <button
         onClick={onClick}
-        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${active
+        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group ${active
             ? 'bg-black text-white shadow-lg shadow-gray-200'
             : 'text-gray-500 hover:bg-gray-100 hover:text-black'
             }`}
     >
-        <Icon className={`w-5 h-5 flex-shrink-0 ${active ? 'text-white' : 'group-hover:scale-110 transition-transform'}`} />
-        {!collapsed && <span className="font-medium text-sm whitespace-nowrap">{label}</span>}
+        <div className="flex items-center gap-3">
+            <Icon className={`w-5 h-5 flex-shrink-0 ${active ? 'text-white' : 'group-hover:scale-110 transition-transform'}`} />
+            {!collapsed && <span className="font-medium text-sm whitespace-nowrap">{label}</span>}
+        </div>
+        {!collapsed && badgeCount !== undefined && badgeCount > 0 && (
+            <span className={`flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-black ${active ? 'bg-white text-black' : 'bg-red-500 text-white animate-pulse'
+                }`}>
+                {badgeCount > 99 ? '99+' : badgeCount}
+            </span>
+        )}
+        {collapsed && badgeCount !== undefined && badgeCount > 0 && (
+            <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white" />
+        )}
     </button>
 );
 
@@ -46,18 +58,24 @@ interface AdminSidebarProps {
     setView: (view: AdminViewType) => void;
     isCollapsed: boolean;
     setIsCollapsed: (collapsed: boolean) => void;
+    pendingCounts: {
+        artworks: number;
+        artists: number;
+    };
 }
 
-const AdminSidebar = ({ currentView, setView, isCollapsed, setIsCollapsed }: AdminSidebarProps) => {
+const AdminSidebar = ({ currentView, setView, isCollapsed, setIsCollapsed, pendingCounts }: AdminSidebarProps) => {
 
     const menuItems = [
         { id: 'home', label: '관리자 홈', icon: LayoutDashboard },
         { id: 'inquiries', label: 'B2B 문의 내역', icon: MessageSquare },
-        { id: 'artworks', label: '작품 승인 관리', icon: Palette },
+        { id: 'orders', label: '주문 관리 (입금)', icon: Layers }, // Icon can be changed
+        { id: 'subscriptions', label: '구독(렌탈) 관리', icon: Layers },
+        { id: 'artworks', label: '작품 승인 관리', icon: Palette, badge: pendingCounts.artworks },
         { id: 'upload', label: '작품 대리 등록', icon: PlusCircle },
         { id: 'bulk-upload', label: '작품 대량 업로드', icon: Layers },
         { id: 'magazine', label: '매거진 관리', icon: Newspaper },
-        { id: 'artists', label: '작가(파트너) 관리', icon: Users },
+        { id: 'artists', label: '작가(파트너) 관리', icon: Users, badge: pendingCounts.artists },
         { id: 'artist-register', label: '작가 신규 등록', icon: UserPlus },
         { id: 'settings', label: '플랫폼 설정', icon: Settings },
     ];
@@ -98,6 +116,7 @@ const AdminSidebar = ({ currentView, setView, isCollapsed, setIsCollapsed }: Adm
                         active={currentView === item.id}
                         onClick={() => setView(item.id as AdminViewType)}
                         collapsed={isCollapsed}
+                        badgeCount={(item as any).badge}
                     />
                 ))}
 

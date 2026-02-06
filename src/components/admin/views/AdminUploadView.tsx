@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { uploadImageAsWebP } from '@/lib/upload';
 import imageCompression from 'browser-image-compression';
 import { createArtwork, updateArtwork } from '@/app/actions/artwork';
+import { generateArtworkDescription } from '@/app/actions/ai';
 import { Trash2, Image as ImageIcon, Plus, Info, ChevronDown, CheckCircle2, AlertCircle, Loader2, Sparkles, Upload, User, ArrowLeft } from 'lucide-react';
 
 interface AdminUploadViewProps {
@@ -36,6 +37,75 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
         vr_url: initialData?.vr_url || '',
         artist_id: initialData?.artist_id?._id || initialData?.artist_id || '',
     });
+
+    const [aiLoading, setAiLoading] = useState(false);
+
+    const handleGenerateDescription = async () => {
+        if (!formData.title || !formData.category || !formData.material) {
+            alert("AI 설명을 생성하기 위해 제목, 카테고리, 재료/기법을 입력해주세요.");
+            return;
+        }
+
+        setAiLoading(true);
+        try {
+            let imageBase64: string | undefined = undefined;
+
+            // 이미지 압축 설정 (AI 분석용, 최대 1MB, 1024px)
+            const aiImageOptions = {
+                maxSizeMB: 1,
+                maxWidthOrHeight: 1024,
+                useWebWorker: true,
+            };
+
+            // 1. 현재 선택된 파일이 있으면 변환
+            if (file) {
+                const compressedFile = await imageCompression(file, aiImageOptions);
+                const reader = new FileReader();
+                imageBase64 = await new Promise<string>((resolve, reject) => {
+                    reader.onload = () => resolve(reader.result as string);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(compressedFile);
+                });
+            }
+            // 2. 파일은 없지만 기존 프리뷰(URL)가 있는 경우 (수정 모드)
+            else if (!file && preview && preview.startsWith('http')) {
+                try {
+                    const response = await fetch(preview);
+                    const blob = await response.blob();
+                    const fileFromBlob = new File([blob], "image.jpg", { type: blob.type });
+                    const compressedFile = await imageCompression(fileFromBlob, aiImageOptions);
+
+                    const reader = new FileReader();
+                    imageBase64 = await new Promise<string>((resolve, reject) => {
+                        reader.onload = () => resolve(reader.result as string);
+                        reader.onerror = reject;
+                        reader.readAsDataURL(compressedFile);
+                    });
+                } catch (e) {
+                    console.warn("기존 이미지 로드 실패, 텍스트 기반으로 생성합니다:", e);
+                }
+            }
+
+            const res = await generateArtworkDescription({
+                title: formData.title,
+                category: formData.category,
+                material: formData.material,
+                keywords: formData.season + ", " + formData.space,
+                imageBase64: imageBase64
+            });
+
+            if (res.success && res.description) {
+                setFormData(prev => ({ ...prev, description: res.description }));
+            } else {
+                alert("설명 생성 실패: " + res.error);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("AI 설명 생성 중 오류가 발생했습니다.");
+        } finally {
+            setAiLoading(false);
+        }
+    };
 
     // 메모리 누수 방지
     useEffect(() => {
@@ -349,14 +419,25 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 </div>
 
                 <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">작품 설명</label>
+                    <div className="flex items-center justify-between">
+                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">작품 설명</label>
+                        <button
+                            type="button"
+                            onClick={handleGenerateDescription}
+                            disabled={aiLoading}
+                            className="text-[10px] font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {aiLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+                            AI 자동 생성 (Gemini)
+                        </button>
+                    </div>
                     <textarea
                         name="description"
                         value={formData.description}
                         onChange={handleInputChange}
-                        rows={5}
-                        className="w-full px-6 py-5 bg-gray-50 border-2 border-transparent rounded-[24px] focus:bg-white focus:border-black text-black font-bold placeholder:text-gray-300 outline-none transition-all resize-none shadow-sm leading-relaxed"
-                        placeholder="작품에 대한 풍부한 설명을 입력해 주세요."
+                        rows={6}
+                        className="w-full px-6 py-5 bg-gray-50 border-2 border-transparent rounded-[24px] focus:bg-white focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all resize-none shadow-sm leading-relaxed"
+                        placeholder="작품에 대한 풍부한 설명을 직접 입력하거나, 위 버튼을 눌러 AI에게 작성을 요청해보세요."
                     />
                 </div>
 

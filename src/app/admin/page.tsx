@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import dbConnect from "@/lib/mongodb";
 import Artwork from "@/models/Artwork";
+import User from "@/models/User";
 import AdminDashboard from "@/components/admin/AdminDashboard";
 import { getAdminStats, getUsersByRole } from "../actions/admin";
 
@@ -35,12 +36,12 @@ export default async function AdminPage() {
     // 데이터 병렬 조회
     const [artworkRes, userRes, statsRes] = await Promise.all([
         Artwork.find({}).sort({ createdAt: -1 }).populate('artist_id', 'name'),
-        getUsersByRole('partner'),
+        User.find({ role: { $in: ['partner', 'user'] } }).sort({ createdAt: -1 }),
         getAdminStats()
     ]);
 
     const formattedArtworks = JSON.parse(JSON.stringify(artworkRes));
-    const initialUsers = userRes.success ? userRes.users : [];
+    const initialUsers = JSON.parse(JSON.stringify(userRes));
     const stats = statsRes.success ? statsRes.stats : {
         totalArtworks: 0,
         pendingArtworks: 0,
