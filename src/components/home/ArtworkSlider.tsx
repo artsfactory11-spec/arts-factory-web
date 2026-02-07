@@ -20,7 +20,7 @@ export default function ArtworkSlider({ artworks }: ArtworkSliderProps) {
 
         const timer = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % totalPages);
-        }, 3000);
+        }, 7000);
 
         return () => clearInterval(timer);
     }, [totalPages, isPaused]);
@@ -79,8 +79,8 @@ export default function ArtworkSlider({ artworks }: ArtworkSliderProps) {
                             key={idx}
                             onClick={() => setCurrentIndex(idx)}
                             className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex
-                                    ? 'w-8 bg-black'
-                                    : 'w-1.5 bg-gray-200 hover:bg-gray-300'
+                                ? 'w-8 bg-black'
+                                : 'w-1.5 bg-gray-200 hover:bg-gray-300'
                                 }`}
                         />
                     ))}

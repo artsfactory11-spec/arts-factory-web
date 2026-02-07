@@ -187,6 +187,8 @@ export async function createArtist(data: any) {
             ...data,
             email: emailToUse,
             role: 'partner',
+            status: 'approved',
+            isApproved: true
         });
 
         revalidatePath('/admin');
