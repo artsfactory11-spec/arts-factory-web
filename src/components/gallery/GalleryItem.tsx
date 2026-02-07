@@ -18,6 +18,7 @@ interface GalleryItemProps {
         category: string;
         price: number;
         rental_price?: number;
+        rental_status?: 'available' | 'processing' | 'rented' | 'unavailable';
         isWished?: boolean;
     };
 }
@@ -128,7 +129,18 @@ export default function GalleryItem({ artwork }: GalleryItemProps) {
                         transition={{ duration: 0.4 }}
                         className="absolute inset-0 bg-black/30 backdrop-blur-[4px] flex flex-col justify-end p-8 text-white transition-all"
                     >
-                        <span className="text-[10px] uppercase tracking-[0.3em] mb-2 opacity-80">{artwork.category}</span>
+                        <div className="flex justify-between items-start mb-2">
+                            <span className="text-[10px] uppercase tracking-[0.3em] opacity-80">{artwork.category}</span>
+                            {artwork.rental_status && artwork.rental_status !== 'available' && (
+                                <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${artwork.rental_status === 'rented' ? 'bg-red-500 text-white' :
+                                    artwork.rental_status === 'processing' ? 'bg-yellow-500 text-black' :
+                                        'bg-gray-500 text-white'
+                                    }`}>
+                                    {artwork.rental_status === 'rented' ? 'Rented' :
+                                        artwork.rental_status === 'processing' ? 'Reserved' : 'Sold Out'}
+                                </span>
+                            )}
+                        </div>
                         <h3 className="text-xl font-light leading-tight mb-1 font-serif italic">{artwork.title}</h3>
                         <p className="text-sm opacity-90 font-extralight tracking-widest uppercase mb-4">{artwork.artist_name}</p>
 

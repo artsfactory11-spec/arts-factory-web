@@ -133,16 +133,33 @@ export default async function ArtworkPage({ params }: Props) {
                             </div>
                         </div>
 
+                        {/* 렌탈 상태 표시 */}
+                        {artwork.rental_status && artwork.rental_status !== 'available' && (
+                            <div className={`mb-6 p-4 rounded-xl text-center font-bold text-sm tracking-widest uppercase ${artwork.rental_status === 'rented' ? 'bg-red-50 text-red-600' :
+                                    artwork.rental_status === 'processing' ? 'bg-yellow-50 text-yellow-600' :
+                                        'bg-gray-100 text-gray-500'
+                                }`}>
+                                {artwork.rental_status === 'rented' ? '현재 대여중인 작품입니다' :
+                                    artwork.rental_status === 'processing' ? '현재 대여/구매 진행중입니다' : '구매/대여가 불가능한 작품입니다'}
+                            </div>
+                        )}
 
-                        <InquiryButtons
-                            artwork={{
-                                id: id,
-                                title: artwork.title,
-                                artist: artwork.artist_id.name
-                            }}
-                        />
-
-
+                        {(!artwork.rental_status || artwork.rental_status === 'available') ? (
+                            <InquiryButtons
+                                artwork={{
+                                    id: id,
+                                    title: artwork.title,
+                                    artist: artwork.artist_id.name
+                                }}
+                            />
+                        ) : (
+                            <button
+                                disabled
+                                className="w-full py-4 bg-gray-200 text-gray-400 rounded-full font-bold cursor-not-allowed"
+                            >
+                                {artwork.rental_status === 'rented' ? 'RENTED OUT' : 'UNAVAILABLE'}
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

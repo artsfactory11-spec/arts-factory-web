@@ -37,6 +37,34 @@ export async function updateArtworkStatus(id: string, status: 'pending' | 'appro
     }
 }
 
+
+/**
+ * 작품 렌탈 상태 업데이트
+ */
+export async function updateArtworkRentalStatus(id: string, rental_status: 'available' | 'processing' | 'rented' | 'unavailable') {
+    try {
+        const conn = await dbConnect();
+        if (!conn) return { success: false, error: "Database connection failed." };
+
+        const artwork = await Artwork.findByIdAndUpdate(
+            id,
+            { rental_status },
+            { new: true }
+        );
+
+        if (!artwork) return { success: false, error: 'Artwork not found' };
+
+        revalidatePath('/admin');
+        revalidatePath('/gallery');
+        revalidatePath(`/artwork/${id}`);
+        revalidatePath('/');
+
+        return { success: true, artwork: JSON.parse(JSON.stringify(artwork)) };
+    } catch (error: any) {
+        return { success: false, error: error.message };
+    }
+}
+
 /**
  * 작품 추천 상태 토글
  */

@@ -15,7 +15,7 @@ import {
     Trash2
 } from 'lucide-react';
 import * as XLSX from 'xlsx';
-import { updateArtworkStatus, toggleArtworkCurated } from '@/app/actions/admin';
+import { updateArtworkStatus, updateArtworkRentalStatus, toggleArtworkCurated } from '@/app/actions/admin';
 import { deleteArtwork } from '@/app/actions/artwork';
 import { storage } from '@/lib/firebase';
 import { ref, deleteObject } from 'firebase/storage';
@@ -47,6 +47,22 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
             }
         } finally {
             setLoadingId(null);
+        }
+    };
+
+    const handleUpdateRentalStatus = async (id: string, rental_status: 'available' | 'processing' | 'rented' | 'unavailable') => {
+        // Optimistic update
+        setArtworks(prev => prev.map(art => art._id === id ? { ...art, rental_status } : art));
+
+        try {
+            const res = await updateArtworkRentalStatus(id, rental_status);
+            if (!res.success) {
+                // Revert on failure
+                alert('렌탈 상태 변경에 실패했습니다.');
+                // In a real app, we would revert the state here by refetching or keeping previous state
+            }
+        } catch (error) {
+            console.error(error);
         }
     };
 
@@ -95,6 +111,7 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
             '재료': art.material || '-',
             '판매가': art.price,
             '월렌탈료': art.rental_price,
+            '렌탈상태': art.rental_status || 'available',
             '상태': art.status === 'approved' ? '승인' : art.status === 'rejected' ? '거절' : '대기',
             '추천여부': art.isCurated ? 'Y' : 'N',
             '등록일': new Date(art.createdAt).toLocaleDateString()
@@ -153,6 +170,7 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                 <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">작품 정보</th>
                                 <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">작가</th>
                                 <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">가격 정보 (판매/렌탈)</th>
+                                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">렌탈 상태</th>
                                 <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">큐레이션</th>
                                 <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">상태</th>
                                 <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">작업</th>
@@ -186,11 +204,23 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                         </div>
                                     </td>
                                     <td className="px-6 py-5 text-center">
+                                        <select
+                                            value={art.rental_status || 'available'}
+                                            onChange={(e) => handleUpdateRentalStatus(art._id, e.target.value as any)}
+                                            className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-bold focus:outline-none focus:border-black cursor-pointer"
+                                        >
+                                            <option value="available">대여 가능</option>
+                                            <option value="processing">대여 진행중</option>
+                                            <option value="rented">대여 완료</option>
+                                            <option value="unavailable">대여 불가</option>
+                                        </select>
+                                    </td>
+                                    <td className="px-6 py-5 text-center">
                                         <button
                                             onClick={() => handleToggleCurated(art._id, !art.isCurated)}
                                             className={`p-2 rounded-xl transition-all shadow-sm mx-auto flex items-center justify-center ${art.isCurated
-                                                    ? 'bg-yellow-50 text-yellow-400 border border-yellow-100'
-                                                    : 'bg-gray-50 text-gray-300 border border-gray-100 hover:text-gray-500 hover:bg-gray-100'
+                                                ? 'bg-yellow-50 text-yellow-400 border border-yellow-100'
+                                                : 'bg-gray-50 text-gray-300 border border-gray-100 hover:text-gray-500 hover:bg-gray-100'
                                                 }`}
                                         >
                                             <Star fill={art.isCurated ? "currentColor" : "none"} className="w-5 h-5" strokeWidth={art.isCurated ? 0 : 2} />

@@ -17,6 +17,7 @@ export interface IArtwork extends Document {
     firebase_storage_path: string;
     vr_url?: string;
     status: 'pending' | 'approved' | 'rejected';
+    rental_status: 'available' | 'processing' | 'rented' | 'unavailable';
     isCurated: boolean;
     createdAt: Date;
 }
@@ -37,6 +38,7 @@ const ArtworkSchema: Schema = new Schema({
     firebase_storage_path: { type: String, required: true },
     vr_url: { type: String },
     status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' },
+    rental_status: { type: String, enum: ['available', 'processing', 'rented', 'unavailable'], default: 'available' },
     isCurated: { type: Boolean, default: false },
 }, { timestamps: true });
 
