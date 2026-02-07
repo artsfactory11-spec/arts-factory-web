@@ -87,15 +87,17 @@ async function FeaturedSection() {
   );
 }
 
+import ArtworkSlider from "@/components/home/ArtworkSlider";
+
 async function ArtworkContent() {
   await dbConnect();
   const artworks = await Artwork.find({ status: 'approved' })
     .sort({ createdAt: -1 })
-    .limit(8)
+    .limit(40)
     .populate('artist_id', 'name');
 
   const formattedArtworks = JSON.parse(JSON.stringify(artworks));
-  return <GalleryContainer initialArtworks={formattedArtworks} />;
+  return <ArtworkSlider artworks={formattedArtworks} />;
 }
 
 async function ArtistSpotlight() {
