@@ -14,8 +14,8 @@ import {
     Star,
     Loader2
 } from 'lucide-react';
-import { toggleArtistSpotlight, updatePartnerStatus } from '@/app/actions/admin';
-import { Check, X } from 'lucide-react';
+import { toggleArtistSpotlight, updatePartnerStatus, deleteArtist } from '@/app/actions/admin';
+import { Check, X, Trash2 } from 'lucide-react';
 
 interface AdminArtistListViewProps {
     users: any[];
@@ -47,6 +47,22 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
                     }
                     return u;
                 }));
+            }
+        } finally {
+            setLoadingId(null);
+        }
+    };
+
+    const handleDelete = async (user: any) => {
+        if (!confirm(`'${user.name}' 작가를 정말로 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) return;
+
+        setLoadingId(user._id);
+        try {
+            const res = await deleteArtist(user._id);
+            if (res.success) {
+                setUsers(prev => prev.filter(u => u._id !== user._id));
+            } else {
+                alert('작가 삭제에 실패했습니다: ' + res.error);
             }
         } finally {
             setLoadingId(null);
@@ -165,8 +181,17 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
                                 <button
                                     onClick={() => onEdit && onEdit(user)}
                                     className="p-2 bg-gray-50 text-gray-300 rounded-xl hover:bg-black hover:text-white transition-all cursor-pointer"
+                                    title="수정"
                                 >
                                     <ChevronRight className="w-5 h-5" />
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(user)}
+                                    disabled={loadingId === user._id}
+                                    className="p-2 bg-red-50 text-red-400 rounded-xl hover:bg-red-500 hover:text-white transition-all cursor-pointer"
+                                    title="삭제"
+                                >
+                                    <Trash2 className="w-5 h-5" />
                                 </button>
                             </div>
                         </div>

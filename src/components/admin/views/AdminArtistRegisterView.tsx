@@ -131,20 +131,20 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
         setLoading(true);
         setError(null);
         try {
-            let res;
+            let res = null;
             if (isEdit && initialData?._id) {
                 res = await updateArtist(initialData._id, formData);
             } else {
                 res = await createArtist(formData);
             }
 
-            if (res.success) {
+            if (res && res.success) {
                 setSuccess(true);
                 if (onSuccess) {
                     setTimeout(() => onSuccess(), 1000);
                 }
             } else {
-                setError(res.error || "처리 실패");
+                setError(res?.error || "처리 실패");
             }
         } catch (error) {
             console.error("Failed to process artist:", error);

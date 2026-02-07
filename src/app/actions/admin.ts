@@ -278,6 +278,34 @@ export async function updateArtist(id: string, data: any) {
         return { success: true, user: JSON.parse(JSON.stringify(updatedUser)) };
     } catch (error: any) {
         console.error("Error updating artist:", error);
+    }
+}
+
+/**
+ * 작가(사용자) 삭제
+ */
+export async function deleteArtist(id: string) {
+    try {
+        const conn = await dbConnect();
+        if (!conn) return { success: false, error: "Database connection failed." };
+
+        // 1. 사용자 삭제
+        const deletedUser = await User.findByIdAndDelete(id);
+
+        if (!deletedUser) {
+            return { success: false, error: "사용자를 찾을 수 없습니다." };
+        }
+
+        // 2. (선택사항) 해당 작가의 작품 처리 로직이 필요할 수 있음
+        // 예: await Artwork.updateMany({ artist_id: id }, { status: 'rejected' });
+        // 현재는 작가 계정만 삭제 (작품은 유지되지만 참조 무결성 주의)
+
+        revalidatePath('/admin');
+        revalidatePath('/artists');
+
+        return { success: true };
+    } catch (error: any) {
+        console.error("Error deleting artist:", error);
         return { success: false, error: error.message };
     }
 }
