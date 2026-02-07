@@ -21,6 +21,7 @@ import Footer from "@/components/layout/Footer";
 import { CompareProvider } from "@/context/CompareContext";
 import CompareTray from "@/components/gallery/CompareTray";
 import GoogleAnalytics from "@/components/layout/GoogleAnalytics";
+import ImageProtection from "@/components/common/ImageProtection";
 
 export default function RootLayout({
   children,
@@ -35,6 +36,7 @@ export default function RootLayout({
         <GoogleAnalytics ga_id={gaId} />
         <CompareProvider>
           <AuthContext>
+            <ImageProtection />
             <Navbar />
             <div className="pt-20">
               {children}
