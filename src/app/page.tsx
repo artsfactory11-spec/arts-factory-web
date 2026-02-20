@@ -3,11 +3,12 @@ import Artwork from "@/models/Artwork";
 import User from "@/models/User";
 import Magazine from "@/models/Magazine";
 import { Suspense } from "react";
+import Image from "next/image";
 import GallerySkeleton from "@/components/gallery/GallerySkeleton";
-import GalleryContainer from "@/components/gallery/GalleryContainer";
 import Link from "next/link";
 import { ArrowUpRight, MousePointer2, Star, Heart } from 'lucide-react';
 import { ArtHeroWrapper, RevealSection, ParallaxText } from "@/components/home/AnimatedHome";
+import NoticeModal from "@/components/home/NoticeModal";
 
 // --- Data Fetching Components ---
 
@@ -28,6 +29,15 @@ async function HeroStats() {
       </div>
     </div>
   );
+}
+
+interface IArtwork {
+  _id: string;
+  title: string;
+  firebase_image_url: string;
+  artist_id?: {
+    name: string;
+  };
 }
 
 async function FeaturedSection() {
@@ -66,11 +76,11 @@ async function FeaturedSection() {
           </div>
 
           <div className="lg:col-span-7 space-y-48 relative">
-            {featured.map((item: any, i: number) => (
+            {featured.map((item: IArtwork, i: number) => (
               <RevealSection key={item._id.toString()} delay={i * 0.2}>
                 <div className={`relative group ${i % 2 !== 0 ? 'lg:ml-32' : 'lg:mr-32'}`}>
-                  <div className="aspect-[4/5] overflow-hidden rounded-[40px] shadow-[0_30px_60px_rgba(0,0,0,0.08)] bg-white p-4 transition-transform duration-1000 group-hover:-translate-y-4">
-                    <img src={item.firebase_image_url} alt={item.title} className="w-full h-full object-cover rounded-[30px] transition-transform duration-1000 group-hover:scale-105" />
+                  <div className="aspect-[4/5] overflow-hidden rounded-[40px] shadow-[0_30px_60px_rgba(0,0,0,0.08)] bg-white p-4 transition-transform duration-1000 group-hover:-translate-y-4 relative">
+                    <Image src={item.firebase_image_url} alt={item.title} fill className="object-cover rounded-[30px] transition-transform duration-1000 group-hover:scale-105" />
                   </div>
                   <div className="absolute -bottom-12 -left-6 lg:left-auto lg:-right-12 bg-white/80 backdrop-blur-xl p-10 rounded-[30px] shadow-[0_20px_40px_rgba(0,0,0,0.05)] border border-white/20 max-w-xs group-hover:-translate-y-6 transition-transform duration-700">
                     <span className="text-[9px] font-black tracking-[0.3em] text-accent uppercase mb-4 block">Selection 0{i + 1}</span>
@@ -125,8 +135,8 @@ async function ArtistSpotlight() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <RevealSection>
             <div className="relative">
-              <div className="aspect-[3/4] rounded-[60px] overflow-hidden border border-white/5 p-4 bg-white/5 backdrop-blur-sm">
-                <img src={artist.avatar_url || "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=2067&auto=format&fit=crop"} alt="Artist" className="w-full h-full object-cover rounded-[50px] grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000" />
+              <div className="aspect-[3/4] rounded-[60px] overflow-hidden border border-white/5 p-4 bg-white/5 backdrop-blur-sm relative">
+                <Image src={artist.avatar_url || "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=2067&auto=format&fit=crop"} alt="Artist" fill className="object-cover rounded-[50px] grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000" />
               </div>
               <div className="absolute top-12 -right-12 w-56 h-56 bg-accent rounded-full flex flex-col items-center justify-center text-charcoal shadow-[0_20px_40px_rgba(197,160,89,0.3)] rotate-12">
                 <span className="text-[11px] font-black uppercase tracking-tight text-center leading-tight">Artist <br /> of the month</span>
@@ -158,6 +168,14 @@ async function ArtistSpotlight() {
   );
 }
 
+interface IMagazine {
+  _id: string;
+  title: string;
+  thumbnail_url: string;
+  category: string;
+  content: string;
+}
+
 async function MagazineSection() {
   await dbConnect();
 
@@ -187,11 +205,11 @@ async function MagazineSection() {
         </RevealSection>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
-          {highlights.map((mag: any, i: number) => (
+          {highlights.map((mag: IMagazine, i: number) => (
             <RevealSection key={mag._id.toString()} delay={i * 0.2}>
               <div className={`group space-y-12 ${i % 2 !== 0 ? 'lg:mt-40' : ''}`}>
                 <div className="aspect-[4/3] bg-gray-50 rounded-[60px] overflow-hidden relative shadow-lg">
-                  <img src={mag.thumbnail_url} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
+                  <Image src={mag.thumbnail_url} alt={mag.title} fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
                   <div className="absolute top-10 left-10">
                     <span className="px-6 py-2 bg-white/90 backdrop-blur-md rounded-full text-[9px] font-black uppercase tracking-[0.2em]">{mag.category}</span>
                   </div>
@@ -215,6 +233,7 @@ async function MagazineSection() {
 export default function Home() {
   return (
     <main className="min-h-screen bg-surface text-charcoal grain overflow-x-hidden">
+      <NoticeModal />
       {/* 프리미엄 히어로 섹션 */}
       <ArtHeroWrapper stats={{ artworks: 0, artists: 0 }}>
         <div className="flex items-center gap-6 mb-20 animate-in fade-in slide-in-from-bottom-6 duration-1000">
@@ -235,8 +254,8 @@ export default function Home() {
 
           <div className="flex-1 flex flex-col gap-20 animate-in fade-in slide-in-from-bottom-12 duration-1200 cubic-bezier(0.2, 0, 0.2, 1)">
             <p className="text-gray-500 font-serif italic leading-relaxed text-4xl lg:text-5xl max-w-2xl">
-              "우리는 당신의 공간에 <br className="hidden md:block" />
-              숨 쉬는 예술을 제안합니다."
+              &quot;우리는 당신의 공간에 <br className="hidden md:block" />
+              숨 쉬는 예술을 제안합니다.&quot;
             </p>
 
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-16">

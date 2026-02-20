@@ -1,6 +1,19 @@
-import mongoose from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
-const MagazineSchema = new mongoose.Schema({
+export interface IMagazine extends Document {
+    title: string;
+    content: string;
+    thumbnail_url: string;
+    category: 'Notice' | 'Interview' | 'Story' | 'Exhibition';
+    author: string;
+    is_published: boolean;
+    isFeatured: boolean;
+    view_count: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+const MagazineSchema: Schema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, '제목을 입력해주세요.'],

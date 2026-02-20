@@ -8,20 +8,50 @@ import {
     AlertCircle,
     CheckCircle2,
     Loader2,
-    X,
     Info,
     Download,
     Sparkles
 } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
 import { generateArtworkDescription } from '@/app/actions/ai';
-import { storage } from '@/lib/firebase';
-import { ref } from "firebase/storage";
 import { uploadImageAsWebP } from '@/lib/upload';
 import { createArtwork } from '@/app/actions/artwork';
+import ExcelJS from 'exceljs';
+
+interface IUser {
+    _id: string;
+    email: string;
+    name?: string;
+}
 
 interface BulkUploadViewProps {
-    users: any[];
+    users: IUser[];
+}
+
+interface BulkExcelRow {
+    '작품명'?: string;
+    '작가이메일'?: string;
+    '장르/매체(Category)'?: string;
+    '카테고리'?: string;
+    '스타일/기법(Style)'?: string;
+    '스타일'?: string;
+    '소재/주제(Subject)'?: string;
+    '주제'?: string;
+    '추천공간(Space)'?: string;
+    '공간'?: string;
+    '판매가(₩)'?: string | number;
+    '판매가'?: string | number;
+    '월렌탈료(₩)'?: string | number;
+    '렌탈료'?: string | number;
+    '가로(cm)'?: string | number;
+    '세로(cm)'?: string | number;
+    '호수(호)'?: string | number;
+    '호수'?: string | number;
+    '제작연도'?: string | number;
+    '재질/기법'?: string;
+    '재료'?: string;
+    '이미지파일명'?: string;
+    '작품설명'?: string;
 }
 
 interface BulkItem {
@@ -29,9 +59,14 @@ interface BulkItem {
     title: string;
     artistEmail: string;
     category: string;
+    style: string;
+    subject: string;
+    space: string;
     price: number;
     rental_price: number;
-    size?: string;
+    width: number;
+    height: number;
+    ho: number;
     year?: string;
     material?: string;
     description?: string;
@@ -44,32 +79,80 @@ interface BulkItem {
 export default function BulkUploadView({ users }: BulkUploadViewProps) {
     const [items, setItems] = useState<BulkItem[]>([]);
     const [uploading, setUploading] = useState(false);
-    const [overallStatus, setOverallStatus] = useState<'idle' | 'processing' | 'done'>('idle');
 
     // AI Generation Logic
     const [aiGenerating, setAiGenerating] = useState(false);
     const [aiProgress, setAiProgress] = useState({ current: 0, total: 0 });
 
-    // 엑셀 템플릿 다운로드 시뮬레이션
-    const downloadTemplate = () => {
-        const templateData = [
-            {
-                '작품명': '예시 작품 1',
-                '작가이메일': 'artist@example.com',
-                '카테고리': '회화',
-                '판매가': 1000000,
-                '렌탈료': 100000,
-                '호수': '10호',
-                '제작연도': '2023',
-                '재료': '캔버스에 유채',
-                '이미지파일명': 'image1.jpg',
-                '작품설명': '작품에 대한 설명입니다.'
-            }
+    // 엑셀 템플릿 다운로드 (ExcelJS 기반 드롭다운 포함)
+    const downloadTemplate = async () => {
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet('ArtsFactory_Bulk_Template');
+
+        // Headers 설정
+        worksheet.columns = [
+            { header: '작품명', key: 'title', width: 20 },
+            { header: '작가이메일', key: 'artistEmail', width: 25 },
+            { header: '장르/매체(Category)', key: 'category', width: 18 },
+            { header: '스타일/기법(Style)', key: 'style', width: 18 },
+            { header: '소재/주제(Subject)', key: 'subject', width: 18 },
+            { header: '추천공간(Space)', key: 'space', width: 18 },
+            { header: '판매가(₩)', key: 'price', width: 12 },
+            { header: '월렌탈료(₩)', key: 'rental_price', width: 12 },
+            { header: '가로(cm)', key: 'width', width: 10 },
+            { header: '세로(cm)', key: 'height', width: 10 },
+            { header: '호수(호)', key: 'ho', width: 10 },
+            { header: '제작연도', key: 'year', width: 12 },
+            { header: '재질/기법', key: 'material', width: 20 },
+            { header: '이미지파일명', key: 'imageFilename', width: 20 },
+            { header: '작품설명', key: 'description', width: 30 },
         ];
-        const ws = XLSX.utils.json_to_sheet(templateData);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Template");
-        XLSX.writeFile(wb, "ArtsFactory_Bulk_Template.xlsx");
+
+        // 예시 데이터 추가
+        worksheet.addRow({
+            title: '예시 작품 1',
+            artistEmail: 'artist@example.com',
+            category: '회화',
+            style: '추상',
+            subject: '풍경',
+            space: '거실용',
+            price: 1000000,
+            rental_price: 100000,
+            width: 53,
+            height: 45.5,
+            ho: 10,
+            year: '2024',
+            material: '캔버스에 유합',
+            imageFilename: 'image1.jpg',
+            description: '작품에 대한 상세한 이야기를 적어주세요.'
+        });
+
+        // 데이터 유효성 검사 (드롭다운) 설정 값
+        const media = ['회화', '판화 및 에디션', '드로잉 및 스케치', '사진', '조각 및 설치', '디지털 아트', '기타'];
+        const styles = ['추상', '구상/재현', '팝 아트', '미니멀리즘', '인상주의', '초현실주의', '기타'];
+        const subjects = ['풍경', '인물', '정물', '동물', '기하학', '일상/사회', '기타'];
+        const spaces = ['거실용', '침실용', '아이방', '사무실/카페'];
+
+        // 2행부터 100행까지 드롭다운 적용
+        for (let i = 2; i <= 100; i++) {
+            worksheet.getCell(`C${i}`).dataValidation = { type: 'list', allowBlank: true, formulae: [`"${media.join(',')}"`] };
+            worksheet.getCell(`D${i}`).dataValidation = { type: 'list', allowBlank: true, formulae: [`"${styles.join(',')}"`] };
+            worksheet.getCell(`E${i}`).dataValidation = { type: 'list', allowBlank: true, formulae: [`"${subjects.join(',')}"`] };
+            worksheet.getCell(`F${i}`).dataValidation = { type: 'list', allowBlank: true, formulae: [`"${spaces.join(',')}"`] };
+        }
+
+        // 헤더 스타일링
+        worksheet.getRow(1).font = { bold: true };
+        worksheet.getRow(1).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE0E0E0' } };
+
+        const buffer = await workbook.xlsx.writeBuffer();
+        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = 'ArtsFactory_Bulk_Upload_Template.xlsx';
+        anchor.click();
+        window.URL.revokeObjectURL(url);
     };
 
     // 엑셀 파일 처리
@@ -83,25 +166,29 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
             const wb = XLSX.read(bstr, { type: 'binary' });
             const wsname = wb.SheetNames[0];
             const ws = wb.Sheets[wsname];
-            const data = XLSX.utils.sheet_to_json(ws) as any[];
+            const data = XLSX.utils.sheet_to_json(ws) as BulkExcelRow[];
 
             const mappedItems: BulkItem[] = data.map((row, idx) => ({
                 id: `bulk-${idx}-${Date.now()}`,
                 title: row['작품명'] || '',
                 artistEmail: row['작가이메일'] || '',
-                category: row['카테고리'] || '회화',
-                price: Number(row['판매가']) || 0,
-                rental_price: Number(row['렌탈료']) || 0,
-                size: String(row['호수'] || ''),
+                category: row['장르/매체(Category)'] || row['카테고리'] || '회화',
+                style: row['스타일/기법(Style)'] || row['스타일'] || '추상',
+                subject: row['소재/주제(Subject)'] || row['주제'] || '풍경',
+                space: row['추천공간(Space)'] || row['공간'] || '거실용',
+                price: Number(row['판매가(₩)']) || Number(row['판매가']) || 0,
+                rental_price: Number(row['월렌탈료(₩)']) || Number(row['렌탈료']) || 0,
+                width: Number(row['가로(cm)']) || 0,
+                height: Number(row['세로(cm)']) || 0,
+                ho: Number(row['호수(호)']) || Number(String(row['호수'] || '').replace(/[^0-9]/g, '')) || 0,
                 year: String(row['제작연도'] || ''),
-                material: String(row['재료'] || ''),
+                material: String(row['재질/기법']) || String(row['재료'] || ''),
                 description: String(row['작품설명'] || ''),
                 imageFilename: row['이미지파일명'] || '',
                 status: 'pending'
             }));
 
             setItems(mappedItems);
-            setOverallStatus('idle');
         };
         reader.readAsBinaryString(file);
     };
@@ -115,9 +202,20 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
         Array.from(files).forEach(f => fileMap.set(f.name, f));
 
         setItems(prev => prev.map(item => {
+            // 1. 정확히 일치하는 파일 찾기 (확장자 포함)
             if (fileMap.has(item.imageFilename)) {
                 return { ...item, fileContent: fileMap.get(item.imageFilename) };
             }
+
+            // 2. 확장자가 생략된 경우 처리 (파일명으로만 대조)
+            if (!item.imageFilename.includes('.')) {
+                const matchedFile = Array.from(files).find(f => {
+                    const baseName = f.name.split('.').slice(0, -1).join('.');
+                    return baseName === item.imageFilename;
+                });
+                if (matchedFile) return { ...item, fileContent: matchedFile };
+            }
+
             return item;
         }));
     };
@@ -177,8 +275,8 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                             : current
                     ));
                 }
-            } catch (error) {
-                console.error(`Item ${item.id} AI generation failed:`, error);
+            } catch {
+                console.error(`Item ${item.id} AI generation failed:`);
             }
 
             // Rate Limit 방지용 딜레이 (1초)
@@ -195,7 +293,6 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
         if (validItems.length === 0) return;
 
         setUploading(true);
-        setOverallStatus('processing');
 
         for (const item of items) {
             if (!item.fileContent || item.status === 'success') continue;
@@ -220,9 +317,14 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                     title: item.title,
                     description: item.description || '',
                     category: item.category,
+                    style: item.style,
+                    subject: item.subject,
+                    space: item.space,
                     price: item.price,
                     rental_price: item.rental_price,
-                    size: item.size,
+                    width: item.width,
+                    height: item.height,
+                    ho: item.ho,
                     year: item.year,
                     material: item.material,
                     artist_id: artist._id,
@@ -236,13 +338,12 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                 } else {
                     setItems(prev => prev.map(i => i.id === item.id ? { ...i, status: 'error', errorMsg: 'DB 저장 실패' } : i));
                 }
-            } catch (err) {
+            } catch {
                 setItems(prev => prev.map(i => i.id === item.id ? { ...i, status: 'error', errorMsg: '업로드 오류' } : i));
             }
         }
 
         setUploading(false);
-        setOverallStatus('done');
     };
 
     return (
@@ -338,7 +439,12 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                                     <tr key={item.id} className="hover:bg-gray-50/30 transition-colors">
                                         <td className="px-10 py-5 max-w-sm">
                                             <div className="font-bold text-gray-900 text-sm">{item.title}</div>
-                                            <div className="text-[10px] text-gray-400 uppercase tracking-tighter mt-1">{item.category} / ₩{item.price.toLocaleString()}</div>
+                                            <div className="text-[10px] text-gray-400 uppercase tracking-tighter mt-1">
+                                                {item.category} | {item.style} | {item.subject} | {item.space}
+                                            </div>
+                                            <div className="text-[10px] text-blue-500 font-black mt-1">
+                                                {item.width}x{item.height}cm ({item.ho}호) / ₩{item.price.toLocaleString()}
+                                            </div>
                                             {item.description && (
                                                 <div className="mt-2 text-xs text-gray-500 bg-gray-50 p-2 rounded-lg whitespace-pre-wrap">
                                                     {item.description}
@@ -399,10 +505,11 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                 <div>
                     <h4 className="font-bold text-black mb-1">대량 업로드 가이드</h4>
                     <p className="text-sm text-gray-500 leading-relaxed">
-                        1. 템플릿 엑셀 파일을 다운로드하여 작품 정보를 입력하세요. <br />
-                        2. '이미지파일명' 열에는 실제 업로드할 파일의 이름(확장자 포함)을 정확히 입력해야 합니다. <br />
-                        3. 엑셀을 먼저 업로드한 뒤, 이미지 파일들을 한꺼번에 선택하여 매칭시키세요. <br />
-                        4. 작가 이메일은 시스템에 등록된 파트너의 이메일과 일치해야 합니다.
+                        1. 템플릿 파일을 다운로드하세요. **장르, 스타일, 주제, 공간** 항목은 엑셀 내 **드롭다운**에서 선택 가능합니다. <br />
+                        2. **가로, 세로, 호수** 등 규격 정보는 숫자로만 입력해 주세요. (예: 53, 45.5, 10) <br />
+                        3. &apos;이미지파일명&apos; 열에는 업로드할 파일명을 입력해 주세요. (확장자 `.jpg`, `.png` 등은 생략해도 무방합니다.) <br />
+                        4. 엑셀 업로드 후, 우측의 이미지 업로드 영역에서 해당 파일들을 한꺼번에 선택해 주세요. <br />
+                        5. 작가 이메일은 시스템에 등록된 파트너의 이메일과 대조하여 자동 매칭됩니다.
                     </p>
                 </div>
             </div>

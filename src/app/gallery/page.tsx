@@ -1,7 +1,6 @@
 import dbConnect from "@/lib/mongodb";
-import { getArtworks } from "@/app/actions/artwork";
+import { getArtworks } from "@/app/actions/gallery";
 import GalleryContainer from "@/components/gallery/GalleryContainer";
-import GalleryFilter from "@/components/gallery/GalleryFilter";
 
 export const dynamic = 'force-dynamic';
 
@@ -19,16 +18,20 @@ export default async function GalleryPage({ searchParams }: Props) {
     const minPrice = typeof resolvedSearchParams.minPrice === 'string' ? parseInt(resolvedSearchParams.minPrice) : undefined;
     const maxPrice = typeof resolvedSearchParams.maxPrice === 'string' ? parseInt(resolvedSearchParams.maxPrice) : undefined;
     const search = typeof resolvedSearchParams.search === 'string' ? resolvedSearchParams.search : undefined;
+    const page = typeof resolvedSearchParams.page === 'string' ? parseInt(resolvedSearchParams.page) : 1;
 
     const res = await getArtworks({
-        status: 'approved',
-        category,
-        minPrice,
-        maxPrice,
+        page,
+        limit: 20,
+        filter: {
+            category: category !== 'all' ? category : undefined,
+            price_range: (minPrice !== undefined || maxPrice !== undefined) ? `${minPrice || 0}-${maxPrice || ''}` : undefined
+        },
         search
     });
 
     const artworks = res.success ? res.artworks : [];
+    const pagination = res.pagination || { currentPage: 1, totalPages: 1, totalCount: 0, hasMore: false };
 
     return (
         <main className="min-h-screen bg-white pt-32 pb-20">
@@ -37,13 +40,11 @@ export default async function GalleryPage({ searchParams }: Props) {
                     <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-4 block">아카이브</span>
                     <h1 className="text-6xl font-serif font-light tracking-tight italic">전체 컬렉션</h1>
                     <p className="text-gray-400 mt-6 text-lg font-serif italic max-w-xl">
-                        "아트팩토리가 큐레이션한 모든 작품들을 한자리에서 만나보세요."
+                        &quot;아트팩토리가 큐레이션한 모든 작품들을 한자리에서 만나보세요.&quot;
                     </p>
                 </header>
 
-                <GalleryFilter />
-
-                <GalleryContainer initialArtworks={artworks} />
+                <GalleryContainer initialArtworks={artworks} initialPagination={pagination} />
             </div>
         </main>
     );

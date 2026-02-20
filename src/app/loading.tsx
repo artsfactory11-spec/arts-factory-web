@@ -8,7 +8,7 @@ export default function Loading() {
         <div className="fixed inset-0 bg-white z-[9999] flex flex-col items-center justify-center overflow-hidden">
             {/* Minimal Background Pattern */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+                <div className="absolute top-0 left-0 w-full h-full bg-dot-pattern" />
             </div>
 
             <div className="relative flex flex-col items-center">

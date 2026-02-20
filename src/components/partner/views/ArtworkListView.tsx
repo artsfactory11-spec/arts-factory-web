@@ -14,8 +14,20 @@ import {
     Tag
 } from 'lucide-react';
 
+interface IArtwork {
+    _id: string;
+    title: string;
+    category: string;
+    size?: string;
+    firebase_image_url: string;
+    status: 'pending' | 'approved' | 'rejected' | 'hidden';
+    price: number;
+    rental_price?: number;
+    createdAt: string;
+}
+
 const ArtworkListView = ({ artistId, onNewClick }: { artistId: string, onNewClick: () => void }) => {
-    const [artworks, setArtworks] = useState<any[]>([]);
+    const [artworks, setArtworks] = useState<IArtwork[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -119,17 +131,29 @@ const ArtworkListView = ({ artistId, onNewClick }: { artistId: string, onNewClic
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <button className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-black transition-all">
+                                                <button
+                                                    title="작품 보기"
+                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-black transition-all"
+                                                >
                                                     <Eye className="w-4 h-4" />
                                                 </button>
-                                                <button className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-blue-600 transition-all">
+                                                <button
+                                                    title="작품 수정"
+                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-blue-600 transition-all"
+                                                >
                                                     <Edit2 className="w-4 h-4" />
                                                 </button>
-                                                <button className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-red-500 transition-all">
+                                                <button
+                                                    title="작품 삭제"
+                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-red-500 transition-all"
+                                                >
                                                     <Trash2 className="w-4 h-4" />
                                                 </button>
                                                 <div className="w-px h-4 bg-gray-200 mx-1"></div>
-                                                <button className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-black transition-all">
+                                                <button
+                                                    title="더 보기"
+                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-black transition-all"
+                                                >
                                                     <MoreVertical className="w-4 h-4" />
                                                 </button>
                                             </div>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X, User, Heart } from 'lucide-react';
 import NotificationBell from './NotificationBell';
 import { useSession } from 'next-auth/react';
 
@@ -56,7 +56,10 @@ export default function Navbar() {
 
     // Close mobile menu on route change
     useEffect(() => {
-        setMobileMenuOpen(false);
+        const timer = setTimeout(() => {
+            setMobileMenuOpen(false);
+        }, 0);
+        return () => clearTimeout(timer);
     }, [pathname]);
 
     return (
@@ -93,6 +96,13 @@ export default function Navbar() {
                     ))}
                     <div className="flex items-center gap-6">
                         <UserIconLink />
+                        <Link
+                            href="/gallery/wishlist"
+                            className="text-gray-400 hover:text-charcoal transition-colors"
+                            title="찜한 작품 보기"
+                        >
+                            <Heart className="w-5 h-5" />
+                        </Link>
                         <NotificationBell />
                         <Link
                             href="/inquiry"

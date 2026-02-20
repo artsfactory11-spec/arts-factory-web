@@ -4,7 +4,7 @@ import dbConnect from "@/lib/mongodb";
 import Artwork from "@/models/Artwork";
 import User from "@/models/User";
 import AdminDashboard from "@/components/admin/AdminDashboard";
-import { getAdminStats, getUsersByRole } from "../actions/admin";
+import { getAdminStats } from "../actions/admin";
 
 export default async function AdminPage() {
     const conn = await dbConnect();
@@ -24,6 +24,7 @@ export default async function AdminPage() {
                     <a
                         href="https://cloud.mongodb.com"
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="inline-block px-8 py-4 bg-black text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-gray-800 transition-all"
                     >
                         Go to Atlas Console

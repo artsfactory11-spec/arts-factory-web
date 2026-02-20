@@ -3,7 +3,7 @@
 import React from 'react';
 import { useCompare } from '@/context/CompareContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowRight, BarChart2 } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -55,6 +55,7 @@ export default function CompareTray() {
                                     <button
                                         onClick={() => removeFromCompare(art._id)}
                                         className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all scale-75 group-hover:scale-100"
+                                        title="삭제"
                                     >
                                         <X size={12} />
                                     </button>
@@ -73,8 +74,8 @@ export default function CompareTray() {
                             <Link
                                 href="/gallery/compare"
                                 className={`flex items-center gap-3 px-8 py-4 rounded-full text-xs font-black uppercase tracking-widest transition-all ${compareList.length >= 2
-                                        ? 'bg-white text-black hover:bg-gray-100 active:scale-95'
-                                        : 'bg-white/10 text-white/30 cursor-not-allowed'
+                                    ? 'bg-white text-black hover:bg-gray-100 active:scale-95'
+                                    : 'bg-white/10 text-white/30 cursor-not-allowed'
                                     } shadow-xl shadow-black/50`}
                             >
                                 {compareList.length < 2 ? 'Select More' : 'Compare Now'}

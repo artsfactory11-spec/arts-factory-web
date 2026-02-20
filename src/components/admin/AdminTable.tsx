@@ -1,17 +1,34 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Check, X, Download, Star } from 'lucide-react';
 import * as XLSX from 'xlsx';
 
+interface IAdminArtwork {
+    _id: string;
+    title: string;
+    firebase_image_url: string;
+    category: string;
+    artist_id?: { name: string };
+    size?: string;
+    year?: string;
+    material?: string;
+    price: number;
+    rental_price: number;
+    status: 'pending' | 'approved' | 'rejected';
+    isCurated: boolean;
+    createdAt: string | Date;
+}
+
 interface AdminDashboardProps {
-    initialArtworks: any[];
+    initialArtworks: IAdminArtwork[];
 }
 
 export default function AdminDashboard({ initialArtworks }: AdminDashboardProps) {
-    const [artworks, setArtworks] = useState(initialArtworks);
+    const [artworks, setArtworks] = useState<IAdminArtwork[]>(initialArtworks);
 
-    const handleUpdateStatus = async (id: string, status: string) => {
+    const handleUpdateStatus = async (id: string, status: 'approved' | 'rejected' | 'pending') => {
         // Optimistic UI
         setArtworks(prev => prev.map(art => art._id === id ? { ...art, status } : art));
         // 실제 운영 시 여기에 서버 액션 호출 추가 (updateArtworkStatus)
@@ -75,8 +92,8 @@ export default function AdminDashboard({ initialArtworks }: AdminDashboardProps)
                             <tr key={art._id} className="hover:bg-gray-50/50 transition-colors">
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex items-center">
-                                        <div className="h-12 w-12 flex-shrink-0">
-                                            <img className="h-12 w-12 object-cover rounded shadow-sm" src={art.firebase_image_url} alt="" />
+                                        <div className="h-12 w-12 flex-shrink-0 relative">
+                                            <Image className="object-cover rounded shadow-sm" src={art.firebase_image_url} alt={art.title} fill />
                                         </div>
                                         <div className="ml-4">
                                             <div className="text-sm font-medium text-gray-900">{art.title}</div>
@@ -110,6 +127,7 @@ export default function AdminDashboard({ initialArtworks }: AdminDashboardProps)
                                     <button
                                         onClick={() => handleToggleCurated(art._id, !art.isCurated)}
                                         className={`${art.isCurated ? 'text-yellow-400' : 'text-gray-200'} hover:scale-110 transition-transform`}
+                                        title="추천 상태 변경"
                                     >
                                         <Star fill={art.isCurated ? "currentColor" : "none"} size={18} />
                                     </button>

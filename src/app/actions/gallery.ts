@@ -5,29 +5,32 @@ import Artwork from "@/models/Artwork";
 import mongoose from "mongoose";
 import "@/models/User";
 
+interface IFilter {
+    category?: string;
+    style?: string;
+    subject?: string;
+    season?: string;
+    space?: string;
+    artist_id?: string;
+    price_range?: string;
+    size?: string;
+}
+
 export async function getArtworks({
-    cursor = '',
-    limit = 12,
+    page = 1,
+    limit = 20,
     filter = {},
     search = ''
 }: {
-    cursor?: string,
-    limit?: number,
-    filter?: any,
-    search?: string
+    page?: number;
+    limit?: number;
+    filter?: IFilter;
+    search?: string;
 }) {
     try {
         await dbConnect();
 
-        let query: any = { status: 'approved' };
-
-        // 커서 처리 (createdAt 기준 내림차순이므로 $lt 사용)
-        if (cursor) {
-            const lastArtwork = await Artwork.findById(cursor);
-            if (lastArtwork) {
-                query.createdAt = { $lt: lastArtwork.createdAt };
-            }
-        }
+        const query: Record<string, unknown> = { status: 'approved' };
 
         // 검색어 처리
         if (search) {
@@ -36,7 +39,7 @@ export async function getArtworks({
                 role: 'partner',
                 name: { $regex: search, $options: 'i' }
             }).select('_id');
-            const artistIds = matchingArtists.map((a: any) => a._id);
+            const artistIds = matchingArtists.map((a) => a._id);
 
             query.$or = [
                 { title: { $regex: search, $options: 'i' } },
@@ -45,6 +48,8 @@ export async function getArtworks({
         }
 
         if (filter.category && filter.category !== 'All') query.category = filter.category;
+        if (filter.style && filter.style !== 'All') query.style = filter.style;
+        if (filter.subject && filter.subject !== 'All') query.subject = filter.subject;
         if (filter.season && filter.season !== 'All') query.season = filter.season;
         if (filter.space && filter.space !== 'All') query.space = filter.space;
         if (filter.artist_id) query.artist_id = filter.artist_id;
@@ -65,18 +70,26 @@ export async function getArtworks({
             else query.size = filter.size;
         }
 
+        const skip = (page - 1) * limit;
+        const totalCount = await Artwork.countDocuments(query);
         const artworks = await Artwork.find(query)
             .sort({ createdAt: -1 })
+            .skip(skip)
             .limit(limit)
             .populate('artist_id', 'name');
 
         return {
             success: true,
             artworks: JSON.parse(JSON.stringify(artworks)),
-            nextCursor: artworks.length === limit ? artworks[artworks.length - 1]._id : null
+            pagination: {
+                currentPage: page,
+                totalPages: Math.ceil(totalCount / limit),
+                totalCount,
+                hasMore: page * limit < totalCount
+            }
         };
-    } catch (error: any) {
-        return { success: false, error: error.message };
+    } catch (error) {
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }
 

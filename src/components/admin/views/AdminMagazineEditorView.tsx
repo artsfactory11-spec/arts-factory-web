@@ -3,7 +3,6 @@
 import React, { useState, useRef } from 'react';
 import {
     Save,
-    X,
     Image as ImageIcon,
     Loader2,
     CheckCircle2,
@@ -12,9 +11,20 @@ import {
 } from 'lucide-react';
 import { uploadImageAsWebP } from '@/lib/upload';
 import { createMagazine, updateMagazine } from '@/app/actions/magazine';
+import Image from 'next/image';
+
+export interface IMagazine {
+    _id?: string;
+    title: string;
+    content: string;
+    category: string;
+    thumbnail_url: string;
+    is_published: boolean;
+    createdAt?: string | Date;
+}
 
 interface AdminMagazineEditorViewProps {
-    initialData?: any;
+    initialData?: IMagazine;
     onBack: () => void;
     onSuccess: () => void;
 }
@@ -34,7 +44,7 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value, type } = e.target as any;
+        const { name, value, type } = e.target;
         const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
         setFormData(prev => ({ ...prev, [name]: val }));
     };
@@ -69,7 +79,7 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
 
         setLoading(true);
         try {
-            const res = initialData
+            const res = (initialData && initialData._id)
                 ? await updateMagazine(initialData._id, formData)
                 : await createMagazine(formData);
 
@@ -120,7 +130,7 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
                 >
                     {thumbnailPreview ? (
                         <>
-                            <img src={thumbnailPreview} alt="Thumbnail Preview" className="w-full h-full object-cover" />
+                            <Image src={thumbnailPreview} alt="Thumbnail Preview" fill className="object-cover" />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <p className="text-white font-bold flex items-center gap-2">
                                     <Upload className="w-5 h-5" /> 이미지 교체하기
@@ -139,23 +149,27 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
                         </div>
                     )}
                     <input
+                        id="thumbnail_input"
                         type="file"
                         ref={fileInputRef}
                         className="hidden"
                         accept="image/*"
                         onChange={handleThumbnailUpload}
+                        title="썸네일 이미지 업로드"
                     />
                 </div>
 
                 <div className="bg-white p-10 rounded-[40px] border border-gray-100 shadow-sm space-y-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-2.5">
-                            <label className="text-sm font-bold text-gray-900 ml-1">카테고리 설정</label>
+                            <label htmlFor="category" className="text-sm font-bold text-gray-900 ml-1">카테고리 설정</label>
                             <select
+                                id="category"
                                 name="category"
                                 value={formData.category}
                                 onChange={handleInputChange}
                                 className="w-full px-5 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-gray-900 font-medium transition-all outline-none shadow-sm appearance-none"
+                                title="매거진 카테고리 선택"
                             >
                                 <option value="Story">Story</option>
                                 <option value="Notice">Notice</option>
@@ -164,8 +178,9 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
                             </select>
                         </div>
                         <div className="flex items-center justify-end pt-8">
-                            <label className="flex items-center gap-3 cursor-pointer group">
+                            <label htmlFor="is_published" className="flex items-center gap-3 cursor-pointer group">
                                 <input
+                                    id="is_published"
                                     type="checkbox"
                                     name="is_published"
                                     checked={formData.is_published}
@@ -183,8 +198,9 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
                     </div>
 
                     <div className="space-y-2.5">
-                        <label className="text-sm font-bold text-gray-900 ml-1">기사 제목</label>
+                        <label htmlFor="title" className="text-sm font-bold text-gray-900 ml-1">기사 제목</label>
                         <input
+                            id="title"
                             type="text"
                             name="title"
                             value={formData.title}
@@ -195,8 +211,9 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
                     </div>
 
                     <div className="space-y-2.5">
-                        <label className="text-sm font-bold text-gray-900 ml-1">기사 본문 내용</label>
+                        <label htmlFor="content" className="text-sm font-bold text-gray-900 ml-1">기사 본문 내용</label>
                         <textarea
+                            id="content"
                             name="content"
                             value={formData.content}
                             onChange={handleInputChange}

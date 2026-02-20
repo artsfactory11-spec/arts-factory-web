@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Bell, BellDot, X, Check, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Bell, BellDot, Check, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getNotifications, markAsRead, markAllAsRead } from '@/app/actions/notifications';
 import { useSession } from 'next-auth/react';
@@ -9,39 +9,29 @@ import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
+interface INotification {
+    _id: string;
+    title: string;
+    message: string;
+    isRead: boolean;
+    link?: string;
+    createdAt: string;
+}
+
 export default function NotificationBell() {
     const { data: session } = useSession();
-    const [notifications, setNotifications] = useState<any[]>([]);
+    const [notifications, setNotifications] = useState<INotification[]>([]);
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const unreadCount = notifications.filter(n => !n.isRead).length;
 
-    useEffect(() => {
-        if (session) {
-            fetchNotifications();
-            // 3분마다 자동 일신
-            const interval = setInterval(fetchNotifications, 180000);
-            return () => clearInterval(interval);
-        }
-    }, [session]);
-
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
-            }
-        }
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-
-    const fetchNotifications = async () => {
+    const fetchNotifications = useCallback(async () => {
         const res = await getNotifications();
         if (res.success) {
             setNotifications(res.notifications);
         }
-    };
+    }, []);
 
     const handleMarkAsRead = async (id: string) => {
         const res = await markAsRead(id);
@@ -57,12 +47,34 @@ export default function NotificationBell() {
         }
     };
 
+    useEffect(() => {
+        let isActive = true;
+
+        if (session) {
+            const load = async () => {
+                if (isActive) await fetchNotifications();
+            };
+            load();
+
+            // 3분마다 자동 일신
+            const interval = setInterval(() => {
+                if (isActive) fetchNotifications();
+            }, 180000);
+
+            return () => {
+                isActive = false;
+                clearInterval(interval);
+            };
+        }
+    }, [session, fetchNotifications]);
+
     if (!session) return null;
 
     return (
         <div className="relative" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
+                title="알림 확인"
                 className="relative p-2.5 rounded-full hover:bg-gray-50 transition-colors"
             >
                 {unreadCount > 0 ? (
@@ -116,6 +128,7 @@ export default function NotificationBell() {
                                                 </div>
                                                 <button
                                                     onClick={() => handleMarkAsRead(n._id)}
+                                                    title="읽음으로 표시"
                                                     className={`shrink-0 p-2 rounded-full hover:bg-white transition-colors opacity-0 group-hover:opacity-100 ${n.isRead ? 'invisible' : ''}`}
                                                 >
                                                     <Check className="w-3.5 h-3.5 text-accent" />

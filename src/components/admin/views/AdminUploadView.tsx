@@ -1,15 +1,40 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { uploadImageAsWebP } from '@/lib/upload';
 import imageCompression from 'browser-image-compression';
 import { createArtwork, updateArtwork } from '@/app/actions/artwork';
 import { generateArtworkDescription } from '@/app/actions/ai';
-import { Trash2, Image as ImageIcon, Plus, Info, ChevronDown, CheckCircle2, AlertCircle, Loader2, Sparkles, Upload, User, ArrowLeft } from 'lucide-react';
+import { ChevronDown, CheckCircle2, Loader2, Sparkles, Upload, User, ArrowLeft, ImageIcon } from 'lucide-react';
+import Image from 'next/image';
+import { IArtist } from './AdminArtistListView';
+
+interface IAdminArtwork {
+    _id: string;
+    title: string;
+    description: string;
+    category: string;
+    style: string;
+    subject: string;
+    season: string;
+    space: string;
+    size: string;
+    width: number | string;
+    height: number | string;
+    ho: number | string;
+    year: string;
+    material: string;
+    price: number | string;
+    rental_price: number | string;
+    artist_id: string | { _id: string; name: string };
+    firebase_image_url: string;
+    firebase_storage_path?: string;
+    status?: string;
+}
 
 interface AdminUploadViewProps {
-    users: any[];
-    initialData?: any;
+    users: IArtist[];
+    initialData?: IAdminArtwork;
     onBack?: () => void;
     onSuccess?: () => void;
 }
@@ -27,18 +52,29 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
         title: initialData?.title || '',
         description: initialData?.description || '',
         category: initialData?.category || '회화',
+        style: initialData?.style || '추상',
+        subject: initialData?.subject || '풍경',
         season: initialData?.season || '사계절',
-        space: initialData?.space || '거실',
+        space: initialData?.space || '거실용',
         size: initialData?.size || '',
+        width: initialData?.width || '',
+        height: initialData?.height || '',
+        ho: initialData?.ho || '',
         year: initialData?.year || '',
         material: initialData?.material || '',
         price: initialData?.price ? Number(initialData.price).toLocaleString() : '',
         rental_price: initialData?.rental_price ? Number(initialData.rental_price).toLocaleString() : '',
-        vr_url: initialData?.vr_url || '',
-        artist_id: initialData?.artist_id?._id || initialData?.artist_id || '',
+        artist_id: typeof initialData?.artist_id === 'object' ? initialData.artist_id._id : (initialData?.artist_id || ''),
     });
 
     const [aiLoading, setAiLoading] = useState(false);
+    const progressRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (progressRef.current) {
+            progressRef.current.style.width = `${progress}%`;
+        }
+    }, [progress]);
 
     const handleGenerateDescription = async () => {
         if (!formData.title || !formData.category || !formData.material) {
@@ -131,7 +167,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 const previewBlob = await imageCompression(selectedFile, previewOptions);
                 const objectUrl = URL.createObjectURL(previewBlob);
                 setPreview(objectUrl);
-            } catch (error) {
+            } catch {
                 const rawObjectUrl = URL.createObjectURL(selectedFile);
                 setPreview(rawObjectUrl);
             } finally {
@@ -175,10 +211,13 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
 
             const payload = {
                 ...formData,
-                firebase_image_url: downloadURL,
-                firebase_storage_path: storagePath,
+                firebase_image_url: downloadURL as string,
+                firebase_storage_path: storagePath || '',
                 price: Number(String(formData.price || '0').split(',').join('')),
                 rental_price: Number(String(formData.rental_price || '0').split(',').join('')),
+                width: Number(formData.width) || 0,
+                height: Number(formData.height) || 0,
+                ho: Number(formData.ho) || 0,
             };
 
             const result = isEdit
@@ -194,12 +233,13 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                         ...formData,
                         title: '',
                         description: '',
-                        size: '',
+                        width: '',
+                        height: '',
+                        ho: '',
                         year: '',
                         material: '',
                         price: '',
                         rental_price: '',
-                        vr_url: '',
                     });
                 }
                 setTimeout(() => {
@@ -224,6 +264,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                     <button
                         onClick={onBack}
                         className="absolute -top-4 -left-4 p-2 text-gray-400 hover:text-black hover:bg-gray-50 rounded-full transition-all"
+                        title="뒤로 가기"
                     >
                         <ArrowLeft className="w-5 h-5" />
                     </button>
@@ -240,16 +281,18 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
             <form onSubmit={handleSubmit} className="space-y-8">
                 {/* 1. 작가 선택 (관리자 전용) */}
                 <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] ml-1 flex items-center gap-2">
+                    <label htmlFor="artist_id" className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] ml-1 flex items-center gap-2">
                         <User className="w-3 h-3" /> 등록 작가 선택
                     </label>
                     <div className="relative group">
                         <select
+                            id="artist_id"
                             name="artist_id"
                             value={formData.artist_id}
                             onChange={handleInputChange}
                             required
                             className="w-full pl-14 pr-12 py-5 bg-gray-50 border-2 border-transparent rounded-[24px] text-sm font-bold text-black focus:bg-white focus:border-black transition-all appearance-none cursor-pointer outline-none shadow-sm"
+                            title="등록 작가 선택"
                         >
                             <option value="">등록할 작가를 선택해 주세요</option>
                             {users.map(u => (
@@ -270,6 +313,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
                             accept="image/*"
                             disabled={uploading}
+                            title="작품 이미지 파일 선택"
                         />
 
                         {preview ? (
@@ -302,10 +346,11 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                                             <Loader2 className="w-8 h-8 animate-spin text-gray-200" />
                                         </div>
                                     ) : preview ? (
-                                        <img
+                                        <Image
                                             src={preview}
                                             alt="Preview"
-                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                            fill
+                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
                                             onError={() => setPreview(null)}
                                         />
                                     ) : (
@@ -329,140 +374,131 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 {uploading && (
                     <div className="w-full bg-gray-50 rounded-full h-1.5 overflow-hidden -mt-4">
                         <div
+                            ref={progressRef}
                             className="bg-black h-full transition-all duration-300 ease-out"
-                            style={{ width: `${progress}%` }}
                         />
                     </div>
                 )}
 
                 {/* 3. 작품 상세 정보 */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">작품 제목</label>
-                        <input
-                            type="text"
-                            name="title"
-                            value={formData.title}
-                            onChange={handleInputChange}
-                            required
-                            className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold placeholder:text-gray-300 outline-none transition-all shadow-sm"
-                            placeholder="작품 제목을 입력하세요"
-                        />
-                    </div>
-
-                    <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">카테고리</label>
-                        <div className="relative group">
-                            <select
-                                name="category"
-                                value={formData.category}
-                                onChange={handleInputChange}
-                                className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all appearance-none cursor-pointer shadow-sm"
-                            >
-                                <option>회화</option>
-                                <option>사진</option>
-                                <option>조각</option>
-                                <option>디지털 아트</option>
-                                <option>기타</option>
-                            </select>
-                            <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none group-focus-within:text-black transition-colors" />
-                        </div>
-                    </div>
-                </div>
-
-                {/* 계절 및 공간 추가 */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">추천 계절</label>
-                        <div className="relative group">
-                            <select
-                                name="season"
-                                value={formData.season}
-                                onChange={handleInputChange}
-                                className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all appearance-none cursor-pointer shadow-sm"
-                            >
-                                <option>사계절</option><option>봄</option><option>여름</option><option>가을</option><option>겨울</option>
-                            </select>
-                            <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none group-focus-within:text-black transition-colors" />
-                        </div>
-                    </div>
-
-                    <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">추천 공간</label>
-                        <div className="relative group">
-                            <select
-                                name="space"
-                                value={formData.space}
-                                onChange={handleInputChange}
-                                className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all appearance-none cursor-pointer shadow-sm"
-                            >
-                                <option>거실</option><option>침실</option><option>서재/오피스</option><option>주방</option><option>현관/복도</option>
-                            </select>
-                            <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none group-focus-within:text-black transition-colors" />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">사이즈 (호)</label>
-                        <input type="text" name="size" value={formData.size} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold placeholder:text-gray-300 outline-none transition-all shadow-sm" placeholder="예: 10호" />
-                    </div>
-                    <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">제작 연도</label>
-                        <input type="text" name="year" value={formData.year} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold placeholder:text-gray-300 outline-none transition-all shadow-sm" placeholder="예: 2023" />
-                    </div>
-                    <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">재질 / 기법</label>
-                        <input type="text" name="material" value={formData.material} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold placeholder:text-gray-300 outline-none transition-all shadow-sm" placeholder="예: 유채" />
-                    </div>
-                </div>
-
+                {/* 3. 작품 제목 (Full Width) */}
                 <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">작품 설명</label>
+                    <label htmlFor="title" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">작품 제목</label>
+                    <input
+                        id="title"
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-8 py-5 bg-white border-2 border-gray-100 rounded-[24px] focus:border-black text-xl text-black font-black placeholder:text-gray-200 outline-none transition-all shadow-sm"
+                        placeholder="작품 제목을 입력하세요"
+                    />
+                </div>
+
+                {/* 4. 분류 체계 (4단계 카테고리) */}
+                <div className="space-y-6 bg-gray-50/50 p-8 rounded-[32px] border border-gray-100">
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className="w-1.5 h-1.5 bg-black rounded-full" />
+                        <h3 className="text-xs font-black text-black uppercase tracking-widest">작품 분류 체계</h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { id: 'category', label: '1. 장르 및 매체', options: ['회화', '판화 및 에디션', '드로잉 및 스케치', '사진', '조각 및 설치', '디지털 아트', '기타'] },
+                            { id: 'style', label: '2. 스타일 및 기법', options: ['추상', '구상/재현', '팝 아트', '미니멀리즘', '인상주의', '초현실주의', '기타'] },
+                            { id: 'subject', label: '3. 소재 및 주제', options: ['풍경', '인물', '정물', '동물', '기하학', '일상/사회', '기타'] },
+                            { id: 'space', label: '4. 추천 설치 공간', options: ['거실용', '침실용', '아이방', '사무실/카페'] }
+                        ].map((item) => (
+                            <div key={item.id} className="space-y-3">
+                                <label htmlFor={item.id} className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">{item.label}</label>
+                                <div className="relative group">
+                                    <select
+                                        id={item.id}
+                                        name={item.id}
+                                        value={formData[item.id as keyof typeof formData]}
+                                        onChange={handleInputChange}
+                                        className="w-full px-6 py-4 bg-white border-2 border-transparent rounded-2xl focus:border-black text-black font-bold outline-none transition-all appearance-none cursor-pointer shadow-sm"
+                                    >
+                                        {item.options.map(opt => <option key={opt}>{opt}</option>)}
+                                    </select>
+                                    <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 pointer-events-none group-focus-within:text-black transition-colors" />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* 5. 세부 규격 및 사양 */}
+                <div className="bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm space-y-8">
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
+                        <h3 className="text-xs font-black text-black uppercase tracking-widest">작품 세부 내역 및 규격</h3>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+                        <div className="space-y-3">
+                            <label htmlFor="width" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">가로 (cm)</label>
+                            <input id="width" type="number" name="width" value={formData.width} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="53" />
+                        </div>
+                        <div className="space-y-3">
+                            <label htmlFor="height" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">세로 (cm)</label>
+                            <input id="height" type="number" name="height" value={formData.height} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="45.5" />
+                        </div>
+                        <div className="space-y-3">
+                            <label htmlFor="ho" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">호수 (호)</label>
+                            <input id="ho" type="number" name="ho" value={formData.ho} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="10" />
+                        </div>
+                        <div className="space-y-3">
+                            <label htmlFor="year" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">제작 연도</label>
+                            <input id="year" type="text" name="year" value={formData.year} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="2024" />
+                        </div>
+                        <div className="space-y-3 col-span-2 md:col-span-1">
+                            <label htmlFor="material" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">재질 및 기법</label>
+                            <input id="material" type="text" name="material" value={formData.material} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="Oil on canvas" />
+                        </div>
+                    </div>
+                </div>
+
+                {/* 6. 가격 정보 (Sale & Rental) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-black/5 p-8 rounded-[32px] border border-black/5">
+                    <div className="space-y-3">
+                        <label htmlFor="price" className="text-[11px] font-black text-gray-500 uppercase tracking-[0.2em] ml-1">판매 가격 (KRW)</label>
+                        <div className="relative">
+                            <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-gray-400">₩</span>
+                            <input id="price" type="text" name="price" value={formData.price} onChange={handleInputChange} className="w-full pl-12 pr-6 py-5 bg-white border-2 border-transparent rounded-2xl focus:border-black text-2xl text-black font-black outline-none transition-all shadow-sm" placeholder="0" />
+                        </div>
+                    </div>
+                    <div className="space-y-3">
+                        <label htmlFor="rental_price" className="text-[11px] font-black text-blue-500 uppercase tracking-[0.2em] ml-1">월 렌탈료 (KRW)</label>
+                        <div className="relative">
+                            <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-blue-300">₩</span>
+                            <input id="rental_price" type="text" name="rental_price" value={formData.rental_price} onChange={handleInputChange} className="w-full pl-12 pr-6 py-5 bg-white border-2 border-transparent rounded-2xl focus:border-blue-500 text-2xl text-blue-600 font-black outline-none transition-all shadow-sm" placeholder="0" />
+                        </div>
+                    </div>
+                </div>
+
+                {/* 7. 작품 설명 (AI Integration) */}
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between px-1">
+                        <label htmlFor="description" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">작품 설명 (Story)</label>
                         <button
                             type="button"
                             onClick={handleGenerateDescription}
                             disabled={aiLoading}
-                            className="text-[10px] font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="text-[10px] font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-full transition-all flex items-center gap-2 disabled:opacity-50"
                         >
-                            {aiLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
-                            AI 자동 생성 (Gemini)
+                            {aiLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
+                            AI 스토리 생성하기
                         </button>
                     </div>
                     <textarea
+                        id="description"
                         name="description"
                         value={formData.description}
                         onChange={handleInputChange}
-                        rows={6}
-                        className="w-full px-6 py-5 bg-gray-50 border-2 border-transparent rounded-[24px] focus:bg-white focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all resize-none shadow-sm leading-relaxed"
-                        placeholder="작품에 대한 풍부한 설명을 직접 입력하거나, 위 버튼을 눌러 AI에게 작성을 요청해보세요."
+                        rows={8}
+                        className="w-full px-8 py-6 bg-white border-2 border-gray-100 rounded-[32px] focus:border-black text-black font-medium placeholder:text-gray-200 outline-none transition-all resize-none shadow-sm leading-relaxed"
+                        placeholder="작품에 얽힌 소중한 이야기를 작성해 주세요. 전문적인 큐레이팅을 위해 상세할수록 좋습니다."
                     />
-                </div>
-
-                {/* VR Gallery Link */}
-                <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">VR 갤러리 URL (선택사항)</label>
-                    <input
-                        type="url"
-                        name="vr_url"
-                        value={formData.vr_url}
-                        onChange={handleInputChange}
-                        className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold placeholder:text-gray-300 outline-none transition-all shadow-sm font-sans"
-                        placeholder="https://vr-gallery.link/..."
-                    />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">판매 가격 (₩)</label>
-                        <input type="text" name="price" value={formData.price} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-black outline-none transition-all shadow-sm" placeholder="0" />
-                    </div>
-                    <div className="space-y-3">
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">월 렌탈료 (₩)</label>
-                        <input type="text" name="rental_price" value={formData.rental_price} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-blue-600 font-black outline-none transition-all shadow-sm" placeholder="0" />
-                    </div>
                 </div>
 
                 <button

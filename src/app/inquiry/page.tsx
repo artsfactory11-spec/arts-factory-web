@@ -2,18 +2,29 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, CheckCircle2, User, Phone, Mail, MessageSquare, Building2, ChevronDown } from 'lucide-react';
+import { Send, CheckCircle2, User, Phone, Mail, MessageSquare, ChevronDown } from 'lucide-react';
 import { createInquiry } from '@/app/actions/inquiry';
 import { RevealSection } from '@/components/home/AnimatedHome';
 
+type InquiryType = 'purchase' | 'rental' | 'general';
+
+interface IInquiryForm {
+    name: string;
+    email: string;
+    phone: string;
+    organization: string;
+    type: InquiryType;
+    message: string;
+}
+
 export default function InquiryPage() {
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<IInquiryForm>({
         name: '',
         email: '',
         phone: '',
         organization: '',
-        type: 'general' as 'purchase' | 'rental' | 'general',
+        type: 'general',
         message: ''
     });
 
@@ -113,12 +124,13 @@ export default function InquiryPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
                             {/* Name Input */}
                             <div className="group relative">
-                                <label className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="name" className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     성함 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
                                     <User className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-charcoal transition-colors" />
                                     <input
+                                        id="name"
                                         required
                                         type="text"
                                         value={formData.name}
@@ -131,12 +143,13 @@ export default function InquiryPage() {
 
                             {/* Phone Input */}
                             <div className="group relative">
-                                <label className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="phone" className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     연락처 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
                                     <Phone className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-charcoal transition-colors" />
                                     <input
+                                        id="phone"
                                         required
                                         type="tel"
                                         value={formData.phone}
@@ -149,12 +162,13 @@ export default function InquiryPage() {
 
                             {/* Email Input */}
                             <div className="group relative">
-                                <label className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="email" className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     이메일 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
                                     <Mail className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-charcoal transition-colors" />
                                     <input
+                                        id="email"
                                         required
                                         type="email"
                                         value={formData.email}
@@ -167,14 +181,16 @@ export default function InquiryPage() {
 
                             {/* Inquiry Type Select */}
                             <div className="group relative">
-                                <label className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="type" className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     문의 유형 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
                                     <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 pointer-events-none" />
                                     <select
+                                        id="type"
+                                        title="문의 유형 선택"
                                         value={formData.type}
-                                        onChange={e => setFormData({ ...formData, type: e.target.value as any })}
+                                        onChange={e => setFormData({ ...formData, type: e.target.value as InquiryType })}
                                         className="w-full bg-transparent border-b border-gray-100 py-4 pr-8 text-xl font-serif focus:outline-none focus:border-charcoal transition-all appearance-none cursor-pointer"
                                     >
                                         <option value="general">일반 문의</option>
@@ -187,12 +203,13 @@ export default function InquiryPage() {
 
                         {/* Message Textarea */}
                         <div className="group relative">
-                            <label className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                            <label htmlFor="message" className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                 상세 내용
                             </label>
                             <div className="relative">
                                 <MessageSquare className="absolute left-0 top-6 w-4 h-4 text-gray-300 group-focus-within:text-charcoal transition-colors" />
                                 <textarea
+                                    id="message"
                                     rows={5}
                                     value={formData.message}
                                     onChange={e => setFormData({ ...formData, message: e.target.value })}

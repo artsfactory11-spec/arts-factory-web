@@ -14,12 +14,36 @@ import {
     Star,
     Loader2
 } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { toggleArtistSpotlight, updatePartnerStatus, deleteArtist } from '@/app/actions/admin';
 import { Check, X, Trash2 } from 'lucide-react';
 
+export interface IArtist {
+    _id: string;
+    name: string;
+    email?: string;
+    phone?: string;
+    artist_specialty?: string;
+    status?: 'approved' | 'rejected' | 'pending';
+    role?: string;
+    avatar_url?: string;
+    signature_url?: string;
+    isSpotlight?: boolean;
+    activity_region?: string;
+    activity_material?: string;
+    activity_exhibitions?: string;
+    artist_bio?: string;
+    instagram_url?: string;
+    youtube_url?: string;
+    blog_url?: string;
+    tiktok_url?: string;
+    createdAt: string | Date;
+}
+
 interface AdminArtistListViewProps {
-    users: any[];
-    onEdit?: (artist: any) => void;
+    users: IArtist[];
+    onEdit?: (artist: IArtist) => void;
 }
 
 const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListViewProps) => {
@@ -53,7 +77,7 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
         }
     };
 
-    const handleDelete = async (user: any) => {
+    const handleDelete = async (user: IArtist) => {
         if (!confirm(`'${user.name}' 작가를 정말로 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) return;
 
         setLoadingId(user._id);
@@ -113,9 +137,9 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
 
                         <div className="flex items-start justify-between mb-8">
                             <div className="flex items-center gap-4 cursor-pointer" onClick={() => onEdit && onEdit(user)}>
-                                <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 flex-shrink-0">
+                                <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 flex-shrink-0 relative">
                                     {user.avatar_url ? (
-                                        <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
+                                        <Image src={user.avatar_url} alt={`${user.name} 작가 프로필`} fill className="object-cover" />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-gray-300">
                                             <UserIcon className="w-8 h-8" />
@@ -216,13 +240,13 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
                         <div className="flex items-center justify-between">
                             <div className="flex gap-2">
                                 {user.instagram_url && (
-                                    <a href={user.instagram_url} target="_blank" className="p-2 bg-pink-50 text-pink-500 rounded-lg hover:bg-pink-500 hover:text-white transition-all">
+                                    <a href={user.instagram_url} target="_blank" rel="noopener noreferrer" className="p-2 bg-pink-50 text-pink-500 rounded-lg hover:bg-pink-500 hover:text-white transition-all" title="인스타그램 방문">
                                         <Instagram className="w-4 h-4" />
                                     </a>
                                 )}
-                                <button className="p-2 bg-gray-50 text-gray-400 rounded-lg hover:bg-black hover:text-white transition-all">
+                                <Link href={`/artists/${user._id}`} target="_blank" className="p-2 bg-gray-50 text-gray-400 rounded-lg hover:bg-black hover:text-white transition-all" title="작가 아카이브 페이지 방문">
                                     <ExternalLink className="w-4 h-4" />
-                                </button>
+                                </Link>
                             </div>
                             <div className="flex items-center gap-2 text-[10px] font-black text-gray-300 uppercase tracking-widest leading-none">
                                 <Calendar className="w-3.5 h-3.5" />

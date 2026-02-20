@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getSettings } from '@/app/actions/settings';
-import { Instagram, Youtube, Chrome, Mail, Phone, MapPin, CreditCard, ChevronRight } from 'lucide-react';
+import { Instagram, Youtube, Chrome, MapPin } from 'lucide-react';
 
 export default async function Footer() {
     const res = await getSettings();
@@ -75,17 +75,17 @@ export default async function Footer() {
                     <div className="flex items-center gap-10">
                         <div className="flex gap-5">
                             {s.snsLinks.instagram && (
-                                <a href={s.snsLinks.instagram} target="_blank" className="text-gray-400 hover:text-accent transition-colors">
+                                <a href={s.snsLinks.instagram} target="_blank" rel="noopener noreferrer" title="인스타그램" className="text-gray-400 hover:text-accent transition-colors">
                                     <Instagram className="w-4 h-4" />
                                 </a>
                             )}
                             {s.snsLinks.blog && (
-                                <a href={s.snsLinks.blog} target="_blank" className="text-gray-400 hover:text-accent transition-colors">
+                                <a href={s.snsLinks.blog} target="_blank" rel="noopener noreferrer" title="네이버 블로그" className="text-gray-400 hover:text-accent transition-colors">
                                     <Chrome className="w-4 h-4" />
                                 </a>
                             )}
                             {s.snsLinks.youtube && (
-                                <a href={s.snsLinks.youtube} target="_blank" className="text-gray-400 hover:text-accent transition-colors">
+                                <a href={s.snsLinks.youtube} target="_blank" rel="noopener noreferrer" title="유튜브" className="text-gray-400 hover:text-accent transition-colors">
                                     <Youtube className="w-4 h-4" />
                                 </a>
                             )}

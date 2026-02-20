@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Link from 'next/link';
 import { Heart, BarChart2 } from 'lucide-react';
@@ -102,6 +102,7 @@ export default function GalleryItem({ artwork }: GalleryItemProps) {
                         {/* 찜하기 버튼 */}
                         <button
                             onClick={handleWishToggle}
+                            title={isWished ? "찜 해제" : "찜하기"}
                             className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 ${isWished
                                 ? 'bg-accent text-white'
                                 : 'bg-white/40 text-white hover:bg-white/60'
@@ -113,6 +114,7 @@ export default function GalleryItem({ artwork }: GalleryItemProps) {
                         {/* 비교하기 버튼 */}
                         <button
                             onClick={handleCompareToggle}
+                            title={isCompared ? "비교 목록에서 제거" : "비교 목록에 추가"}
                             className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 ${isCompared
                                 ? 'bg-black text-white'
                                 : 'bg-white/40 text-white hover:bg-white/60'

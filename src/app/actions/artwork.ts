@@ -10,9 +10,14 @@ export async function createArtwork(data: {
     description: string;
     artist_id: string;
     category: string;
+    style?: string;
+    subject?: string;
     season?: string;
     space?: string;
     size?: string;
+    width?: number;
+    height?: number;
+    ho?: number;
     year?: string;
     material?: string;
     price: number;
@@ -43,6 +48,9 @@ export async function createArtwork(data: {
 
 export interface FilterParams {
     category?: string;
+    style?: string;
+    subject?: string;
+    space?: string;
     minPrice?: number;
     maxPrice?: number;
     status?: string | string[];

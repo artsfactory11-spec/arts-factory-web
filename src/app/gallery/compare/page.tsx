@@ -3,7 +3,7 @@
 import React from 'react';
 import { useCompare } from '@/context/CompareContext';
 import { motion } from 'framer-motion';
-import { ChevronLeft, X, ShoppingCart, Heart } from 'lucide-react';
+import { ChevronLeft, X, Heart } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -52,7 +52,11 @@ export default function ComparePage() {
                 </div>
 
                 {/* Compare Grid */}
-                <div className={`grid gap-12 items-start`} style={{ gridTemplateColumns: `repeat(${compareList.length}, minmax(0, 1fr))` }}>
+                <div className={`grid gap-12 items-start ${compareList.length === 1 ? 'grid-cols-1' :
+                        compareList.length === 2 ? 'grid-cols-2' :
+                            compareList.length === 3 ? 'grid-cols-3' :
+                                'grid-cols-4'
+                    }`}>
                     {compareList.map((art) => (
                         <motion.div
                             key={art._id}
@@ -70,6 +74,8 @@ export default function ComparePage() {
                                 />
                                 <button
                                     onClick={() => removeFromCompare(art._id)}
+                                    title="비교 목록에서 제거"
+                                    aria-label="비교 목록에서 제거"
                                     className="absolute top-6 right-6 w-10 h-10 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-black hover:bg-black hover:text-white transition-all shadow-xl"
                                 >
                                     <X size={16} />

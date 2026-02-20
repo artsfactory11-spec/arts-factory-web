@@ -14,6 +14,8 @@ import AdminMagazineEditorView from './views/AdminMagazineEditorView';
 import AdminInquiryListView from './views/AdminInquiryListView';
 import OrderManagementView from './views/OrderManagementView';
 import SubscriptionManagementView from './views/SubscriptionManagementView';
+import AdminNoticeListView from './views/AdminNoticeListView';
+import AdminNoticeEditorView from './views/AdminNoticeEditorView';
 
 interface AdminDashboardProps {
     initialArtworks: any[];
@@ -27,6 +29,7 @@ const AdminDashboard = ({ initialArtworks, initialUsers, stats }: AdminDashboard
     const [editingMagazine, setEditingMagazine] = useState<any>(null);
     const [editingArtwork, setEditingArtwork] = useState<any>(null);
     const [editingArtist, setEditingArtist] = useState<any>(null);
+    const [editingNotice, setEditingNotice] = useState<any>(null);
 
     const renderView = () => {
         switch (currentView) {
@@ -104,6 +107,27 @@ const AdminDashboard = ({ initialArtworks, initialUsers, stats }: AdminDashboard
                 return <OrderManagementView />;
             case 'subscriptions':
                 return <SubscriptionManagementView />;
+            case 'notices':
+                return (
+                    <AdminNoticeListView
+                        onEdit={(notice) => {
+                            setEditingNotice(notice);
+                            setCurrentView('notice-edit');
+                        }}
+                        onCreate={() => {
+                            setEditingNotice(null);
+                            setCurrentView('notice-edit');
+                        }}
+                    />
+                );
+            case 'notice-edit':
+                return (
+                    <AdminNoticeEditorView
+                        initialData={editingNotice}
+                        onBack={() => setCurrentView('notices')}
+                        onSuccess={() => setCurrentView('notices')}
+                    />
+                );
             default:
                 return <StatsView stats={stats} setView={setCurrentView} />;
         }
@@ -136,7 +160,8 @@ const AdminDashboard = ({ initialArtworks, initialUsers, stats }: AdminDashboard
                             {currentView === 'artists' && 'Partner Artists'}
                             {currentView === 'settings' && 'Platform Settings'}
                             {currentView === 'inquiries' && 'B2B Inquiries'}
-                            {(currentView === 'artwork-edit' || currentView === 'magazine-edit' || currentView === 'artist-register') && 'Edit Content'}
+                            {currentView === 'notices' && 'Notice Management'}
+                            {(currentView === 'artwork-edit' || currentView === 'magazine-edit' || currentView === 'artist-register' || currentView === 'notice-edit') && 'Edit Content'}
                         </h1>
                     </div>
 

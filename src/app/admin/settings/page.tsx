@@ -3,19 +3,41 @@
 import { useState, useEffect } from 'react';
 import { getSettings, updateSettings } from '@/app/actions/settings';
 import { motion } from 'framer-motion';
-import { Save, Building2, Phone, Mail, MapPin, Landmark, Clock, Share2 } from 'lucide-react';
+import { Save, Building2, Phone, Landmark, Share2 } from 'lucide-react';
 import Link from 'next/link';
+
+interface ISettings {
+    siteName: string;
+    companyName: string;
+    representative: string;
+    businessNumber: string;
+    mailOrderNumber: string;
+    address: string;
+    phone: string;
+    fax: string;
+    email: string;
+    bankName: string;
+    accountNumber: string;
+    accountHolder: string;
+    operationHours: string;
+    snsLinks: {
+        instagram: string;
+        blog: string;
+        youtube: string;
+        kakaotalk: string;
+    };
+}
 
 export default function AdminSettingsPage() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    const [settings, setSettings] = useState<any>(null);
+    const [settings, setSettings] = useState<ISettings | null>(null);
     const [message, setMessage] = useState('');
 
     useEffect(() => {
         async function loadSettings() {
             const res = await getSettings();
-            if (res.success) {
+            if (res.success && res.settings) {
                 setSettings(res.settings);
             }
             setLoading(false);
@@ -24,15 +46,16 @@ export default function AdminSettingsPage() {
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (!settings) return;
         const { name, value } = e.target;
         if (name.startsWith('snsLinks.')) {
             const snsKey = name.split('.')[1];
             setSettings({
                 ...settings,
                 snsLinks: { ...settings.snsLinks, [snsKey]: value }
-            });
+            } as ISettings);
         } else {
-            setSettings({ ...settings, [name]: value });
+            setSettings({ ...settings, [name]: value } as ISettings);
         }
     };
 
@@ -51,7 +74,7 @@ export default function AdminSettingsPage() {
         setSaving(false);
     };
 
-    if (loading) return (
+    if (loading || !settings) return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
             <span className="text-xs font-black tracking-widest text-gray-300 uppercase animate-pulse">Loading Configuration...</span>
         </div>
@@ -120,11 +143,18 @@ export default function AdminSettingsPage() {
                                 <FormInput label="Fax Number" name="fax" value={settings.fax} onChange={handleChange} />
                             </div>
                             <div className="group relative">
-                                <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block">Operation Hours (운영 시간)</label>
+                                <label
+                                    htmlFor="operationHours"
+                                    className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block"
+                                >
+                                    Operation Hours (운영 시간)
+                                </label>
                                 <textarea
+                                    id="operationHours"
                                     name="operationHours"
                                     value={settings.operationHours}
                                     onChange={handleChange}
+                                    placeholder="운영 시간을 입력하세요."
                                     rows={3}
                                     className="w-full bg-gray-50 border-none rounded-2xl p-4 text-sm font-medium focus:ring-2 focus:ring-black outline-none transition-all resize-none"
                                 />
@@ -166,17 +196,31 @@ export default function AdminSettingsPage() {
     );
 }
 
-function FormInput({ label, name, value, onChange, type = "text" }: any) {
+interface FormInputProps {
+    label: string;
+    name: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    type?: string;
+}
+
+function FormInput({ label, name, value, onChange, type = "text" }: FormInputProps) {
+    const id = `input-${name}`;
     return (
         <div className="group relative">
-            <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block transition-colors group-focus-within:text-black">
+            <label
+                htmlFor={id}
+                className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block transition-colors group-focus-within:text-black"
+            >
                 {label}
             </label>
             <input
+                id={id}
                 type={type}
                 name={name}
                 value={value || ''}
                 onChange={onChange}
+                placeholder={label}
                 className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-sm font-medium focus:ring-2 focus:ring-black outline-none transition-all"
             />
         </div>

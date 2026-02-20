@@ -2,12 +2,52 @@ import dbConnect from "@/lib/mongodb";
 import Order from "@/models/Order";
 import Subscription from "@/models/Subscription";
 import User from "@/models/User";
-import Artwork from "@/models/Artwork";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+
+interface PopulatedArtwork {
+    _id: string;
+    title: string;
+    firebase_image_url: string;
+    price: number;
+    rental_price: number;
+    artist_id?: {
+        _id: string;
+        name: string;
+    };
+}
+
+interface PopulatedSubscription {
+    _id: string;
+    status: string;
+    next_payment_due: string;
+    artwork_id?: PopulatedArtwork;
+    monthly_fee: number;
+    start_date: string;
+    end_date: string;
+}
+
+interface PopulatedOrder {
+    _id: string;
+    status: string;
+    items: {
+        artwork_id?: PopulatedArtwork;
+    }[];
+    total_amount: number;
+    createdAt: string;
+}
+
+interface PopulatedUser {
+    _id: string;
+    name: string;
+    email: string;
+    role: string;
+    status: string;
+    wishlist: PopulatedArtwork[];
+}
 
 async function getMyData() {
     await dbConnect();
@@ -18,17 +58,17 @@ async function getMyData() {
         .populate({
             path: 'wishlist',
             populate: { path: 'artist_id', select: 'name' }
-        });
+        }) as unknown as PopulatedUser;
 
     if (!user) return null;
 
     const orders = await Order.find({ user_id: user._id })
         .populate('items.artwork_id')
-        .sort({ createdAt: -1 });
+        .sort({ createdAt: -1 }) as unknown as PopulatedOrder[];
 
     const subscriptions = await Subscription.find({ user_id: user._id })
         .populate('artwork_id')
-        .sort({ createdAt: -1 });
+        .sort({ createdAt: -1 }) as unknown as PopulatedSubscription[];
 
     return { user, orders, subscriptions };
 }
@@ -40,7 +80,11 @@ export default async function MyPage() {
         redirect('/login'); // Redirect to general login page
     }
 
-    const { user, orders, subscriptions } = data;
+    const { user, orders, subscriptions } = data as {
+        user: PopulatedUser;
+        orders: PopulatedOrder[];
+        subscriptions: PopulatedSubscription[];
+    };
 
     return (
         <main className="min-h-screen bg-white pt-32 pb-20 px-6 lg:px-12">
@@ -66,7 +110,7 @@ export default async function MyPage() {
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {subscriptions.map((sub: any) => (
+                            {subscriptions.map((sub: PopulatedSubscription) => (
                                 <div key={sub._id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                                     <div className="p-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/50">
                                         <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded ${sub.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-500'
@@ -104,7 +148,7 @@ export default async function MyPage() {
                                 주문 내역이 없습니다.
                             </div>
                         ) : (
-                            orders.map((order: any) => (
+                            orders.map((order: PopulatedOrder) => (
                                 <div key={order._id} className="bg-white border border-gray-100 rounded-2xl p-6 flex flex-col lg:flex-row justify-between lg:items-center gap-6">
                                     <div className="space-y-1">
                                         <div className="flex items-center gap-3 mb-2">
@@ -138,20 +182,31 @@ export default async function MyPage() {
 
                 {/* Wishlist */}
                 <section>
-                    <h2 className="text-2xl font-serif italic mb-8">위시리스트</h2>
+                    <div className="flex justify-between items-center mb-8">
+                        <h2 className="text-2xl font-serif italic">위시리스트</h2>
+                        {user.wishlist.length > 0 && (
+                            <Link
+                                href="/gallery/wishlist"
+                                className="text-xs font-bold text-gray-400 hover:text-accent border-b border-gray-200 pb-1 uppercase tracking-widest transition-colors"
+                            >
+                                전체보기 및 관리
+                            </Link>
+                        )}
+                    </div>
                     {user.wishlist.length === 0 ? (
                         <div className="bg-gray-50 rounded-2xl p-12 text-center text-gray-400">
                             위시리스트가 비어있습니다.
                         </div>
                     ) : (
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                            {user.wishlist.map((art: any) => (
+                            {user.wishlist.map((art: PopulatedArtwork) => (
                                 <Link href={`/artwork/${art._id}`} key={art._id} className="group block">
-                                    <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100 mb-4">
-                                        <img
+                                    <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100 mb-4 relative">
+                                        <Image
                                             src={art.firebase_image_url}
                                             alt={art.title}
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            fill
+                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
                                     </div>
                                     <h3 className="font-serif italic text-lg">{art.title}</h3>

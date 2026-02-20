@@ -14,11 +14,12 @@ import {
     Layers,
     UserPlus,
     Newspaper,
-    MessageSquare
+    MessageSquare,
+    Bell
 } from 'lucide-react';
 import Link from 'next/link';
 
-export type AdminViewType = 'home' | 'artworks' | 'artwork-edit' | 'upload' | 'bulk-upload' | 'artists' | 'artist-register' | 'artist-edit' | 'settings' | 'magazine' | 'magazine-edit' | 'inquiries' | 'orders' | 'subscriptions';
+export type AdminViewType = 'home' | 'artworks' | 'artwork-edit' | 'upload' | 'bulk-upload' | 'artists' | 'artist-register' | 'artist-edit' | 'settings' | 'magazine' | 'magazine-edit' | 'inquiries' | 'orders' | 'subscriptions' | 'notices' | 'notice-edit';
 
 interface SidebarItemProps {
     icon: React.ComponentType<{ className?: string }>;
@@ -75,6 +76,7 @@ const AdminSidebar = ({ currentView, setView, isCollapsed, setIsCollapsed, pendi
         { id: 'upload', label: '작품 대리 등록', icon: PlusCircle },
         { id: 'bulk-upload', label: '작품 대량 업로드', icon: Layers },
         { id: 'magazine', label: '매거진 관리', icon: Newspaper },
+        { id: 'notices', label: '공지사항 관리', icon: Bell },
         { id: 'artists', label: '작가(파트너) 관리', icon: Users, badge: pendingCounts.artists },
         { id: 'artist-register', label: '작가 신규 등록', icon: UserPlus },
         { id: 'settings', label: '플랫폼 설정', icon: Settings },

@@ -1,10 +1,9 @@
 import dbConnect from "@/lib/mongodb";
 import Artwork from "@/models/Artwork";
 import { Metadata, ResolvingMetadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft, X } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import InquiryButtons from "@/components/gallery/InquiryButtons";
 import ArtworkImageViewer from "@/components/gallery/ArtworkImageViewer";
 import ShareButtons from "@/components/artwork/ShareButtons";
@@ -85,62 +84,88 @@ export default async function ArtworkPage({ params }: Props) {
                         <p className="text-xl text-gray-900 font-medium tracking-widest uppercase mb-4">
                             {artwork.artist_id.name}
                         </p>
-                        <div className="flex gap-2">
-                            <span className="text-[10px] px-2 py-1 bg-gray-200 text-gray-900 font-bold uppercase tracking-tighter">
+                        <div className="flex flex-wrap gap-2">
+                            <span className="text-[10px] px-2.5 py-1 bg-black text-white font-black uppercase tracking-tighter">
                                 {artwork.category}
                             </span>
+                            {artwork.style && (
+                                <span className="text-[10px] px-2.5 py-1 border border-black/10 text-gray-900 font-bold uppercase tracking-tighter">
+                                    {artwork.style}
+                                </span>
+                            )}
+                            {artwork.subject && (
+                                <span className="text-[10px] px-2.5 py-1 border border-black/10 text-gray-900 font-bold uppercase tracking-tighter">
+                                    {artwork.subject}
+                                </span>
+                            )}
                             {artwork.space && (
-                                <span className="text-[10px] px-2 py-1 bg-gray-100 text-gray-700 font-bold uppercase tracking-tighter">
+                                <span className="text-[10px] px-2.5 py-1 bg-gray-100 text-gray-600 font-bold uppercase tracking-tighter">
                                     {artwork.space}
                                 </span>
                             )}
                         </div>
                     </div>
 
-                    <div className="space-y-10 flex-grow">
+                    <div className="space-y-12 flex-grow">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-10 gap-x-12">
+                            <div>
+                                <h2 className="text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-4 font-black">Dimensions</h2>
+                                <div className="space-y-1">
+                                    <p className="font-bold text-lg text-black">
+                                        {artwork.width && artwork.height ? `${artwork.width} × ${artwork.height} cm` : artwork.size}
+                                    </p>
+                                    {artwork.ho && (
+                                        <p className="text-[11px] text-gray-400 font-medium tracking-widest">{artwork.ho}호</p>
+                                    )}
+                                </div>
+                            </div>
+                            <div>
+                                <h2 className="text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-4 font-black">Specifications</h2>
+                                <div className="space-y-3">
+                                    {artwork.material && (
+                                        <div className="flex justify-between items-center border-b border-gray-50 pb-2">
+                                            <span className="text-[11px] text-gray-400 font-medium">Material</span>
+                                            <span className="text-xs text-black font-bold">{artwork.material}</span>
+                                        </div>
+                                    )}
+                                    {artwork.season && artwork.season !== 'All' && (
+                                        <div className="flex justify-between items-center border-b border-gray-50 pb-2">
+                                            <span className="text-[11px] text-gray-400 font-medium">Season</span>
+                                            <span className="text-xs text-black font-bold">{artwork.season}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
                         <div>
-                            <h2 className="text-[11px] uppercase tracking-[0.2em] text-gray-400 mb-4 font-medium">DESCRIPTION</h2>
-                            <p className="font-light leading-relaxed text-gray-700 whitespace-pre-wrap">
+                            <h2 className="text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-5 font-black">Description</h2>
+                            <p className="font-serif italic leading-loose text-gray-600 text-[15px] whitespace-pre-wrap max-w-lg">
                                 {artwork.description || "이 작품에 대한 상세 설명이 준비 중입니다."}
                             </p>
                         </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8 gap-x-12">
-                            {artwork.size && (
-                                <div>
-                                    <h2 className="text-[11px] uppercase tracking-[0.2em] text-gray-900 mb-2 font-bold">SIZE</h2>
-                                    <p className="font-medium text-sm text-gray-800">{artwork.size}</p>
-                                </div>
-                            )}
-                            {artwork.material && (
-                                <div>
-                                    <h2 className="text-[11px] uppercase tracking-[0.2em] text-gray-900 mb-2 font-bold">MATERIAL</h2>
-                                    <p className="font-medium text-sm text-gray-800">{artwork.material}</p>
-                                </div>
-                            )}
-                        </div>
                     </div>
 
-                    <div className="mt-16 pt-10 border-t border-gray-100">
-                        <div className="space-y-4 mb-8">
-                            <div className="flex justify-between items-baseline">
-                                <span className="text-sm text-gray-900 font-medium">판매가</span>
-                                <span className="text-2xl font-bold text-black opacity-40">₩ {artwork.price.toLocaleString()}</span>
+                    <div className="mt-20 pt-12 border-t border-gray-100">
+                        <div className="grid grid-cols-2 gap-8 mb-10">
+                            <div className="space-y-1">
+                                <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest block mb-2">Estimated Value</span>
+                                <span className="text-2xl font-bold text-black opacity-30 tracking-tighter">₩ {artwork.price.toLocaleString()}</span>
                             </div>
-                            <div className="flex justify-between items-baseline">
-                                <span className="text-sm text-gray-900 font-bold">월 대여료</span>
-                                <span className="text-2xl font-black text-black">₩ {artwork.rental_price.toLocaleString()}</span>
+                            <div className="space-y-1 border-l border-gray-100 pl-8">
+                                <span className="text-[10px] text-accent font-black uppercase tracking-widest block mb-2">Monthly Rental</span>
+                                <span className="text-3xl font-black text-black tracking-tighter">₩ {artwork.rental_price.toLocaleString()}</span>
                             </div>
                         </div>
 
                         {/* 렌탈 상태 표시 */}
                         {artwork.rental_status && artwork.rental_status !== 'available' && (
-                            <div className={`mb-6 p-4 rounded-xl text-center font-bold text-sm tracking-widest uppercase ${artwork.rental_status === 'rented' ? 'bg-red-50 text-red-600' :
-                                    artwork.rental_status === 'processing' ? 'bg-yellow-50 text-yellow-600' :
-                                        'bg-gray-100 text-gray-500'
+                            <div className={`mb-8 p-5 rounded-2xl text-center font-black text-[11px] tracking-[0.2em] uppercase shadow-sm ${artwork.rental_status === 'rented' ? 'bg-red-50 text-red-600' :
+                                artwork.rental_status === 'processing' ? 'bg-yellow-50 text-yellow-600' :
+                                    'bg-gray-100 text-gray-500'
                                 }`}>
-                                {artwork.rental_status === 'rented' ? '현재 대여중인 작품입니다' :
-                                    artwork.rental_status === 'processing' ? '현재 대여/구매 진행중입니다' : '구매/대여가 불가능한 작품입니다'}
+                                {artwork.rental_status === 'rented' ? 'Sold Out / Rented' :
+                                    artwork.rental_status === 'processing' ? 'In Negotiation' : 'Currently Unavailable'}
                             </div>
                         )}
 

@@ -54,7 +54,10 @@ const PartnerDashboard = ({ partnerName, partnerId, stats }: PartnerDashboardPro
                                 <p className="text-gray-500 mt-1">오늘의 활동 현황을 확인해보세요.</p>
                             </div>
                             <div className="flex gap-3">
-                                <button className="p-2.5 bg-white border border-gray-100 rounded-xl text-gray-400 hover:text-black transition-colors relative">
+                                <button
+                                    title="알림 확인"
+                                    className="p-2.5 bg-white border border-gray-100 rounded-xl text-gray-400 hover:text-black transition-colors relative"
+                                >
                                     <Bell className="w-5 h-5" />
                                     <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
                                 </button>

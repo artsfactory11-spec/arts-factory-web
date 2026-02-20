@@ -6,7 +6,11 @@ import { X } from 'lucide-react';
 import VRViewer from './VRViewer';
 
 interface VRSectionProps {
-    artwork: any;
+    artwork: {
+        firebase_image_url: string;
+        title: string;
+        size: string;
+    };
 }
 
 export default function VRSection({ artwork }: VRSectionProps) {
@@ -43,6 +47,7 @@ export default function VRSection({ artwork }: VRSectionProps) {
                     <button
                         onClick={() => setShowVR(false)}
                         className="absolute top-8 right-8 z-20 w-10 h-10 bg-black/10 hover:bg-black/20 text-black rounded-full flex items-center justify-center backdrop-blur-md transition-colors"
+                        title="닫기"
                     >
                         <X size={18} />
                     </button>

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Maximize2, Minimize2, X } from 'lucide-react';
+import { Maximize2, X } from 'lucide-react';
 
 interface ArtworkImageViewerProps {
     src: string;
@@ -89,6 +89,7 @@ export default function ArtworkImageViewer({ src, alt }: ArtworkImageViewerProps
                                     e.stopPropagation();
                                     setIsFullscreen(false);
                                 }}
+                                title="닫기"
                             >
                                 <X className="w-6 h-6" />
                             </button>

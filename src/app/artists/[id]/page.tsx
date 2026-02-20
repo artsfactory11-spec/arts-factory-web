@@ -5,7 +5,7 @@ import { getArtworks } from "@/app/actions/gallery";
 import Link from "next/link";
 import NextImage from "next/image";
 import GalleryItem from "@/components/gallery/GalleryItem";
-import { ChevronLeft, Instagram, Youtube, Globe, MapPin, Palette, History } from "lucide-react";
+import { ChevronLeft, Instagram, MapPin, Palette, History } from "lucide-react";
 import { Metadata, ResolvingMetadata } from "next";
 import ArtistInquiryButton from "@/components/artist/ArtistInquiryButton";
 
@@ -36,6 +36,27 @@ export async function generateMetadata(
     };
 }
 
+interface IArtist {
+    name: string;
+    artist_specialty?: string;
+    artist_bio?: string;
+    avatar_url?: string;
+    signature_url?: string;
+    activity_region?: string;
+    activity_material?: string;
+    activity_exhibitions?: string;
+}
+
+interface IArtwork {
+    _id: string;
+    title: string;
+    category: string;
+    price: number;
+    rental_price?: number;
+    rental_status?: 'available' | 'processing' | 'rented' | 'unavailable';
+    firebase_image_url: string;
+}
+
 export default async function ArtistPortfolioPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const artistRes = await getArtistProfileById(id);
@@ -52,8 +73,8 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
         );
     }
 
-    const { artist } = artistRes;
-    const artworks = artworkRes.success ? artworkRes.artworks : [];
+    const artist: IArtist = artistRes.artist;
+    const artworks: IArtwork[] = artworkRes.success ? artworkRes.artworks : [];
 
     return (
         <main className="min-h-screen bg-white">
@@ -146,6 +167,7 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
                             <a
                                 href="https://instagram.com/artsfactory_official"
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 className="px-8 py-5 bg-white border border-gray-100 text-black rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-center hover:bg-gray-50 transition-all flex items-center justify-center gap-3"
                             >
                                 <Instagram size={14} /> Arts Factory Official
@@ -164,7 +186,7 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16">
-                        {artworks.map((art: any) => (
+                        {artworks.map((art: IArtwork) => (
                             <GalleryItem key={art._id} artwork={{
                                 ...art,
                                 artist_name: artist.name

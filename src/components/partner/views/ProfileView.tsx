@@ -161,12 +161,16 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                     <Camera className="w-6 h-6 text-white" />
                                 </div>
                             </div>
-                            <button className="absolute bottom-1 right-1 p-2 bg-black text-white rounded-full border-2 border-white shadow-lg">
+                            <button
+                                title="프로필 이미지 변경"
+                                className="absolute bottom-1 right-1 p-2 bg-black text-white rounded-full border-2 border-white shadow-lg"
+                            >
                                 <Plus className="w-4 h-4" />
                             </button>
                             <input
                                 type="file"
                                 ref={avatarInputRef}
+                                title="프로필 이미지 업로드"
                                 className="hidden"
                                 accept="image/*"
                                 onChange={(e) => handleImageUpload(e, 'avatar')}
@@ -194,6 +198,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                 <input
                                     type="file"
                                     ref={signatureInputRef}
+                                    title="작가 시그니처 업로드"
                                     className="hidden"
                                     accept="image/*"
                                     onChange={(e) => handleImageUpload(e, 'signature')}
@@ -206,9 +211,10 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                         <h4 className="font-bold text-gray-900 mb-4 px-2 tracking-tight">작가 활동 요약</h4>
                         <div className="space-y-4">
                             <div className="space-y-1.5 px-2">
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">누적 전시 기록</label>
+                                <label htmlFor="activity-exhibitions" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">누적 전시 기록</label>
                                 <input
                                     type="text"
+                                    id="activity-exhibitions"
                                     name="activity.exhibitions"
                                     value={profile.activity.exhibitions}
                                     onChange={handleInputChange}
@@ -216,9 +222,10 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                 />
                             </div>
                             <div className="space-y-1.5 px-2">
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">활동 지역</label>
+                                <label htmlFor="activity-region" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">활동 지역</label>
                                 <input
                                     type="text"
+                                    id="activity-region"
                                     name="activity.region"
                                     value={profile.activity.region}
                                     onChange={handleInputChange}
@@ -226,9 +233,10 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                 />
                             </div>
                             <div className="space-y-1.5 px-2">
-                                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">주요 매체/재료</label>
+                                <label htmlFor="activity-material" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">주요 매체/재료</label>
                                 <input
                                     type="text"
+                                    id="activity-material"
                                     name="activity.material"
                                     value={profile.activity.material}
                                     onChange={handleInputChange}
@@ -258,9 +266,10 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="space-y-2.5">
-                                <label className="text-sm font-bold text-gray-900 ml-1"> 활동명 (작가명)</label>
+                                <label htmlFor="profile-name" className="text-sm font-bold text-gray-900 ml-1"> 활동명 (작가명)</label>
                                 <input
                                     type="text"
+                                    id="profile-name"
                                     name="name"
                                     value={profile.name}
                                     onChange={handleInputChange}
@@ -268,9 +277,10 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                 />
                             </div>
                             <div className="space-y-2.5">
-                                <label className="text-sm font-bold text-gray-900 ml-1">전문 분야</label>
+                                <label htmlFor="profile-specialty" className="text-sm font-bold text-gray-900 ml-1">전문 분야</label>
                                 <input
                                     type="text"
+                                    id="profile-specialty"
                                     name="specialty"
                                     value={profile.specialty}
                                     onChange={handleInputChange}
@@ -279,8 +289,9 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                             </div>
 
                             <div className="md:col-span-2 space-y-2.5">
-                                <label className="text-sm font-bold text-gray-900 ml-1">작가 소개 (Bio)</label>
+                                <label htmlFor="profile-bio" className="text-sm font-bold text-gray-900 ml-1">작가 소개 (Bio)</label>
                                 <textarea
+                                    id="profile-bio"
                                     name="bio"
                                     rows={4}
                                     value={profile.bio}
@@ -290,11 +301,12 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                             </div>
 
                             <div className="space-y-2.5">
-                                <label className="text-sm font-bold text-gray-900 ml-1">이메일 주소</label>
+                                <label htmlFor="profile-email" className="text-sm font-bold text-gray-900 ml-1">이메일 주소</label>
                                 <div className="relative">
                                     <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                     <input
                                         type="email"
+                                        id="profile-email"
                                         name="email"
                                         value={profile.email}
                                         onChange={handleInputChange}
@@ -304,11 +316,12 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                             </div>
 
                             <div className="space-y-2.5">
-                                <label className="text-sm font-bold text-gray-900 ml-1">연락처</label>
+                                <label htmlFor="profile-phone" className="text-sm font-bold text-gray-900 ml-1">연락처</label>
                                 <div className="relative">
                                     <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                     <input
                                         type="text"
+                                        id="profile-phone"
                                         name="phone"
                                         value={profile.phone}
                                         onChange={handleInputChange}

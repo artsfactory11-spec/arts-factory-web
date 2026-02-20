@@ -6,6 +6,8 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { createArtwork } from '@/app/actions/artwork';
 import { Upload, Image as ImageIcon, Loader2, CheckCircle2, ChevronDown } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function UploadForm({ artistId }: { artistId: string }) {
     const [file, setFile] = useState<File | null>(null);
@@ -19,9 +21,14 @@ export default function UploadForm({ artistId }: { artistId: string }) {
         title: '',
         description: '',
         category: '회화',
+        style: '추상',
+        subject: '풍경',
         season: '사계절',
-        space: '거실',
+        space: '거실용',
         size: '',
+        width: '',
+        height: '',
+        ho: '',
         year: '',
         material: '',
         price: '',
@@ -57,7 +64,7 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                 const previewBlob = await imageCompression(selectedFile, previewOptions);
                 const objectUrl = URL.createObjectURL(previewBlob);
                 setPreview(objectUrl);
-            } catch (error) {
+            } catch {
                 // 2. 압축 실패 시(TIFF 등) 원본 주소로 시도하여 브라우저 자체 렌더링에 의존
                 console.warn("Preview compression failed, falling back to raw file URL for:", selectedFile.name);
                 const rawObjectUrl = URL.createObjectURL(selectedFile);
@@ -123,11 +130,14 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                     // 4. MongoDB에 저장 (Server Action)
                     const result = await createArtwork({
                         ...formData,
-                        artist_id: artistId, // 실제 아티스트 ID 사용
+                        artist_id: artistId,
                         firebase_image_url: downloadURL,
                         firebase_storage_path: storagePath,
                         price: Number(String(formData.price || '0').split(',').join('')),
                         rental_price: Number(String(formData.rental_price || '0').split(',').join('')),
+                        width: Number(formData.width) || 0,
+                        height: Number(formData.height) || 0,
+                        ho: Number(formData.ho) || 0,
                     });
 
 
@@ -139,9 +149,14 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                             title: '',
                             description: '',
                             category: '회화',
+                            style: '추상',
+                            subject: '풍경',
                             season: '사계절',
-                            space: '거실',
+                            space: '거실용',
                             size: '',
+                            width: '',
+                            height: '',
+                            ho: '',
                             year: '',
                             material: '',
                             price: '',
@@ -168,6 +183,8 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                 {/* 파일 업로드 영역 - 미리보기 분할 레이아웃 */}
                 <div className="relative border-2 border-dashed border-gray-300 rounded-xl p-6 min-h-[220px] transition-all bg-gray-50/80 group flex items-center justify-center">
                     <input
+                        id="artwork-file-input"
+                        title="작품 파일 선택"
                         type="file"
                         onChange={handleFileChange}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
@@ -205,11 +222,13 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                                     </div>
                                 ) : preview ? (
                                     <>
-                                        <img
+                                        <Image
                                             src={preview}
                                             alt="Preview"
-                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                            fill
+                                            className="object-cover transition-transform duration-500 group-hover:scale-105"
                                             onError={() => setPreview(null)}
+                                            unoptimized
                                         />
                                         <div className="absolute inset-0 bg-black/5 pointer-events-none" />
                                         <div className="absolute bottom-1 right-1 bg-black/60 backdrop-blur-sm text-[8px] text-white px-1.5 py-0.5 rounded italic">
@@ -240,20 +259,31 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                 </div>
 
                 {/* 진행 바 */}
-                {uploading && (
-                    <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden shadow-inner -mt-4">
-                        <div
-                            className="bg-black h-full transition-all duration-300 ease-out"
-                            style={{ width: `${progress}%` }}
-                        />
-                    </div>
-                )}
+                <AnimatePresence>
+                    {uploading && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 8 }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="w-full bg-gray-100 rounded-full overflow-hidden shadow-inner -mt-4"
+                        >
+                            <motion.div
+                                className="bg-black h-full"
+                                initial={{ width: 0 }}
+                                animate={{ width: `${progress}%` }}
+                                transition={{ type: "spring", damping: 20, stiffness: 100 }}
+                            />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-6">
+                    {/* 작품 기본 정보 */}
                     <div className="space-y-2.5">
-                        <label className="text-sm font-bold text-gray-900 ml-1">작품명</label>
+                        <label htmlFor="artwork-title" className="text-sm font-bold text-gray-900 ml-1">작품명</label>
                         <input
                             type="text"
+                            id="artwork-title"
                             name="title"
                             value={formData.title}
                             onChange={handleInputChange}
@@ -263,136 +293,117 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                         />
                     </div>
 
-                    <div className="space-y-2.5">
-                        <label className="text-sm font-bold text-gray-900 ml-1">카테고리</label>
-                        <div className="relative">
-                            <select
-                                name="category"
-                                value={formData.category}
-                                onChange={handleInputChange}
-                                className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium outline-none transition-all bg-white appearance-none cursor-pointer pr-10"
-                            >
-                                <option>회화</option>
-                                <option>사진</option>
-                                <option>조각</option>
-                                <option>디지털 아트</option>
-                                <option>기타</option>
-                            </select>
-                            <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                    {/* 4단계 세부 카테고리 분류 */}
+                    <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100 space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2.5">
+                                <label htmlFor="artwork-category" className="text-sm font-bold text-gray-900 ml-1">1. 장르 및 매체 (Medium)</label>
+                                <div className="relative">
+                                    <select
+                                        id="artwork-category"
+                                        name="category"
+                                        value={formData.category}
+                                        onChange={handleInputChange}
+                                        className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium outline-none transition-all bg-white appearance-none cursor-pointer pr-10"
+                                    >
+                                        <option>회화</option><option>판화 및 에디션</option><option>드로잉 및 스케치</option>
+                                        <option>사진</option><option>조각 및 설치</option><option>디지털 아트</option><option>기타</option>
+                                    </select>
+                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                                </div>
+                            </div>
+                            <div className="space-y-2.5">
+                                <label htmlFor="artwork-style" className="text-sm font-bold text-gray-900 ml-1">2. 작품 스타일 및 기법 (Style)</label>
+                                <div className="relative">
+                                    <select
+                                        id="artwork-style"
+                                        name="style"
+                                        value={formData.style}
+                                        onChange={handleInputChange}
+                                        className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium outline-none transition-all bg-white appearance-none cursor-pointer pr-10"
+                                    >
+                                        <option>추상</option><option>구상/재현</option><option>팝 아트</option>
+                                        <option>미니멀리즘</option><option>인상주의</option><option>초현실주의</option><option>기타</option>
+                                    </select>
+                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                                </div>
+                            </div>
+                            <div className="space-y-2.5">
+                                <label htmlFor="artwork-subject" className="text-sm font-bold text-gray-900 ml-1">3. 소재 및 주제 (Subject)</label>
+                                <div className="relative">
+                                    <select
+                                        id="artwork-subject"
+                                        name="subject"
+                                        value={formData.subject}
+                                        onChange={handleInputChange}
+                                        className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium outline-none transition-all bg-white appearance-none cursor-pointer pr-10"
+                                    >
+                                        <option>풍경</option><option>인물</option><option>정물</option>
+                                        <option>동물</option><option>기하학</option><option>일상/사회</option><option>기타</option>
+                                    </select>
+                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                                </div>
+                            </div>
+                            <div className="space-y-2.5">
+                                <label htmlFor="artwork-space" className="text-sm font-bold text-gray-900 ml-1">4. 공간 및 인테리어 목적 (Space)</label>
+                                <div className="relative">
+                                    <select
+                                        id="artwork-space"
+                                        name="space"
+                                        value={formData.space}
+                                        onChange={handleInputChange}
+                                        className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium outline-none transition-all bg-white appearance-none cursor-pointer pr-10"
+                                    >
+                                        <option>거실용</option><option>침실용</option><option>아이방</option><option>사무실/카페</option>
+                                    </select>
+                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2.5">
-                        <label className="text-sm font-bold text-gray-900 ml-1">추천 계절</label>
-                        <div className="relative">
-                            <select
-                                name="season"
-                                value={formData.season}
-                                onChange={handleInputChange}
-                                className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium outline-none transition-all bg-white appearance-none cursor-pointer pr-10"
-                            >
-                                <option>사계절</option>
-                                <option>봄</option>
-                                <option>여름</option>
-                                <option>가을</option>
-                                <option>겨울</option>
-                            </select>
-                            <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                    {/* 규격 정보 */}
+                    <div className="bg-blue-50/20 p-6 rounded-2xl border border-blue-100/50 space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="space-y-2.5">
+                                <label htmlFor="artwork-width" className="text-sm font-bold text-gray-900 ml-1">가로 (cm)</label>
+                                <input type="number" id="artwork-width" name="width" value={formData.width} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all bg-white" placeholder="예: 53" />
+                            </div>
+                            <div className="space-y-2.5">
+                                <label htmlFor="artwork-height" className="text-sm font-bold text-gray-900 ml-1">세로 (cm)</label>
+                                <input type="number" id="artwork-height" name="height" value={formData.height} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all bg-white" placeholder="예: 45.5" />
+                            </div>
+                            <div className="space-y-2.5">
+                                <label htmlFor="artwork-ho" className="text-sm font-bold text-gray-900 ml-1">호수 (호)</label>
+                                <input type="number" id="artwork-ho" name="ho" value={formData.ho} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all bg-white" placeholder="예: 10" />
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2.5">
+                                <label htmlFor="artwork-year" className="text-sm font-bold text-gray-900 ml-1">제작연도</label>
+                                <input type="text" id="artwork-year" name="year" value={formData.year} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all bg-white" placeholder="예: 2023" />
+                            </div>
+                            <div className="space-y-2.5">
+                                <label htmlFor="artwork-material" className="text-sm font-bold text-gray-900 ml-1">재료</label>
+                                <input type="text" id="artwork-material" name="material" value={formData.material} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all bg-white" placeholder="예: 캔버스에 유채" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2.5">
+                            <label htmlFor="artwork-price" className="text-sm font-bold text-gray-900 ml-1">판매가 (₩)</label>
+                            <input type="text" id="artwork-price" name="price" value={formData.price} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-semibold outline-none transition-all bg-white" placeholder="0" />
+                        </div>
+                        <div className="space-y-2.5">
+                            <label htmlFor="artwork-rental-price" className="text-sm font-bold text-gray-900 ml-1">월 렌탈료 (₩)</label>
+                            <input type="text" id="artwork-rental-price" name="rental_price" value={formData.rental_price} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-semibold outline-none transition-all bg-white" placeholder="0" />
                         </div>
                     </div>
 
                     <div className="space-y-2.5">
-                        <label className="text-sm font-bold text-gray-900 ml-1">추천 공간</label>
-                        <div className="relative">
-                            <select
-                                name="space"
-                                value={formData.space}
-                                onChange={handleInputChange}
-                                className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium outline-none transition-all bg-white appearance-none cursor-pointer pr-10"
-                            >
-                                <option>거실</option>
-                                <option>침실</option>
-                                <option>서재/오피스</option>
-                                <option>주방</option>
-                                <option>현관/복도</option>
-                            </select>
-                            <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="space-y-2.5">
-                        <label className="text-sm font-bold text-gray-900 ml-1">호수/크기</label>
-                        <input
-                            type="text"
-                            name="size"
-                            value={formData.size}
-                            onChange={handleInputChange}
-                            className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all"
-                            placeholder="예: 10호"
-                        />
-                    </div>
-                    <div className="space-y-2.5">
-                        <label className="text-sm font-bold text-gray-900 ml-1">제작연도</label>
-                        <input
-                            type="text"
-                            name="year"
-                            value={formData.year}
-                            onChange={handleInputChange}
-                            className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all"
-                            placeholder="예: 2023"
-                        />
-                    </div>
-                    <div className="space-y-2.5">
-                        <label className="text-sm font-bold text-gray-900 ml-1">재료</label>
-                        <input
-                            type="text"
-                            name="material"
-                            value={formData.material}
-                            onChange={handleInputChange}
-                            className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all"
-                            placeholder="예: 캔버스에 유채"
-                        />
-                    </div>
-                </div>
-
-                <div className="space-y-2.5">
-                    <label className="text-sm font-bold text-gray-900 ml-1">작품 설명</label>
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleInputChange}
-                        rows={5}
-                        className="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all resize-none"
-                        placeholder="작품에 대한 풍부한 이야기를 들려주세요 (내용이 많을수록 노출에 유리합니다)"
-                    />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2.5">
-                        <label className="text-sm font-bold text-gray-900 ml-1">판매가 (₩)</label>
-                        <input
-                            type="text"
-                            name="price"
-                            value={formData.price}
-                            onChange={handleInputChange}
-                            className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-semibold outline-none transition-all bg-white"
-                            placeholder="0"
-                        />
-                    </div>
-                    <div className="space-y-2.5">
-                        <label className="text-sm font-bold text-gray-900 ml-1">월 렌탈료 (₩)</label>
-                        <input
-                            type="text"
-                            name="rental_price"
-                            value={formData.rental_price}
-                            onChange={handleInputChange}
-                            className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-semibold outline-none transition-all bg-white"
-                            placeholder="0"
-                        />
+                        <label htmlFor="artwork-description" className="text-sm font-bold text-gray-900 ml-1">작품 설명</label>
+                        <textarea id="artwork-description" name="description" value={formData.description} onChange={handleInputChange} rows={5} className="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all resize-none" placeholder="작품에 대한 이야기를 들려주세요" />
                     </div>
                 </div>
 
@@ -419,12 +430,14 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                     )}
                 </button>
 
-                {status === 'error' && (
-                    <p className="text-red-500 text-sm text-center font-medium animate-bounce">
-                        업로드 중 오류가 발생했습니다. 네트워크를 확인하고 다시 시도해 주세요.
-                    </p>
-                )}
-            </form>
-        </div>
+                {
+                    status === 'error' && (
+                        <p className="text-red-500 text-sm text-center font-medium animate-bounce">
+                            업로드 중 오류가 발생했습니다. 네트워크를 확인하고 다시 시도해 주세요.
+                        </p>
+                    )
+                }
+            </form >
+        </div >
     );
 }

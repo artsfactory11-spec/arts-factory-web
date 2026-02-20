@@ -9,24 +9,46 @@ import {
     Search,
     Filter,
     ExternalLink,
-    MoreHorizontal,
     Loader2,
     Edit3,
     Trash2
 } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import * as XLSX from 'xlsx';
 import { updateArtworkStatus, updateArtworkRentalStatus, toggleArtworkCurated } from '@/app/actions/admin';
 import { deleteArtwork } from '@/app/actions/artwork';
 import { storage } from '@/lib/firebase';
 import { ref, deleteObject } from 'firebase/storage';
 
+interface IAdminArtwork {
+    _id: string;
+    title: string;
+    firebase_image_url: string;
+    firebase_storage_path?: string;
+    category: string;
+    artist_id?: {
+        _id: string;
+        name: string;
+    };
+    size?: string;
+    year?: string;
+    material?: string;
+    price: number;
+    rental_price: number;
+    rental_status?: 'available' | 'processing' | 'rented' | 'unavailable';
+    status: 'pending' | 'approved' | 'rejected';
+    isCurated: boolean;
+    createdAt: string | Date;
+}
+
 interface AdminArtworkListViewProps {
-    initialArtworks: any[];
-    onEdit?: (artwork: any) => void;
+    initialArtworks: IAdminArtwork[];
+    onEdit?: (artwork: IAdminArtwork) => void;
 }
 
 const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewProps) => {
-    const [artworks, setArtworks] = useState(initialArtworks);
+    const [artworks, setArtworks] = useState<IAdminArtwork[]>(initialArtworks);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all');
     const [loadingId, setLoadingId] = useState<string | null>(null);
@@ -73,7 +95,7 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
         }
     };
 
-    const handleDelete = async (artwork: any) => {
+    const handleDelete = async (artwork: IAdminArtwork) => {
         if (!confirm('정말로 이 작품을 삭제하시겠습니까? 관련 이미지 파일도 함께 삭제됩니다.')) return;
 
         setLoadingId(artwork._id);
@@ -142,8 +164,9 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                         <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                         <select
                             value={statusFilter}
-                            onChange={(e: any) => setStatusFilter(e.target.value)}
+                            onChange={(e) => setStatusFilter(e.target.value as IAdminArtwork['status'] | 'all')}
                             className="pl-12 pr-10 py-3 bg-white border border-gray-100 rounded-2xl text-sm focus:outline-none focus:border-black transition-all shadow-sm appearance-none cursor-pointer"
+                            title="작품 상태 필터"
                         >
                             <option value="all">전체 상태</option>
                             <option value="pending">승인 대기</option>
@@ -181,8 +204,8 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                 <tr key={art._id} className="hover:bg-gray-50/30 transition-colors group">
                                     <td className="px-8 py-5">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-14 h-14 rounded-xl overflow-hidden shadow-sm flex-shrink-0 bg-gray-50 border border-gray-100">
-                                                <img src={art.firebase_image_url} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                            <div className="w-14 h-14 rounded-xl overflow-hidden shadow-sm flex-shrink-0 bg-gray-50 border border-gray-100 relative">
+                                                <Image src={art.firebase_image_url} alt={art.title} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                                             </div>
                                             <div>
                                                 <p className="font-bold text-gray-900 text-sm">{art.title}</p>
@@ -206,8 +229,9 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                     <td className="px-6 py-5 text-center">
                                         <select
                                             value={art.rental_status || 'available'}
-                                            onChange={(e) => handleUpdateRentalStatus(art._id, e.target.value as any)}
+                                            onChange={(e) => handleUpdateRentalStatus(art._id, e.target.value as IAdminArtwork['rental_status'] & string)}
                                             className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-bold focus:outline-none focus:border-black cursor-pointer"
+                                            title="렌탈 상태 변경"
                                         >
                                             <option value="available">대여 가능</option>
                                             <option value="processing">대여 진행중</option>
@@ -222,6 +246,7 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                                 ? 'bg-yellow-50 text-yellow-400 border border-yellow-100'
                                                 : 'bg-gray-50 text-gray-300 border border-gray-100 hover:text-gray-500 hover:bg-gray-100'
                                                 }`}
+                                            title="큐레이션 추천 상태 변경"
                                         >
                                             <Star fill={art.isCurated ? "currentColor" : "none"} className="w-5 h-5" strokeWidth={art.isCurated ? 0 : 2} />
                                         </button>
@@ -271,9 +296,9 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                             >
                                                 {loadingId === art._id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
                                             </button>
-                                            <button className="p-2 bg-gray-50 text-gray-400 rounded-lg hover:bg-black hover:text-white transition-all shadow-sm">
+                                            <Link href={`/gallery/${art._id}`} target="_blank" className="p-2 bg-gray-50 text-gray-400 rounded-lg hover:bg-black hover:text-white transition-all shadow-sm" title="작품 상세 페이지 방문">
                                                 <ExternalLink className="w-4 h-4" />
-                                            </button>
+                                            </Link>
                                         </div>
                                     </td>
                                 </tr>

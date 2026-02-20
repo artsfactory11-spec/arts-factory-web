@@ -5,8 +5,22 @@ import { motion, AnimatePresence } from 'framer-motion';
 import GalleryItem from '@/components/gallery/GalleryItem';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+interface IArtwork {
+    _id: string;
+    title: string;
+    artist_id?: {
+        _id: string;
+        name: string;
+    };
+    firebase_image_url: string;
+    category: string;
+    price: number;
+    rental_price?: number;
+    rental_status?: 'available' | 'processing' | 'rented' | 'unavailable';
+}
+
 interface ArtworkSliderProps {
-    artworks: any[];
+    artworks: IArtwork[];
 }
 
 export default function ArtworkSlider({ artworks }: ArtworkSliderProps) {
@@ -54,7 +68,7 @@ export default function ArtworkSlider({ artworks }: ArtworkSliderProps) {
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16"
                     >
-                        {currentArtworks.map((art: any) => (
+                        {currentArtworks.map((art: IArtwork) => (
                             <GalleryItem key={art._id} artwork={{
                                 ...art,
                                 artist_name: art.artist_id?.name || '작가 미상'
@@ -68,6 +82,7 @@ export default function ArtworkSlider({ artworks }: ArtworkSliderProps) {
             <div className="flex items-center justify-center gap-6 mt-12">
                 <button
                     onClick={handlePrev}
+                    title="이전 작품 목록"
                     className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-black transition-colors"
                 >
                     <ChevronLeft className="w-5 h-5" />
@@ -78,6 +93,7 @@ export default function ArtworkSlider({ artworks }: ArtworkSliderProps) {
                         <button
                             key={idx}
                             onClick={() => setCurrentIndex(idx)}
+                            title={`${idx + 1}페이지로 이동`}
                             className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex
                                 ? 'w-8 bg-black'
                                 : 'w-1.5 bg-gray-200 hover:bg-gray-300'
@@ -88,6 +104,7 @@ export default function ArtworkSlider({ artworks }: ArtworkSliderProps) {
 
                 <button
                     onClick={handleNext}
+                    title="다음 작품 목록"
                     className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-black transition-colors"
                 >
                     <ChevronRight className="w-5 h-5" />
