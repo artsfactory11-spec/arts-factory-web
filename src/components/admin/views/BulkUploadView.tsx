@@ -198,22 +198,41 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
         const files = e.target.files;
         if (!files || items.length === 0) return;
 
-        const fileMap = new Map<string, File>();
-        Array.from(files).forEach(f => fileMap.set(f.name, f));
+        const uploadedFiles = Array.from(files);
 
         setItems(prev => prev.map(item => {
-            // 1. 정확히 일치하는 파일 찾기 (확장자 포함)
-            if (fileMap.has(item.imageFilename)) {
-                return { ...item, fileContent: fileMap.get(item.imageFilename) };
-            }
+            // 1. 전처리 함수 정의
+            const normalize = (name: string) => name.replace(/\s+/g, '').toLowerCase();
+            const getBaseName = (name: string) => {
+                const lastDot = name.lastIndexOf('.');
+                if (lastDot === -1) return name;
+                // 뒤가 2-4글자면 확장자로 추정하고 제거 (jpg, png, webp 등)
+                const ext = name.substring(lastDot + 1).toLowerCase();
+                if (ext.length >= 2 && ext.length <= 4) return name.substring(0, lastDot);
+                return name;
+            };
 
-            // 2. 확장자가 생략된 경우 처리 (파일명으로만 대조)
-            if (!item.imageFilename.includes('.')) {
-                const matchedFile = Array.from(files).find(f => {
-                    const baseName = f.name.split('.').slice(0, -1).join('.');
-                    return baseName === item.imageFilename;
-                });
-                if (matchedFile) return { ...item, fileContent: matchedFile };
+            const targetRaw = item.imageFilename || '';
+            const targetNorm = normalize(targetRaw);
+            if (!targetNorm) return item;
+
+            // 2. 매칭 시도
+            const matchedFile = uploadedFiles.find(f => {
+                const fileName = f.name;
+                const fileNorm = normalize(fileName);
+
+                // 시도 A: 완전 일치 (공백/대소문자 무시)
+                if (fileNorm === targetNorm) return true;
+
+                // 시도 B: 확장자 제거 후 비교 (타겟이나 파일 중 하나에 확장자가 없을 때 대비)
+                const targetBaseNorm = normalize(getBaseName(targetRaw));
+                const fileBaseNorm = normalize(getBaseName(fileName));
+
+                return fileBaseNorm === targetBaseNorm || fileBaseNorm === targetNorm || fileNorm === targetBaseNorm;
+            });
+
+            if (matchedFile) {
+                return { ...item, fileContent: matchedFile };
             }
 
             return item;
@@ -347,7 +366,7 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
     };
 
     return (
-        <div className="space-y-10 animate-in fade-in duration-700">
+        <div className="space-y-6 animate-in fade-in duration-700">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
@@ -367,29 +386,29 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
             {/* Step 1 & 2: Upload Zones */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Step 1: Excel */}
-                <div className="bg-white p-10 rounded-[40px] border border-gray-100 shadow-sm relative overflow-hidden group">
-                    <div className="absolute top-0 left-0 w-2 bg-black h-full" />
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center font-black text-black border border-gray-100">1</div>
-                        <h3 className="text-lg font-bold">엑셀 메타데이터 업로드</h3>
+                <div className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm relative overflow-hidden group">
+                    <div className="absolute top-0 left-0 w-1.5 bg-black h-full" />
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-8 h-8 bg-gray-50 rounded-lg flex items-center justify-center font-black text-xs text-black border border-gray-100">1</div>
+                        <h3 className="text-base font-bold">엑셀 메타데이터 업로드</h3>
                     </div>
-                    <label className="flex flex-col items-center justify-center h-48 border-2 border-dashed border-gray-100 rounded-3xl hover:border-black transition-all cursor-pointer group-hover:bg-gray-50/50">
-                        <FileUp className="w-10 h-10 text-gray-300 mb-2" />
-                        <span className="text-sm font-bold text-gray-500">Excel 파일 선택 (.xlsx)</span>
+                    <label className="flex flex-col items-center justify-center h-24 border-2 border-dashed border-gray-100 rounded-2xl hover:border-black transition-all cursor-pointer group-hover:bg-gray-50/50">
+                        <FileUp className="w-6 h-6 text-gray-300 mb-1" />
+                        <span className="text-xs font-bold text-gray-500">Excel 파일 선택 (.xlsx)</span>
                         <input type="file" onChange={handleExcelUpload} accept=".xlsx, .xls" className="hidden" />
                     </label>
                 </div>
 
                 {/* Step 2: Images */}
-                <div className="bg-white p-10 rounded-[40px] border border-gray-100 shadow-sm relative overflow-hidden group">
-                    <div className="absolute top-0 left-0 w-2 bg-blue-500 h-full" />
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center font-black text-black border border-gray-100">2</div>
-                        <h3 className="text-lg font-bold">이미지 파일 벌크 업로드</h3>
+                <div className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-sm relative overflow-hidden group">
+                    <div className="absolute top-0 left-0 w-1.5 bg-blue-500 h-full" />
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-8 h-8 bg-gray-50 rounded-lg flex items-center justify-center font-black text-xs text-black border border-gray-100">2</div>
+                        <h3 className="text-base font-bold">이미지 파일 벌크 업로드</h3>
                     </div>
-                    <label className={`flex flex-col items-center justify-center h-48 border-2 border-dashed border-gray-100 rounded-3xl transition-all ${items.length > 0 ? 'hover:border-blue-500 cursor-pointer' : 'opacity-50 cursor-not-allowed'} group-hover:bg-gray-50/50`}>
-                        <Images className="w-10 h-10 text-gray-300 mb-2" />
-                        <span className="text-sm font-bold text-gray-500">이미지 폴더 내 전체 선택</span>
+                    <label className={`flex flex-col items-center justify-center h-24 border-2 border-dashed border-gray-100 rounded-2xl transition-all ${items.length > 0 ? 'hover:border-blue-500 cursor-pointer' : 'opacity-50 cursor-not-allowed'} group-hover:bg-gray-50/50`}>
+                        <Images className="w-6 h-6 text-gray-300 mb-1" />
+                        <span className="text-xs font-bold text-gray-500">이미지 폴더 내 전체 선택</span>
                         <input type="file" onChange={handleImageUpload} accept="image/*" multiple className="hidden" disabled={items.length === 0} />
                     </label>
                 </div>
