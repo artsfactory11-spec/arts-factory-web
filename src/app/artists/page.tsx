@@ -1,7 +1,6 @@
 export const dynamic = 'force-dynamic';
 
 import { getArtists } from "@/app/actions/user";
-import dbConnect from "@/lib/mongodb";
 import ArtistCard from "@/components/gallery/ArtistCard";
 import { Suspense } from "react";
 import Link from "next/link";
@@ -19,7 +18,7 @@ async function ArtistListContent() {
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {result.artists.map((artist: any) => (
+            {result.artists.map((artist: { _id: string;[key: string]: any }) => (
                 <ArtistCard key={artist._id} artist={artist} />
             ))}
         </div>
@@ -30,7 +29,7 @@ export default function ArtistsPage() {
     return (
         <main className="min-h-screen bg-white">
             {/* Premium Header */}
-            <header className="pt-40 pb-20 px-6 lg:px-12 bg-[#fafafa]">
+            <header className="pt-24 pb-12 px-6 lg:px-12 bg-[#fafafa]">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                         <div>

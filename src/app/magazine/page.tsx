@@ -160,7 +160,7 @@ export default function MagazinePage() {
     return (
         <main className="min-h-screen bg-white">
             {/* Premium Header */}
-            <header className="pt-60 pb-20 px-6 lg:px-12 bg-surface">
+            <header className="pt-32 pb-12 px-6 lg:px-12 bg-surface">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                         <div>
@@ -179,7 +179,7 @@ export default function MagazinePage() {
                 </div>
             </header>
 
-            <section className="px-6 lg:px-12 py-32">
+            <section className="px-6 lg:px-12 py-20">
                 <div className="max-w-7xl mx-auto">
                     <Suspense fallback={<div>Loading...</div>}>
                         <MagazineContent />

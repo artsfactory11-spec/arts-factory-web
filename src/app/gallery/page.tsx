@@ -34,9 +34,9 @@ export default async function GalleryPage({ searchParams }: Props) {
     const pagination = res.pagination || { currentPage: 1, totalPages: 1, totalCount: 0, hasMore: false };
 
     return (
-        <main className="min-h-screen bg-white pt-32 pb-20">
+        <main className="min-h-screen bg-white pt-20 pb-20">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                <header className="mb-20">
+                <header className="mb-12">
                     <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-4 block">아카이브</span>
                     <h1 className="text-6xl font-serif font-light tracking-tight italic">전체 컬렉션</h1>
                     <p className="text-gray-400 mt-6 text-lg font-serif italic max-w-xl">
