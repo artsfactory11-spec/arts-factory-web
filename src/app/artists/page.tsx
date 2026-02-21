@@ -18,8 +18,8 @@ async function ArtistListContent() {
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {result.artists.map((artist: { _id: string;[key: string]: any }) => (
-                <ArtistCard key={artist._id} artist={artist} />
+            {result.artists.map((artist: { _id: string;[key: string]: unknown }) => (
+                <ArtistCard key={artist._id} artist={artist as unknown as Parameters<typeof ArtistCard>[0]['artist']} />
             ))}
         </div>
     );
