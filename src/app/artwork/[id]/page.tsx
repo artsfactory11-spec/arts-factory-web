@@ -7,6 +7,7 @@ import { ChevronLeft } from "lucide-react";
 import InquiryButtons from "@/components/gallery/InquiryButtons";
 import ArtworkImageViewer from "@/components/gallery/ArtworkImageViewer";
 import ShareButtons from "@/components/artwork/ShareButtons";
+import TaxBenefits from "@/components/artwork/TaxBenefits";
 import React from 'react';
 
 interface Props {
@@ -147,7 +148,7 @@ export default async function ArtworkPage({ params }: Props) {
                     </div>
 
                     <div className="mt-20 pt-12 border-t border-gray-100">
-                        <div className="grid grid-cols-2 gap-8 mb-10">
+                        <div className="grid grid-cols-2 gap-8 mb-6">
                             <div className="space-y-1">
                                 <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest block mb-2">Estimated Value</span>
                                 <span className="text-2xl font-bold text-black opacity-30 tracking-tighter">₩ {artwork.price.toLocaleString()}</span>
@@ -156,6 +157,29 @@ export default async function ArtworkPage({ params }: Props) {
                                 <span className="text-[10px] text-accent font-black uppercase tracking-widest block mb-2">Monthly Rental</span>
                                 <span className="text-3xl font-black text-black tracking-tighter">₩ {artwork.rental_price.toLocaleString()}</span>
                             </div>
+                        </div>
+
+                        {/* 비고 섹션 */}
+                        <div className="mb-10 bg-gray-50/50 rounded-2xl p-6">
+                            <h2 className="text-[10px] underline underline-offset-4 uppercase tracking-[0.2em] text-gray-900 mb-4 font-black">Notice (비고)</h2>
+                            <ul className="space-y-2 text-[11px] text-gray-500 font-medium leading-relaxed">
+                                <li className="flex items-start gap-2">
+                                    <span className="text-black">•</span>
+                                    <span>부가세 포함가격</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-black">•</span>
+                                    <span>운송비, 설치비 별도</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-black">•</span>
+                                    <span>렌탈 서비스의 최소 이용기간은 3개월</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-black">•</span>
+                                    <span>렌탈 기간 중 해당 그림 구매 시 렌탈요금 환불 (첫 달 전액 / 2~3개월차 50% 환불)</span>
+                                </li>
+                            </ul>
                         </div>
 
                         {/* 렌탈 상태 표시 */}
@@ -187,6 +211,11 @@ export default async function ArtworkPage({ params }: Props) {
                         )}
                     </div>
                 </div>
+            </div>
+
+            {/* 절세 혜택 시각화 */}
+            <div className="max-w-7xl mx-auto">
+                <TaxBenefits />
             </div>
         </main>
     );

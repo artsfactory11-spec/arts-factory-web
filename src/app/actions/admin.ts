@@ -2,7 +2,7 @@
 
 import dbConnect from "@/lib/mongodb";
 import Artwork from "@/models/Artwork";
-import User from "@/models/User";
+import User, { IUser } from "@/models/User";
 import Magazine from "@/models/Magazine";
 import { revalidatePath } from "next/cache";
 import { createNotification } from "./notifications";
@@ -32,8 +32,8 @@ export async function updateArtworkStatus(id: string, status: 'pending' | 'appro
         revalidatePath('/'); // 메인 페이지 리스트 갱신
 
         return { success: true, artwork: JSON.parse(JSON.stringify(artwork)) };
-    } catch (error: any) {
-        return { success: false, error: error.message };
+    } catch (error: unknown) {
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }
 
@@ -60,8 +60,8 @@ export async function updateArtworkRentalStatus(id: string, rental_status: 'avai
         revalidatePath('/');
 
         return { success: true, artwork: JSON.parse(JSON.stringify(artwork)) };
-    } catch (error: any) {
-        return { success: false, error: error.message };
+    } catch (error: unknown) {
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }
 
@@ -80,8 +80,8 @@ export async function toggleArtworkCurated(id: string, isCurated: boolean) {
         revalidatePath('/');
 
         return { success: true, artwork: JSON.parse(JSON.stringify(artwork)) };
-    } catch (error: any) {
-        return { success: false, error: error.message };
+    } catch (error: unknown) {
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }
 
@@ -107,8 +107,8 @@ export async function toggleArtistSpotlight(id: string, isSpotlight: boolean) {
         revalidatePath('/');
 
         return { success: true, user: JSON.parse(JSON.stringify(user)) };
-    } catch (error: any) {
-        return { success: false, error: error.message };
+    } catch (error: unknown) {
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }
 
@@ -125,8 +125,8 @@ export async function getUsersByRole(role: 'partner' | 'admin' | 'user' = 'partn
             success: true,
             users: JSON.parse(JSON.stringify(users))
         };
-    } catch (error: any) {
-        return { success: false, error: error.message };
+    } catch (error: unknown) {
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }
 
@@ -156,14 +156,14 @@ export async function getAdminStats() {
                 monthlyRevenue: 12500000
             }
         };
-    } catch (error: any) {
-        return { success: false, error: error.message };
+    } catch (error: unknown) {
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }
 /**
  * 신규 작가(파트너) 등록
  */
-export async function createArtist(data: any) {
+export async function createArtist(data: Partial<IUser>) {
     try {
         const conn = await dbConnect();
         if (!conn) return { success: false, error: "Database connection failed. Please check IP whitelist." };
@@ -195,9 +195,9 @@ export async function createArtist(data: any) {
         revalidatePath('/artists');
 
         return { success: true, user: JSON.parse(JSON.stringify(newUser)) };
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Error creating artist:", error);
-        return { success: false, error: error.message };
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }
 
@@ -206,7 +206,7 @@ export async function updatePartnerStatus(id: string, status: 'approved' | 'reje
     try {
         await dbConnect();
 
-        const updateData: any = { status };
+        const updateData: Partial<IUser> = { status };
         if (status === 'approved') {
             updateData.role = 'partner';
         }
@@ -227,8 +227,8 @@ export async function updatePartnerStatus(id: string, status: 'approved' | 'reje
 
         revalidatePath('/admin');
         return { success: true };
-    } catch (error: any) {
-        return { success: false, error: error.message };
+    } catch (error: unknown) {
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }
 
@@ -249,15 +249,15 @@ export async function toggleMagazineFeatured(id: string, isFeatured: boolean) {
         revalidatePath('/');
 
         return { success: true, magazine: JSON.parse(JSON.stringify(magazine)) };
-    } catch (error: any) {
-        return { success: false, error: error.message };
+    } catch (error: unknown) {
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }
 
 /**
  * 작가 정보 수정
  */
-export async function updateArtist(id: string, data: any) {
+export async function updateArtist(id: string, data: Partial<IUser>) {
     try {
         const conn = await dbConnect();
         if (!conn) return { success: false, error: "Database connection failed. Please check IP whitelist." };
@@ -278,8 +278,9 @@ export async function updateArtist(id: string, data: any) {
         revalidatePath('/artists');
 
         return { success: true, user: JSON.parse(JSON.stringify(updatedUser)) };
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Error updating artist:", error);
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }
 
@@ -306,8 +307,8 @@ export async function deleteArtist(id: string) {
         revalidatePath('/artists');
 
         return { success: true };
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Error deleting artist:", error);
-        return { success: false, error: error.message };
+        return { success: false, error: error instanceof Error ? error.message : String(error) };
     }
 }

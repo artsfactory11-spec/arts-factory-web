@@ -155,6 +155,33 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
         window.URL.revokeObjectURL(url);
     };
 
+    // 렌탈가 자동 계산 로직
+    const calculateRentalPrice = (price: number): number => {
+        if (price < 600000) return 0;
+        if (price <= 1000000) return 35000;
+        if (price <= 1990000) return 38000;
+        if (price <= 2500000) return 45000;
+        if (price <= 3000000) return 50000;
+        if (price <= 3500000) return 54000;
+        if (price <= 4000000) return 58000;
+        if (price <= 4500000) return 60000;
+        if (price <= 5000000) return 64000;
+        if (price <= 5500000) return 67000;
+        if (price <= 6000000) return 72000;
+        if (price <= 6500000) return 79000;
+        if (price <= 7000000) return 86000;
+        if (price <= 7500000) return 91000;
+        if (price <= 8000000) return 94000;
+        if (price <= 8500000) return 97000;
+        if (price <= 9000000) return 100000;
+        if (price <= 10000000) return 110000;
+        if (price <= 12000000) return 128000;
+        if (price <= 13000000) return 137000;
+        if (price <= 14000000) return 145000;
+        if (price <= 15000000) return 150000;
+        return Math.round(price * 0.01);
+    };
+
     // 엑셀 파일 처리
     const handleExcelUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -168,25 +195,34 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
             const ws = wb.Sheets[wsname];
             const data = XLSX.utils.sheet_to_json(ws) as BulkExcelRow[];
 
-            const mappedItems: BulkItem[] = data.map((row, idx) => ({
-                id: `bulk-${idx}-${Date.now()}`,
-                title: row['작품명'] || '',
-                artistEmail: row['작가이메일'] || '',
-                category: row['장르/매체(Category)'] || row['카테고리'] || '회화',
-                style: row['스타일/기법(Style)'] || row['스타일'] || '추상',
-                subject: row['소재/주제(Subject)'] || row['주제'] || '풍경',
-                space: row['추천공간(Space)'] || row['공간'] || '거실용',
-                price: Number(row['판매가(₩)']) || Number(row['판매가']) || 0,
-                rental_price: Number(row['월렌탈료(₩)']) || Number(row['렌탈료']) || 0,
-                width: Number(row['가로(cm)']) || 0,
-                height: Number(row['세로(cm)']) || 0,
-                ho: Number(row['호수(호)']) || Number(String(row['호수'] || '').replace(/[^0-9]/g, '')) || 0,
-                year: String(row['제작연도'] || ''),
-                material: String(row['재질/기법']) || String(row['재료'] || ''),
-                description: String(row['작품설명'] || ''),
-                imageFilename: row['이미지파일명'] || '',
-                status: 'pending'
-            }));
+            const mappedItems: BulkItem[] = data.map((row, idx) => {
+                const price = Number(row['판매가(₩)']) || Number(row['판매가']) || 0;
+                // 월렌탈료가 엑셀에 명시되어 있으면 그 값을 쓰고, 없으면 자동 계산
+                const rental_price_excel = Number(row['월렌탈료(₩)']) || Number(row['렌탈료']);
+                const rental_price = (rental_price_excel !== undefined && !isNaN(rental_price_excel) && rental_price_excel > 0)
+                    ? rental_price_excel
+                    : calculateRentalPrice(price);
+
+                return {
+                    id: `bulk-${idx}-${Date.now()}`,
+                    title: row['작품명'] || '',
+                    artistEmail: row['작가이메일'] || '',
+                    category: row['장르/매체(Category)'] || row['카테고리'] || '회화',
+                    style: row['스타일/기법(Style)'] || row['스타일'] || '추상',
+                    subject: row['소재/주제(Subject)'] || row['주제'] || '풍경',
+                    space: row['추천공간(Space)'] || row['공간'] || '거실용',
+                    price: price,
+                    rental_price: rental_price,
+                    width: Number(row['가로(cm)']) || 0,
+                    height: Number(row['세로(cm)']) || 0,
+                    ho: Number(row['호수(호)']) || Number(String(row['호수'] || '').replace(/[^0-9]/g, '')) || 0,
+                    year: String(row['제작연도'] || ''),
+                    material: String(row['재질/기법']) || String(row['재료'] || ''),
+                    description: String(row['작품설명'] || ''),
+                    imageFilename: row['이미지파일명'] || '',
+                    status: 'pending'
+                };
+            });
 
             setItems(mappedItems);
         };
@@ -528,7 +564,8 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                         2. **가로, 세로, 호수** 등 규격 정보는 숫자로만 입력해 주세요. (예: 53, 45.5, 10) <br />
                         3. &apos;이미지파일명&apos; 열에는 업로드할 파일명을 입력해 주세요. (확장자 `.jpg`, `.png` 등은 생략해도 무방합니다.) <br />
                         4. 엑셀 업로드 후, 우측의 이미지 업로드 영역에서 해당 파일들을 한꺼번에 선택해 주세요. <br />
-                        5. 작가 이메일은 시스템에 등록된 파트너의 이메일과 대조하여 자동 매칭됩니다.
+                        5. 작가 이메일은 시스템에 등록된 파트너의 이메일과 대조하여 자동 매칭됩니다. <br />
+                        6. **월렌탈료**를 비워두거나 0으로 입력할 경우, **판매가 대비 자동 계산 로직**이 적용됩니다. (60만원 미만은 렌탈 불가)
                     </p>
                 </div>
             </div>
