@@ -445,7 +445,7 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                     <label className={`flex flex-col items-center justify-center h-24 border-2 border-dashed border-gray-100 rounded-2xl transition-all ${items.length > 0 ? 'hover:border-blue-500 cursor-pointer' : 'opacity-50 cursor-not-allowed'} group-hover:bg-gray-50/50`}>
                         <Images className="w-6 h-6 text-gray-300 mb-1" />
                         <span className="text-xs font-bold text-gray-500">이미지 폴더 내 전체 선택</span>
-                        <input type="file" onChange={handleImageUpload} accept="image/*" multiple className="hidden" disabled={items.length === 0} />
+                        <input type="file" onChange={handleImageUpload} accept="image/*, .tif, .tiff" multiple className="hidden" disabled={items.length === 0} />
                     </label>
                 </div>
             </div>

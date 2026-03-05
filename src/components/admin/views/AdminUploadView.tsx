@@ -311,7 +311,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                             type="file"
                             onChange={handleFileChange}
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
-                            accept="image/*"
+                            accept="image/*, .tif, .tiff"
                             disabled={uploading}
                             title="작품 이미지 파일 선택"
                         />

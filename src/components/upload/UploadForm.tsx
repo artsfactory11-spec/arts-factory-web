@@ -188,7 +188,7 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                         type="file"
                         onChange={handleFileChange}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
-                        accept="image/*"
+                        accept="image/*, .tif, .tiff"
                         disabled={uploading}
                     />
 
