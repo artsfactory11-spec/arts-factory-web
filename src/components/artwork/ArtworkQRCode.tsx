@@ -8,9 +8,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface ArtworkQRCodeProps {
     artworkId: string;
     title: string;
+    artistName: string;
+    price: number;
 }
 
-export default function ArtworkQRCode({ artworkId, title }: ArtworkQRCodeProps) {
+export default function ArtworkQRCode({ artworkId, title, artistName, price }: ArtworkQRCodeProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isDownloading, setIsDownloading] = useState(false);
     const qrRef = useRef<HTMLDivElement>(null);
@@ -32,28 +34,65 @@ export default function ArtworkQRCode({ artworkId, title }: ArtworkQRCodeProps) 
         const img = new Image();
 
         img.onload = () => {
-            canvas.width = img.width + 40; // Add padding
-            canvas.height = img.height + 100; // Add space for text
+            // 고해상도 네임택 규격 (1200 x 1600)
+            canvas.width = 1200;
+            canvas.height = 1600;
+
             if (ctx) {
-                // Background
+                // 1. 배경 (Pure White)
                 ctx.fillStyle = 'white';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Draw QR
-                ctx.drawImage(img, 20, 20);
-                
-                // Add Text
-                ctx.fillStyle = 'black';
-                ctx.font = 'bold 14px Arial';
+                // 2. 상단 브랜드 필러 (Arts Factory)
+                ctx.fillStyle = '#000000';
+                ctx.font = 'black 32px sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText(title, canvas.width / 2, img.height + 50);
-                ctx.font = '10px Arial';
-                ctx.fillStyle = '#666';
-                ctx.fillText('Arts Factory', canvas.width / 2, img.height + 75);
+                ctx.letterSpacing = '8px';
+                ctx.fillText('ARTS FACTORY', canvas.width / 2, 100);
+
+                // 3. QR 코드 배치 (중앙 상단)
+                // QR 이미지를 600x600 크기로 중앙에 배치
+                const qrSize = 600;
+                const qrX = (canvas.width - qrSize) / 2;
+                const qrY = 220;
+                ctx.drawImage(img, qrX, qrY, qrSize, qrSize);
+                
+                // 4. 정보 구분선 (선택사항 - 미니멀을 위해 아주 연하게)
+                ctx.strokeStyle = '#f3f4f6';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(300, 920);
+                ctx.lineTo(900, 920);
+                ctx.stroke();
+
+                // 5. 작품 정보 렌더링
+                // 작품명 (가장 크게)
+                ctx.fillStyle = '#000000';
+                ctx.font = '900 64px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(title, canvas.width / 2, 1050);
+
+                // 작가명
+                ctx.font = '700 42px sans-serif';
+                ctx.fillStyle = '#1f2937'; // gray-800
+                ctx.fillText(artistName, canvas.width / 2, 1140);
+
+                // 가격 (₩ 표시)
+                ctx.font = '500 38px sans-serif';
+                ctx.fillStyle = '#374151'; // gray-700
+                const formattedPrice = `₩ ${price.toLocaleString()}`;
+                ctx.fillText(formattedPrice, canvas.width / 2, 1220);
+
+                // 6. 하단 안내 문구
+                ctx.font = '400 24px sans-serif';
+                ctx.fillStyle = '#9ca3af'; // gray-400
+                ctx.fillText('Scan to view curation details', canvas.width / 2, 1450);
 
                 const pngFile = canvas.toDataURL('image/png');
                 const downloadLink = document.createElement('a');
-                downloadLink.download = `QR_${title.replace(/\s+/g, '_')}.png`;
+                // 파일명 규칙 수정: 작가_작품명_QR.png
+                const safeFileName = `${artistName}_${title}`.replace(/\s+/g, '_');
+                downloadLink.download = `${safeFileName}_QR.png`;
                 downloadLink.href = pngFile;
                 downloadLink.click();
                 setIsDownloading(false);

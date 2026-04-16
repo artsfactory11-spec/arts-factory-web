@@ -69,7 +69,12 @@ export default async function ArtworkPage({ params }: Props) {
                         Back to Gallery
                     </Link>
                     <div className="flex items-center gap-4">
-                        <ArtworkQRCode artworkId={id} title={artwork.title} />
+                        <ArtworkQRCode 
+                            artworkId={id} 
+                            title={artwork.title} 
+                            artistName={artwork.artist_id?.name || 'Unknown Artist'}
+                            price={artwork.price}
+                        />
                         <ShareButtons title={artwork.title} />
                     </div>
                 </div>
