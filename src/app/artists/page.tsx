@@ -10,7 +10,7 @@ async function ArtistListContent() {
 
     if (!result.success || !result.artists.length) {
         return (
-            <div className="col-span-full py-32 text-center text-gray-300">
+            <div className="col-span-full py-32 text-center text-gray-500">
                 <p className="text-xl font-light">등록된 작가가 없습니다.</p>
             </div>
         );
@@ -33,19 +33,19 @@ export default function ArtistsPage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                         <div>
-                            <span className="text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase mb-4 block animate-in fade-in slide-in-from-bottom-2 duration-700">
+                            <span className="text-[10px] font-black tracking-[0.3em] text-gray-600 uppercase mb-4 block animate-in fade-in slide-in-from-bottom-2 duration-700">
                                 우리의 작가들을 만나보세요
                             </span>
                             <h1 className="text-7xl font-extralight tracking-tighter text-black mb-8 animate-in fade-in slide-in-from-bottom-3 duration-1000">
                                 작가
                             </h1>
-                            <p className="max-w-xl text-lg text-gray-500 font-light leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
+                            <p className="max-w-xl text-lg text-gray-700 font-light leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
                                 아트팩토리와 함께하는 재능 있는 아티스트들을 소개합니다. <br />
                                 각자의 고유한 세계관과 철학을 가진 작가들의 작품을 통해 <br />
                                 당신의 공간에 새로운 영감을 더해보세요.
                             </p>
                         </div>
-                        <div className="flex gap-12 text-xs font-black tracking-[0.3em] uppercase text-gray-300 animate-in fade-in slide-in-from-right-4 duration-1000 delay-500">
+                        <div className="flex gap-12 text-xs font-black tracking-[0.3em] uppercase text-gray-500 animate-in fade-in slide-in-from-right-4 duration-1000 delay-500">
                             <Link href="/" className="hover:text-black transition-colors">작품</Link>
                             <Link href="/artists" className="text-black hover:text-black transition-colors">작가</Link>
                             <Link href="/magazine" className="hover:text-black transition-colors">매거진</Link>

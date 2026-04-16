@@ -76,7 +76,7 @@ export default function AdminSettingsPage() {
 
     if (loading || !settings) return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-            <span className="text-xs font-black tracking-widest text-gray-300 uppercase animate-pulse">Loading Configuration...</span>
+            <span className="text-xs font-black tracking-widest text-gray-500 uppercase animate-pulse">Loading Configuration...</span>
         </div>
     );
 
@@ -145,7 +145,7 @@ export default function AdminSettingsPage() {
                             <div className="group relative">
                                 <label
                                     htmlFor="operationHours"
-                                    className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block"
+                                    className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block"
                                 >
                                     Operation Hours (운영 시간)
                                 </label>
@@ -210,7 +210,7 @@ function FormInput({ label, name, value, onChange, type = "text" }: FormInputPro
         <div className="group relative">
             <label
                 htmlFor={id}
-                className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block transition-colors group-focus-within:text-black"
+                className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block transition-colors group-focus-within:text-black"
             >
                 {label}
             </label>

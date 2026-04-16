@@ -91,9 +91,9 @@ export default async function MyPage() {
             <div className="max-w-7xl mx-auto space-y-20">
                 {/* Header */}
                 <div className="border-b border-black pb-8">
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">My Account</span>
+                    <span className="text-xs font-bold text-gray-600 uppercase tracking-widest block mb-2">My Account</span>
                     <h1 className="text-5xl font-serif italic text-black">{user.name}님, 안녕하세요.</h1>
-                    <p className="mt-4 text-gray-500">{user.email}</p>
+                    <p className="mt-4 text-gray-700">{user.email}</p>
                 </div>
 
                 {/* Subscriptions */}
@@ -105,7 +105,7 @@ export default async function MyPage() {
                         </span>
                     </h2>
                     {subscriptions.length === 0 ? (
-                        <div className="bg-gray-50 rounded-2xl p-12 text-center text-gray-400">
+                        <div className="bg-gray-50 rounded-2xl p-12 text-center text-gray-600">
                             현재 이용 중인 렌탈 서비스가 없습니다.
                         </div>
                     ) : (
@@ -113,16 +113,16 @@ export default async function MyPage() {
                             {subscriptions.map((sub: PopulatedSubscription) => (
                                 <div key={sub._id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                                     <div className="p-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/50">
-                                        <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded ${sub.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-500'
+                                        <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded ${sub.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-700'
                                             }`}>
                                             {sub.status.toUpperCase()}
                                         </span>
-                                        <span className="text-xs text-gray-400">다음 결제일: {new Date(sub.next_payment_due).toLocaleDateString()}</span>
+                                        <span className="text-xs text-gray-600">다음 결제일: {new Date(sub.next_payment_due).toLocaleDateString()}</span>
                                     </div>
                                     <div className="p-6">
                                         <h3 className="font-serif text-xl italic mb-2">{sub.artwork_id?.title}</h3>
-                                        <p className="text-sm text-gray-500 mb-6 font-medium">월 {sub.monthly_fee.toLocaleString()}원</p>
-                                        <div className="space-y-2 text-xs text-gray-400">
+                                        <p className="text-sm text-gray-700 mb-6 font-medium">월 {sub.monthly_fee.toLocaleString()}원</p>
+                                        <div className="space-y-2 text-xs text-gray-600">
                                             <div className="flex justify-between">
                                                 <span>시작일</span>
                                                 <span>{new Date(sub.start_date).toLocaleDateString()}</span>
@@ -144,7 +144,7 @@ export default async function MyPage() {
                     <h2 className="text-2xl font-serif italic mb-8">주문 내역</h2>
                     <div className="space-y-6">
                         {orders.length === 0 ? (
-                            <div className="bg-gray-50 rounded-2xl p-12 text-center text-gray-400">
+                            <div className="bg-gray-50 rounded-2xl p-12 text-center text-gray-600">
                                 주문 내역이 없습니다.
                             </div>
                         ) : (
@@ -152,7 +152,7 @@ export default async function MyPage() {
                                 <div key={order._id} className="bg-white border border-gray-100 rounded-2xl p-6 flex flex-col lg:flex-row justify-between lg:items-center gap-6">
                                     <div className="space-y-1">
                                         <div className="flex items-center gap-3 mb-2">
-                                            <span className="text-xs font-mono text-gray-400">#{order._id.toString().substring(0, 8)}</span>
+                                            <span className="text-xs font-mono text-gray-600">#{order._id.toString().substring(0, 8)}</span>
                                             <span className="text-[10px] font-black uppercase tracking-widest bg-gray-100 px-2 py-1 rounded">
                                                 {order.status.replace('_', ' ')}
                                             </span>
@@ -161,11 +161,11 @@ export default async function MyPage() {
                                             {order.items[0]?.artwork_id?.title || 'Unknown Artwork'}
                                             {order.items.length > 1 && ` 외 ${order.items.length - 1}건`}
                                         </p>
-                                        <p className="text-sm text-gray-400">{new Date(order.createdAt).toLocaleDateString()}</p>
+                                        <p className="text-sm text-gray-600">{new Date(order.createdAt).toLocaleDateString()}</p>
                                     </div>
                                     <div className="flex items-center gap-12">
                                         <div>
-                                            <span className="text-[10px] font-bold text-gray-400 uppercase block mb-1">Total</span>
+                                            <span className="text-[10px] font-bold text-gray-600 uppercase block mb-1">Total</span>
                                             <span className="font-serif text-xl">{order.total_amount.toLocaleString()} KRW</span>
                                         </div>
                                         {order.status === 'pending_deposit' && (
@@ -187,14 +187,14 @@ export default async function MyPage() {
                         {user.wishlist.length > 0 && (
                             <Link
                                 href="/gallery/wishlist"
-                                className="text-xs font-bold text-gray-400 hover:text-accent border-b border-gray-200 pb-1 uppercase tracking-widest transition-colors"
+                                className="text-xs font-bold text-gray-600 hover:text-accent border-b border-gray-200 pb-1 uppercase tracking-widest transition-colors"
                             >
                                 전체보기 및 관리
                             </Link>
                         )}
                     </div>
                     {user.wishlist.length === 0 ? (
-                        <div className="bg-gray-50 rounded-2xl p-12 text-center text-gray-400">
+                        <div className="bg-gray-50 rounded-2xl p-12 text-center text-gray-600">
                             위시리스트가 비어있습니다.
                         </div>
                     ) : (
@@ -210,7 +210,7 @@ export default async function MyPage() {
                                         />
                                     </div>
                                     <h3 className="font-serif italic text-lg">{art.title}</h3>
-                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{art.artist_id?.name}</p>
+                                    <p className="text-xs font-bold text-gray-600 uppercase tracking-widest">{art.artist_id?.name}</p>
                                 </Link>
                             ))}
                         </div>
@@ -227,7 +227,7 @@ export default async function MyPage() {
                             <div>
                                 <span className="text-accent font-black tracking-[0.4em] text-xs uppercase block mb-4">For Artists</span>
                                 <h2 className="text-4xl font-serif italic mb-4">작가로 활동하고 싶으신가요?</h2>
-                                <p className="text-gray-400 leading-relaxed">
+                                <p className="text-gray-600 leading-relaxed">
                                     아트팩토리의 파트너가 되어 당신의 작품을 세상에 알리세요.<br />
                                     전시, 판매, 렌탈 등 다양한 기회가 기다리고 있습니다.
                                 </p>
@@ -244,8 +244,8 @@ export default async function MyPage() {
 
                 {user.status === 'pending' && (
                     <section className="bg-gray-50 rounded-[40px] p-12 text-center border border-gray-100">
-                        <h2 className="text-2xl font-serif italic mb-4 text-gray-400">심사 진행 중</h2>
-                        <p className="text-gray-500">
+                        <h2 className="text-2xl font-serif italic mb-4 text-gray-600">심사 진행 중</h2>
+                        <p className="text-gray-700">
                             현재 파트너 신청이 접수되어 심사가 진행 중입니다.<br />
                             결과는 이메일로 개별 통보됩니다.
                         </p>

@@ -5,7 +5,7 @@ export default function TermsPage() {
                 <header className="mb-16 border-b border-gray-100 pb-12 text-center">
                     <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-4 block">Legal</span>
                     <h1 className="text-5xl font-serif font-light tracking-tight italic">Terms of Service</h1>
-                    <p className="text-gray-400 mt-6 font-serif italic">예술공장 서비스 이용약관</p>
+                    <p className="text-gray-600 mt-6 font-serif italic">예술공장 서비스 이용약관</p>
                 </header>
 
                 <div className="prose prose-gray max-w-none font-serif italic leading-relaxed text-gray-600 whitespace-pre-wrap text-lg">

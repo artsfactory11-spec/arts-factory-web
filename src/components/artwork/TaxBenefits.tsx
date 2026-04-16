@@ -49,7 +49,7 @@ export default function TaxBenefits() {
                                 <div className="bg-white/90 backdrop-blur-sm border border-[#C6A68F]/30 p-3 rounded-2xl shadow-lg ring-4 ring-[#C6A68F]/5">
                                     <span className="block text-[10px] font-black text-[#A36B5E] mb-1">절세 효과</span>
                                     <span className="text-2xl font-black text-[#A36B5E]">34%</span>
-                                    <p className="text-[8px] text-gray-400 mt-1 leading-tight font-medium">최고 법인세율을<br />기준으로 산정된<br />절세 수치입니다.</p>
+                                    <p className="text-[8px] text-gray-600 mt-1 leading-tight font-medium">최고 법인세율을<br />기준으로 산정된<br />절세 수치입니다.</p>
                                 </div>
                             </div>
 
@@ -67,7 +67,7 @@ export default function TaxBenefits() {
                     {/* 중앙: 대조 테이블 & 저울 아이콘 */}
                     <div className="lg:col-span-3 flex flex-col items-center">
                         <div className="mb-8 p-4 bg-white rounded-full shadow-sm border border-gray-100 flex items-center justify-center">
-                            <Scale className="w-10 h-10 text-gray-300" />
+                            <Scale className="w-10 h-10 text-gray-500" />
                         </div>
 
                         <div className="w-full bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -76,7 +76,7 @@ export default function TaxBenefits() {
                             </div>
                             <table className="w-full text-[11px] border-collapse">
                                 <thead>
-                                    <tr className="border-b border-gray-50 uppercase font-black text-[9px] text-gray-400 tracking-tighter">
+                                    <tr className="border-b border-gray-50 uppercase font-black text-[9px] text-gray-600 tracking-tighter">
                                         <th className="py-2 px-1 border-r border-gray-50">구분</th>
                                         <th className="py-2 px-1 border-r border-gray-50 bg-[#1e3a8a]/[0.02] text-[#1e3a8a]">법인사업자</th>
                                         <th className="py-2 px-1 bg-[#d97706]/[0.02] text-[#d97706]">개인사업자</th>
@@ -84,7 +84,7 @@ export default function TaxBenefits() {
                                 </thead>
                                 <tbody className="font-bold">
                                     <tr className="border-b border-gray-50">
-                                        <td className="py-2.5 px-2 text-center text-gray-500 font-medium">절세 효과</td>
+                                        <td className="py-2.5 px-2 text-center text-gray-700 font-medium">절세 효과</td>
                                         <td className="py-2.5 px-1 text-center text-[#1e3a8a]">
                                             <div className="flex items-center justify-center gap-1">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-[#1e3a8a]"></span>34%
@@ -97,16 +97,16 @@ export default function TaxBenefits() {
                                         </td>
                                     </tr>
                                     <tr className="border-b border-gray-50">
-                                        <td className="py-2.5 px-2 text-center text-gray-500 font-medium">실제 지불</td>
+                                        <td className="py-2.5 px-2 text-center text-gray-700 font-medium">실제 지불</td>
                                         <td className="py-2.5 px-1 text-center">66%</td>
                                         <td className="py-2.5 px-1 text-center">49%</td>
                                     </tr>
                                     <tr>
-                                        <td className="py-3 px-2 text-center text-gray-500 font-medium leading-tight">관련 세목</td>
-                                        <td className="py-3 px-1 text-center text-[9px] leading-tight font-medium text-gray-400 border-r border-gray-50">
+                                        <td className="py-3 px-2 text-center text-gray-700 font-medium leading-tight">관련 세목</td>
+                                        <td className="py-3 px-1 text-center text-[9px] leading-tight font-medium text-gray-600 border-r border-gray-50">
                                             지방세, 부가세,<br />법인세
                                         </td>
-                                        <td className="py-3 px-1 text-center text-[9px] leading-tight font-medium text-gray-400">
+                                        <td className="py-3 px-1 text-center text-[9px] leading-tight font-medium text-gray-600">
                                             지방세, 부가세,<br />소득세
                                         </td>
                                     </tr>
@@ -144,7 +144,7 @@ export default function TaxBenefits() {
                                 <div className="bg-white/90 backdrop-blur-sm border border-[#d97706]/30 p-3 rounded-2xl shadow-lg ring-4 ring-[#d97706]/5">
                                     <span className="block text-[10px] font-black text-[#d97706] mb-1">최대 51%의<br />강력한 절세 효과</span>
                                     <span className="text-2xl font-black text-[#d97706]">51%</span>
-                                    <p className="text-[8px] text-gray-400 mt-1 leading-tight font-medium">비용처리를 통한<br />강력한 절세효과를<br />누릴 수 있습니다.</p>
+                                    <p className="text-[8px] text-gray-600 mt-1 leading-tight font-medium">비용처리를 통한<br />강력한 절세효과를<br />누릴 수 있습니다.</p>
                                 </div>
                             </div>
 
@@ -162,7 +162,7 @@ export default function TaxBenefits() {
                 </div>
             </div>
 
-            <div className="mt-8 text-center text-[10px] font-bold text-gray-300 uppercase tracking-[0.2em]">
+            <div className="mt-8 text-center text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">
                 * 렌탈 및 구매 시 비용 처리를 통해 위와 같은 절세 혜택을 누릴 수 있습니다. 세부 사항은 담당 세무사 혹은 고객센터로 문의 바랍니다.
             </div>
         </div>

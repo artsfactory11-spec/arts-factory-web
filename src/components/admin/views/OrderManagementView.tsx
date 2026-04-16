@@ -42,7 +42,7 @@ export default function OrderManagementView() {
 
             <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
                 <table className="w-full text-left">
-                    <thead className="bg-gray-50 border-b border-gray-100 text-xs uppercase text-gray-400 font-bold">
+                    <thead className="bg-gray-50 border-b border-gray-100 text-xs uppercase text-gray-600 font-bold">
                         <tr>
                             <th className="px-6 py-4">주문번호/일시</th>
                             <th className="px-6 py-4">주문자/입금자</th>
@@ -56,13 +56,13 @@ export default function OrderManagementView() {
                         {isLoading ? (
                             <tr><td colSpan={6} className="px-6 py-8 text-center">Loading...</td></tr>
                         ) : orders.length === 0 ? (
-                            <tr><td colSpan={6} className="px-6 py-8 text-center text-gray-400">주문 내역이 없습니다.</td></tr>
+                            <tr><td colSpan={6} className="px-6 py-8 text-center text-gray-600">주문 내역이 없습니다.</td></tr>
                         ) : (
                             orders.map((order) => (
                                 <tr key={order._id} className="hover:bg-gray-50/50">
                                     <td className="px-6 py-4">
-                                        <div className="font-mono text-xs text-gray-400">#{order._id.substring(0, 8)}</div>
-                                        <div className="text-xs text-gray-500">{new Date(order.createdAt).toLocaleDateString()}</div>
+                                        <div className="font-mono text-xs text-gray-600">#{order._id.substring(0, 8)}</div>
+                                        <div className="text-xs text-gray-700">{new Date(order.createdAt).toLocaleDateString()}</div>
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="font-bold text-sm">{order.user_id?.name || 'Unknown'}</div>
@@ -73,7 +73,7 @@ export default function OrderManagementView() {
                                             {order.items[0]?.artwork_id?.title}
                                             {order.items.length > 1 && ` 외 ${order.items.length - 1}건`}
                                         </div>
-                                        <div className="text-xs text-gray-400 capitalize">{order.items[0]?.type}</div>
+                                        <div className="text-xs text-gray-600 capitalize">{order.items[0]?.type}</div>
                                     </td>
                                     <td className="px-6 py-4 font-bold">
                                         {order.total_amount.toLocaleString()}원
@@ -81,7 +81,7 @@ export default function OrderManagementView() {
                                     <td className="px-6 py-4">
                                         <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest ${order.status === 'pending_deposit' ? 'bg-yellow-100 text-yellow-700' :
                                             order.status === 'paid' ? 'bg-green-100 text-green-700' :
-                                                'bg-gray-100 text-gray-500'
+                                                'bg-gray-100 text-gray-700'
                                             }`}>
                                             {order.status.replace('_', ' ')}
                                         </span>

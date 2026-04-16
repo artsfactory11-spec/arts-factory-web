@@ -63,7 +63,7 @@ export default function LoginPage() {
             >
                 <div className="text-center mb-12">
                     <h1 className="text-4xl font-serif font-light italic text-black mb-4">Partner Login</h1>
-                    <p className="text-gray-400 text-xs font-black tracking-widest uppercase">
+                    <p className="text-gray-600 text-xs font-black tracking-widest uppercase">
                         Arts Factory Management
                     </p>
                 </div>
@@ -77,7 +77,7 @@ export default function LoginPage() {
 
                     <div className="space-y-6">
                         <div className="group relative">
-                            <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block group-focus-within:text-black">
+                            <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
                                 ID or Email
                             </label>
                             <input
@@ -91,7 +91,7 @@ export default function LoginPage() {
                         </div>
 
                         <div className="group relative">
-                            <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block group-focus-within:text-black">
+                            <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
                                 Password
                             </label>
                             <input
@@ -118,14 +118,14 @@ export default function LoginPage() {
                         <button
                             type="button"
                             onClick={handleSeed}
-                            className="w-full mt-4 py-2 border border-dashed border-gray-200 text-[8px] font-black tracking-widest text-gray-300 uppercase hover:text-gray-500 hover:border-gray-400 transition-all"
+                            className="w-full mt-4 py-2 border border-dashed border-gray-200 text-[8px] font-black tracking-widest text-gray-500 uppercase hover:text-gray-700 hover:border-gray-400 transition-all"
                         >
                             {seedMessage || "Initialize Management Account"}
                         </button>
                     </div>
 
                     <div className="text-center space-y-4 pt-6">
-                        <p className="text-[10px] text-gray-400 font-medium uppercase tracking-tight">
+                        <p className="text-[10px] text-gray-600 font-medium uppercase tracking-tight">
                             아직 계정이 없으신가요?
                         </p>
                         <div className="flex flex-col gap-4">

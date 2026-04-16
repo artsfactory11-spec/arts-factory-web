@@ -61,7 +61,7 @@ export default function Loading() {
                         transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
                         className="h-[1px] bg-black/10 mx-auto"
                     />
-                    <p className="text-xs font-serif italic text-gray-400">
+                    <p className="text-xs font-serif italic text-gray-600">
                         Curating the finest moments...
                     </p>
                 </div>

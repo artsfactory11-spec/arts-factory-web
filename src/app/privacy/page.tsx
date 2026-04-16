@@ -5,7 +5,7 @@ export default function PrivacyPage() {
                 <header className="mb-16 border-b border-gray-100 pb-12 text-center">
                     <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-4 block">Privacy</span>
                     <h1 className="text-5xl font-serif font-light tracking-tight italic">Privacy Policy</h1>
-                    <p className="text-gray-400 mt-6 font-serif italic">개인정보처리방침</p>
+                    <p className="text-gray-600 mt-6 font-serif italic">개인정보처리방침</p>
                 </header>
 
                 <div className="prose prose-gray max-w-none font-serif italic leading-relaxed text-gray-600 whitespace-pre-wrap text-lg">

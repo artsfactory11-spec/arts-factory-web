@@ -48,7 +48,7 @@ export default function LoginPage() {
             >
                 <div className="text-center mb-12">
                     <h1 className="text-4xl font-serif font-light italic text-black mb-4">Login</h1>
-                    <p className="text-gray-400 text-xs font-black tracking-widest uppercase">
+                    <p className="text-gray-600 text-xs font-black tracking-widest uppercase">
                         Arts Factory Member
                     </p>
                 </div>
@@ -62,7 +62,7 @@ export default function LoginPage() {
 
                     <div className="space-y-6">
                         <div className="group relative">
-                            <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block group-focus-within:text-black">
+                            <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
                                 Email
                             </label>
                             <input
@@ -76,7 +76,7 @@ export default function LoginPage() {
                         </div>
 
                         <div className="group relative">
-                            <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block group-focus-within:text-black">
+                            <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
                                 Password
                             </label>
                             <input
@@ -101,7 +101,7 @@ export default function LoginPage() {
                     </div>
 
                     <div className="text-center space-y-4 pt-6">
-                        <p className="text-[10px] text-gray-400 font-medium uppercase tracking-tight">
+                        <p className="text-[10px] text-gray-600 font-medium uppercase tracking-tight">
                             아직 회원이 아닌가요?
                         </p>
                         <Link

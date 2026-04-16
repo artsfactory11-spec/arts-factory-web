@@ -154,7 +154,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                     />
                                 ) : (
                                     <div className="w-full h-full bg-gray-50 flex items-center justify-center">
-                                        <Loader2 className="w-6 h-6 text-gray-200 animate-spin" />
+                                        <Loader2 className="w-6 h-6 text-gray-400 animate-spin" />
                                     </div>
                                 )}
                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -178,11 +178,11 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                         </div>
 
                         <h3 className="text-xl font-bold text-gray-900 mt-6">{profile.name} 작가</h3>
-                        <p className="text-gray-500 text-sm mt-1">{profile.specialty}</p>
+                        <p className="text-gray-700 text-sm mt-1">{profile.specialty}</p>
 
                         {/* Signature Upload Area */}
                         <div className="mt-8 w-full">
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center mb-3">작가 시그니처 / 서명</p>
+                            <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest text-center mb-3">작가 시그니처 / 서명</p>
                             <div
                                 className="w-full aspect-[3/1] bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors overflow-hidden group relative"
                                 onClick={() => signatureInputRef.current?.click()}
@@ -191,8 +191,8 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                     <img src={signaturePreview} alt="Signature" className="h-full object-contain p-4" />
                                 ) : (
                                     <>
-                                        <FileText className="w-5 h-5 text-gray-300 group-hover:text-gray-400 mb-1" />
-                                        <span className="text-[11px] text-gray-400">이미지 등록 (WebP)</span>
+                                        <FileText className="w-5 h-5 text-gray-500 group-hover:text-gray-600 mb-1" />
+                                        <span className="text-[11px] text-gray-600">이미지 등록 (WebP)</span>
                                     </>
                                 )}
                                 <input
@@ -211,7 +211,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                         <h4 className="font-bold text-gray-900 mb-4 px-2 tracking-tight">작가 활동 요약</h4>
                         <div className="space-y-4">
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity-exhibitions" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">누적 전시 기록</label>
+                                <label htmlFor="activity-exhibitions" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">누적 전시 기록</label>
                                 <input
                                     type="text"
                                     id="activity-exhibitions"
@@ -222,7 +222,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                 />
                             </div>
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity-region" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">활동 지역</label>
+                                <label htmlFor="activity-region" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">활동 지역</label>
                                 <input
                                     type="text"
                                     id="activity-region"
@@ -233,7 +233,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                 />
                             </div>
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity-material" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">주요 매체/재료</label>
+                                <label htmlFor="activity-material" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">주요 매체/재료</label>
                                 <input
                                     type="text"
                                     id="activity-material"
@@ -303,7 +303,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                             <div className="space-y-2.5">
                                 <label htmlFor="profile-email" className="text-sm font-bold text-gray-900 ml-1">이메일 주소</label>
                                 <div className="relative">
-                                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                                     <input
                                         type="email"
                                         id="profile-email"
@@ -318,7 +318,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                             <div className="space-y-2.5">
                                 <label htmlFor="profile-phone" className="text-sm font-bold text-gray-900 ml-1">연락처</label>
                                 <div className="relative">
-                                    <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                    <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                                     <input
                                         type="text"
                                         id="profile-phone"

@@ -81,7 +81,7 @@ const InquiryModal = ({ isOpen, onClose, artwork, defaultType }: InquiryModalPro
                                     <CheckCircle2 className="w-12 h-12" />
                                 </motion.div>
                                 <h3 className="text-3xl font-bold tracking-tighter">문의가 완료되었습니다</h3>
-                                <p className="text-gray-500 font-light">
+                                <p className="text-gray-700 font-light">
                                     담당 큐레이터가 확인 후 <br />
                                     빠른 시일 내에 연락드리겠습니다. 감사합니다.
                                 </p>
@@ -93,17 +93,17 @@ const InquiryModal = ({ isOpen, onClose, artwork, defaultType }: InquiryModalPro
                                     <button
                                         onClick={onClose}
                                         title="닫기"
-                                        className="absolute top-8 right-8 text-gray-400 hover:text-black transition-colors"
+                                        className="absolute top-8 right-8 text-gray-600 hover:text-black transition-colors"
                                     >
                                         <X className="w-6 h-6" />
                                     </button>
-                                    <span className="text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase mb-4 block">
+                                    <span className="text-[10px] font-black tracking-[0.3em] text-gray-600 uppercase mb-4 block">
                                         비즈니스 문의
                                     </span>
                                     <h2 className="text-4xl font-black tracking-tighter text-black mb-2">
                                         {formData.type === 'purchase' ? '작품 구매 문의' : '작품 대여 신청'}
                                     </h2>
-                                    <p className="text-gray-400 font-light text-sm">
+                                    <p className="text-gray-600 font-light text-sm">
                                         {artwork.artist} - <span className="text-black font-medium">{artwork.title}</span>
                                     </p>
                                 </div>
@@ -112,9 +112,9 @@ const InquiryModal = ({ isOpen, onClose, artwork, defaultType }: InquiryModalPro
                                 <form onSubmit={handleSubmit} className="p-10 space-y-6">
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                            <label htmlFor="inquiry-name" className="text-[10px] font-black tracking-widest text-gray-400 uppercase ml-2">성함</label>
+                                            <label htmlFor="inquiry-name" className="text-[10px] font-black tracking-widest text-gray-600 uppercase ml-2">성함</label>
                                             <div className="relative">
-                                                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
+                                                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                                 <input
                                                     required
                                                     id="inquiry-name"
@@ -127,9 +127,9 @@ const InquiryModal = ({ isOpen, onClose, artwork, defaultType }: InquiryModalPro
                                             </div>
                                         </div>
                                         <div className="space-y-2">
-                                            <label htmlFor="inquiry-phone" className="text-[10px] font-black tracking-widest text-gray-400 uppercase ml-2">연락처</label>
+                                            <label htmlFor="inquiry-phone" className="text-[10px] font-black tracking-widest text-gray-600 uppercase ml-2">연락처</label>
                                             <div className="relative">
-                                                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
+                                                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                                 <input
                                                     required
                                                     id="inquiry-phone"
@@ -144,9 +144,9 @@ const InquiryModal = ({ isOpen, onClose, artwork, defaultType }: InquiryModalPro
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="inquiry-email" className="text-[10px] font-black tracking-widest text-gray-400 uppercase ml-2">이메일</label>
+                                        <label htmlFor="inquiry-email" className="text-[10px] font-black tracking-widest text-gray-600 uppercase ml-2">이메일</label>
                                         <div className="relative">
-                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
+                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                             <input
                                                 required
                                                 id="inquiry-email"
@@ -160,9 +160,9 @@ const InquiryModal = ({ isOpen, onClose, artwork, defaultType }: InquiryModalPro
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="inquiry-organization" className="text-[10px] font-black tracking-widest text-gray-400 uppercase ml-2">기업/단체명 (선택)</label>
+                                        <label htmlFor="inquiry-organization" className="text-[10px] font-black tracking-widest text-gray-600 uppercase ml-2">기업/단체명 (선택)</label>
                                         <div className="relative">
-                                            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
+                                            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                             <input
                                                 id="inquiry-organization"
                                                 type="text"
@@ -175,9 +175,9 @@ const InquiryModal = ({ isOpen, onClose, artwork, defaultType }: InquiryModalPro
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="inquiry-message" className="text-[10px] font-black tracking-widest text-gray-400 uppercase ml-2">문의 메시지 (선택)</label>
+                                        <label htmlFor="inquiry-message" className="text-[10px] font-black tracking-widest text-gray-600 uppercase ml-2">문의 메시지 (선택)</label>
                                         <div className="relative">
-                                            <MessageSquare className="absolute left-4 top-5 w-4 h-4 text-gray-300" />
+                                            <MessageSquare className="absolute left-4 top-5 w-4 h-4 text-gray-500" />
                                             <textarea
                                                 id="inquiry-message"
                                                 rows={3}

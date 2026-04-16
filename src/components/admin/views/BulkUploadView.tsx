@@ -409,7 +409,7 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                     <h2 className="text-[42px] font-black tracking-tighter leading-tight text-black">
                         일괄 등록 <br /> (BULK)
                     </h2>
-                    <p className="text-gray-400 mt-2 font-medium">엑셀 파일을 사용하여 다수의 작품을 한 번에 등록합니다.</p>
+                    <p className="text-gray-600 mt-2 font-medium">엑셀 파일을 사용하여 다수의 작품을 한 번에 등록합니다.</p>
                 </div>
                 <button
                     onClick={downloadTemplate}
@@ -429,8 +429,8 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                         <h3 className="text-base font-bold">엑셀 메타데이터 업로드</h3>
                     </div>
                     <label className="flex flex-col items-center justify-center h-24 border-2 border-dashed border-gray-100 rounded-2xl hover:border-black transition-all cursor-pointer group-hover:bg-gray-50/50">
-                        <FileUp className="w-6 h-6 text-gray-300 mb-1" />
-                        <span className="text-xs font-bold text-gray-500">Excel 파일 선택 (.xlsx)</span>
+                        <FileUp className="w-6 h-6 text-gray-500 mb-1" />
+                        <span className="text-xs font-bold text-gray-700">Excel 파일 선택 (.xlsx)</span>
                         <input type="file" onChange={handleExcelUpload} accept=".xlsx, .xls" className="hidden" />
                     </label>
                 </div>
@@ -443,8 +443,8 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                         <h3 className="text-base font-bold">이미지 파일 벌크 업로드</h3>
                     </div>
                     <label className={`flex flex-col items-center justify-center h-24 border-2 border-dashed border-gray-100 rounded-2xl transition-all ${items.length > 0 ? 'hover:border-blue-500 cursor-pointer' : 'opacity-50 cursor-not-allowed'} group-hover:bg-gray-50/50`}>
-                        <Images className="w-6 h-6 text-gray-300 mb-1" />
-                        <span className="text-xs font-bold text-gray-500">이미지 폴더 내 전체 선택</span>
+                        <Images className="w-6 h-6 text-gray-500 mb-1" />
+                        <span className="text-xs font-bold text-gray-700">이미지 폴더 내 전체 선택</span>
                         <input type="file" onChange={handleImageUpload} accept="image/*, .tif, .tiff" multiple className="hidden" disabled={items.length === 0} />
                     </label>
                 </div>
@@ -472,7 +472,7 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                             <button
                                 onClick={handleBulkSubmit}
                                 disabled={uploading || items.every(i => i.status === 'success') || aiGenerating}
-                                className="px-8 py-3 bg-black text-white rounded-xl text-sm font-black uppercase tracking-widest hover:bg-gray-800 disabled:bg-gray-100 disabled:text-gray-400 transition-all shadow-xl shadow-black/10"
+                                className="px-8 py-3 bg-black text-white rounded-xl text-sm font-black uppercase tracking-widest hover:bg-gray-800 disabled:bg-gray-100 disabled:text-gray-600 transition-all shadow-xl shadow-black/10"
                             >
                                 {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : "일괄 등록 시작하기"}
                             </button>
@@ -483,10 +483,10 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-white">
-                                    <th className="px-10 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">작품 메타데이터</th>
-                                    <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">대상 작가</th>
-                                    <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">이미지 파일 매칭</th>
-                                    <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">진행 상태</th>
+                                    <th className="px-10 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">작품 메타데이터</th>
+                                    <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">대상 작가</th>
+                                    <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">이미지 파일 매칭</th>
+                                    <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">진행 상태</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-50">
@@ -494,14 +494,14 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                                     <tr key={item.id} className="hover:bg-gray-50/30 transition-colors">
                                         <td className="px-10 py-5 max-w-sm">
                                             <div className="font-bold text-gray-900 text-sm">{item.title}</div>
-                                            <div className="text-[10px] text-gray-400 uppercase tracking-tighter mt-1">
+                                            <div className="text-[10px] text-gray-600 uppercase tracking-tighter mt-1">
                                                 {item.category} | {item.style} | {item.subject} | {item.space}
                                             </div>
                                             <div className="text-[10px] text-blue-500 font-black mt-1">
                                                 {item.width}x{item.height}cm ({item.ho}호) / ₩{item.price.toLocaleString()}
                                             </div>
                                             {item.description && (
-                                                <div className="mt-2 text-xs text-gray-500 bg-gray-50 p-2 rounded-lg whitespace-pre-wrap">
+                                                <div className="mt-2 text-xs text-gray-700 bg-gray-50 p-2 rounded-lg whitespace-pre-wrap">
                                                     {item.description}
                                                 </div>
                                             )}
@@ -519,7 +519,7 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                                                 <div className={`p-1.5 rounded-lg ${item.fileContent ? 'bg-green-50 text-green-600' : 'bg-orange-50 text-orange-600'}`}>
                                                     <Images className="w-4 h-4" />
                                                 </div>
-                                                <span className="text-[11px] font-bold text-gray-500 truncate max-w-[120px]">{item.imageFilename}</span>
+                                                <span className="text-[11px] font-bold text-gray-700 truncate max-w-[120px]">{item.imageFilename}</span>
                                                 {item.fileContent ? (
                                                     <CheckCircle2 className="w-4 h-4 text-green-500" />
                                                 ) : (
@@ -541,7 +541,7 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                                                     <AlertCircle className="w-4 h-4" /> {item.errorMsg || '실패'}
                                                 </div>
                                             ) : (
-                                                <span className="text-[10px] text-gray-300 font-bold uppercase tracking-widest italic">대기 중</span>
+                                                <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest italic">대기 중</span>
                                             )}
                                         </td>
                                     </tr>
@@ -559,7 +559,7 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                 </div>
                 <div>
                     <h4 className="font-bold text-black mb-1">대량 업로드 가이드</h4>
-                    <p className="text-sm text-gray-500 leading-relaxed">
+                    <p className="text-sm text-gray-700 leading-relaxed">
                         1. 템플릿 파일을 다운로드하세요. **장르, 스타일, 주제, 공간** 항목은 엑셀 내 **드롭다운**에서 선택 가능합니다. <br />
                         2. **가로, 세로, 호수** 등 규격 정보는 숫자로만 입력해 주세요. (예: 53, 45.5, 10) <br />
                         3. &apos;이미지파일명&apos; 열에는 업로드할 파일명을 입력해 주세요. (확장자 `.jpg`, `.png` 등은 생략해도 무방합니다.) <br />

@@ -44,10 +44,10 @@ export default function WishlistContainer({ initialWishlist }: { initialWishlist
         return (
             <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
                 <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mb-8">
-                    <Heart className="w-10 h-10 text-gray-200" />
+                    <Heart className="w-10 h-10 text-gray-400" />
                 </div>
                 <h2 className="text-3xl font-serif italic text-black mb-4">위시리스트가 비어 있습니다.</h2>
-                <p className="text-gray-400 mb-10 max-w-sm">마음에 드는 작품을 찜하여 나만의 컬렉션을 만들어보세요.</p>
+                <p className="text-gray-600 mb-10 max-w-sm">마음에 드는 작품을 찜하여 나만의 컬렉션을 만들어보세요.</p>
                 <Link
                     href="/gallery"
                     className="px-10 py-4 bg-black text-white rounded-full font-bold text-sm tracking-widest uppercase hover:bg-accent transition-all duration-500"
@@ -63,7 +63,7 @@ export default function WishlistContainer({ initialWishlist }: { initialWishlist
             {/* Wishlist Items */}
             <div className="lg:col-span-2 space-y-8">
                 <div className="flex justify-between items-end border-b border-black pb-6">
-                    <h2 className="text-sm font-black uppercase tracking-[0.3em] text-gray-400">My Collection ({wishlist.length})</h2>
+                    <h2 className="text-sm font-black uppercase tracking-[0.3em] text-gray-600">My Collection ({wishlist.length})</h2>
                 </div>
 
                 <div className="space-y-6">
@@ -93,7 +93,7 @@ export default function WishlistContainer({ initialWishlist }: { initialWishlist
                                             <button
                                                 onClick={() => handleRemove(item._id)}
                                                 disabled={isRemoving === item._id}
-                                                className="text-gray-300 hover:text-red-500 transition-colors p-2"
+                                                className="text-gray-500 hover:text-red-500 transition-colors p-2"
                                                 title="삭제"
                                             >
                                                 <Trash2 className="w-4 h-4" />
@@ -104,16 +104,16 @@ export default function WishlistContainer({ initialWishlist }: { initialWishlist
                                                 {item.title}
                                             </Link>
                                         </h3>
-                                        <p className="text-xs text-gray-400 font-black uppercase tracking-widest">{item.artist_id?.name}</p>
+                                        <p className="text-xs text-gray-600 font-black uppercase tracking-widest">{item.artist_id?.name}</p>
                                     </div>
 
                                     <div className="mt-6 flex flex-wrap gap-x-10 gap-y-4">
                                         <div className="space-y-1">
-                                            <span className="text-[9px] text-gray-400 font-black uppercase tracking-widest block">Purchase Price</span>
+                                            <span className="text-[9px] text-gray-600 font-black uppercase tracking-widest block">Purchase Price</span>
                                             <span className="text-lg font-bold text-black opacity-30">₩ {item.price?.toLocaleString()}</span>
                                         </div>
                                         <div className="space-y-1">
-                                            <span className="text-[9px] text-gray-400 font-black uppercase tracking-widest block">Monthly Rental</span>
+                                            <span className="text-[9px] text-gray-600 font-black uppercase tracking-widest block">Monthly Rental</span>
                                             <span className="text-lg font-black text-black">₩ {item.rental_price?.toLocaleString()}</span>
                                         </div>
                                     </div>
@@ -138,9 +138,9 @@ export default function WishlistContainer({ initialWishlist }: { initialWishlist
                                 <h3 className="text-xs font-black uppercase tracking-[0.4em] text-accent mb-8">Order Summary</h3>
                                 <div className="space-y-6">
                                     <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                                        <span className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">Total Value</span>
+                                        <span className="text-[11px] font-medium text-gray-600 uppercase tracking-widest">Total Value</span>
                                         <div className="text-right">
-                                            <span className="text-xs text-gray-500 line-through block mb-1">₩ {totals.purchase.toLocaleString()}</span>
+                                            <span className="text-xs text-gray-700 line-through block mb-1">₩ {totals.purchase.toLocaleString()}</span>
                                             <span className="text-xl font-bold opacity-30">₩ {totals.purchase.toLocaleString()}</span>
                                         </div>
                                     </div>
@@ -160,7 +160,7 @@ export default function WishlistContainer({ initialWishlist }: { initialWishlist
                                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Link>
 
-                            <p className="text-[10px] text-gray-500 text-center leading-relaxed px-4">
+                            <p className="text-[10px] text-gray-700 text-center leading-relaxed px-4">
                                 * 대량 렌탈 및 구매 문의 시 추가 혜택이 적용될 수 있습니다. 문의하기를 통해 전문 큐레이터의 상담을 받아보세요.
                             </p>
                         </div>
@@ -168,9 +168,9 @@ export default function WishlistContainer({ initialWishlist }: { initialWishlist
 
                     {/* Additional Info Card */}
                     <div className="bg-gray-50 rounded-[40px] p-8 border border-gray-100 italic font-serif">
-                        <p className="text-sm text-gray-500 leading-loose">
+                        <p className="text-sm text-gray-700 leading-loose">
                             &quot;예술은 우리의 영혼에 묻은 일상의 먼지를 닦아준다.&quot; <br />
-                            <span className="text-xs text-gray-400 mt-4 block not-italic font-sans font-bold uppercase tracking-widest">— Pablo Picasso</span>
+                            <span className="text-xs text-gray-600 mt-4 block not-italic font-sans font-bold uppercase tracking-widest">— Pablo Picasso</span>
                         </p>
                     </div>
                 </div>

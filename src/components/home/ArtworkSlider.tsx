@@ -83,7 +83,7 @@ export default function ArtworkSlider({ artworks }: ArtworkSliderProps) {
                 <button
                     onClick={handlePrev}
                     title="이전 작품 목록"
-                    className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-black transition-colors"
+                    className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-black transition-colors"
                 >
                     <ChevronLeft className="w-5 h-5" />
                 </button>
@@ -105,7 +105,7 @@ export default function ArtworkSlider({ artworks }: ArtworkSliderProps) {
                 <button
                     onClick={handleNext}
                     title="다음 작품 목록"
-                    className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-black transition-colors"
+                    className="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-black transition-colors"
                 >
                     <ChevronRight className="w-5 h-5" />
                 </button>

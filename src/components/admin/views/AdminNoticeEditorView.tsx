@@ -92,7 +92,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
             <div className="flex items-center justify-between">
                 <button
                     onClick={onBack}
-                    className="flex items-center gap-2 text-gray-400 hover:text-black transition-colors group"
+                    className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors group"
                 >
                     <div className="w-8 h-8 rounded-full bg-white border border-gray-100 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all shadow-sm">
                         <ChevronLeft className="w-4 h-4" />
@@ -118,7 +118,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                 <div className="lg:col-span-2 space-y-8">
                     <div className="bg-white rounded-[40px] p-10 border border-gray-100 shadow-sm space-y-8">
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Notice Title</label>
+                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-600 ml-1">Notice Title</label>
                             <input
                                 type="text"
                                 placeholder="Enter notice title"
@@ -129,7 +129,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                         </div>
 
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Content Detail</label>
+                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-600 ml-1">Content Detail</label>
                             <textarea
                                 placeholder="Enter notice description..."
                                 rows={10}
@@ -171,7 +171,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                                     ))}
                                 </div>
                             ) : (
-                                <div className="aspect-[4/1] bg-gray-50 rounded-[30px] border-2 border-dashed border-gray-100 flex flex-col items-center justify-center text-gray-300">
+                                <div className="aspect-[4/1] bg-gray-50 rounded-[30px] border-2 border-dashed border-gray-100 flex flex-col items-center justify-center text-gray-500">
                                     <Upload className="w-8 h-8 mb-2 opacity-20" />
                                     <span className="text-xs font-bold uppercase tracking-widest opacity-50">Upload Pamphlets or Photos</span>
                                 </div>
@@ -190,7 +190,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
 
                         <div className="space-y-6">
                             <div className="space-y-3">
-                                <label className="text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">Start Date</label>
+                                <label className="text-[9px] font-black uppercase tracking-widest text-gray-700 ml-1">Start Date</label>
                                 <input
                                     type="date"
                                     title="시작 날짜"
@@ -200,7 +200,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label className="text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">End Date</label>
+                                <label className="text-[9px] font-black uppercase tracking-widest text-gray-700 ml-1">End Date</label>
                                 <input
                                     type="date"
                                     title="종료 날짜"
@@ -211,7 +211,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                             </div>
                             <div className="pt-4 border-t border-white/5 space-y-4">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Exposure Priority</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-600">Exposure Priority</span>
                                     <input
                                         type="number"
                                         title="노출 우선순위"
@@ -221,7 +221,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                                     />
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Notice Status</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-600">Notice Status</span>
                                     <button
                                         onClick={() => setFormData(prev => ({ ...prev, isActive: !prev.isActive }))}
                                         title={formData.isActive ? '비활성화하기' : '활성화하기'}

@@ -78,13 +78,13 @@ export default function AdminDashboard({ initialArtworks }: AdminDashboardProps)
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-[0.1em]">작품</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-[0.1em]">작가</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-[0.1em]">상세 정보</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-[0.1em]">판매/렌탈가</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-[0.1em]">상태</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-[0.1em]">추천</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-400 uppercase tracking-[0.1em]">관리</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">작품</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">작가</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">상세 정보</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">판매/렌탈가</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">상태</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">추천</th>
+                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">관리</th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-100">
@@ -97,14 +97,14 @@ export default function AdminDashboard({ initialArtworks }: AdminDashboardProps)
                                         </div>
                                         <div className="ml-4">
                                             <div className="text-sm font-medium text-gray-900">{art.title}</div>
-                                            <div className="text-[10px] text-gray-400 uppercase tracking-tighter">{art.category}</div>
+                                            <div className="text-[10px] text-gray-600 uppercase tracking-tighter">{art.category}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                                     {art.artist_id?.name || '미정'}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500">
+                                <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-700">
                                     <div className="flex flex-col gap-0.5">
                                         <span>{art.size || '크기 미입력'}</span>
                                         <span>{art.material || '재료 미입력'}</span>
@@ -113,7 +113,7 @@ export default function AdminDashboard({ initialArtworks }: AdminDashboardProps)
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     <div className="flex flex-col gap-0.5 font-light">
                                         <span>₩{art.price?.toLocaleString() || 0}</span>
-                                        <span className="text-gray-400 text-xs text-blue-500 font-medium whitespace-pre">월 ₩{art.rental_price?.toLocaleString() || 0}</span>
+                                        <span className="text-gray-600 text-xs text-blue-500 font-medium whitespace-pre">월 ₩{art.rental_price?.toLocaleString() || 0}</span>
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -126,7 +126,7 @@ export default function AdminDashboard({ initialArtworks }: AdminDashboardProps)
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <button
                                         onClick={() => handleToggleCurated(art._id, !art.isCurated)}
-                                        className={`${art.isCurated ? 'text-yellow-400' : 'text-gray-200'} hover:scale-110 transition-transform`}
+                                        className={`${art.isCurated ? 'text-yellow-400' : 'text-gray-400'} hover:scale-110 transition-transform`}
                                         title="추천 상태 변경"
                                     >
                                         <Star fill={art.isCurated ? "currentColor" : "none"} size={18} />
@@ -135,14 +135,14 @@ export default function AdminDashboard({ initialArtworks }: AdminDashboardProps)
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
                                     <button
                                         onClick={() => handleUpdateStatus(art._id, 'approved')}
-                                        className="text-gray-400 hover:text-green-600 transition-colors"
+                                        className="text-gray-600 hover:text-green-600 transition-colors"
                                         title="승인"
                                     >
                                         <Check size={18} />
                                     </button>
                                     <button
                                         onClick={() => handleUpdateStatus(art._id, 'rejected')}
-                                        className="text-gray-400 hover:text-red-500 transition-colors"
+                                        className="text-gray-600 hover:text-red-500 transition-colors"
                                         title="거절"
                                     >
                                         <X size={18} />
@@ -154,7 +154,7 @@ export default function AdminDashboard({ initialArtworks }: AdminDashboardProps)
                 </table>
             </div>
             {artworks.length === 0 && (
-                <div className="text-center py-20 text-gray-400 font-light">
+                <div className="text-center py-20 text-gray-600 font-light">
                     등록된 작품이 없습니다.
                 </div>
             )}

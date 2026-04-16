@@ -28,7 +28,7 @@ const SidebarItem = ({ icon: Icon, label, active, onClick, collapsed }: SidebarI
         onClick={onClick}
         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${active
             ? 'bg-black text-white shadow-lg shadow-gray-200'
-            : 'text-gray-500 hover:bg-gray-100 hover:text-black'
+            : 'text-gray-700 hover:bg-gray-100 hover:text-black'
             }`}
     >
         <Icon className={`w-5 h-5 flex-shrink-0 ${active ? 'text-white' : 'group-hover:scale-110 transition-transform'}`} />
@@ -63,12 +63,12 @@ const PartnerSidebar = ({ currentView, setView }: PartnerSidebarProps) => {
                 {!isCollapsed && (
                     <div className="flex flex-col">
                         <span className="text-xl font-black tracking-tighter text-black">ARTS FACTORY</span>
-                        <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-none mt-1">Partner Admin</span>
+                        <span className="text-[10px] text-gray-600 font-bold uppercase tracking-widest leading-none mt-1">Partner Admin</span>
                     </div>
                 )}
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
-                    className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-400 transition-colors"
+                    className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-600 transition-colors"
                 >
                     {isCollapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
                 </button>
@@ -91,7 +91,7 @@ const PartnerSidebar = ({ currentView, setView }: PartnerSidebarProps) => {
             {/* Footer Section (Logout etc) */}
             <div className="p-4 border-t border-gray-50">
                 <button
-                    className={`w-full flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200 group`}
+                    className={`w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200 group`}
                 >
                     <LogOut className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                     {!isCollapsed && <span className="font-medium text-sm">로그아웃</span>}

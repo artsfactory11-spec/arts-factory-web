@@ -46,7 +46,7 @@ const ArtworkListView = ({ artistId, onNewClick }: { artistId: string, onNewClic
         return (
             <div className="w-full h-64 flex flex-col items-center justify-center gap-4">
                 <div className="w-10 h-10 border-4 border-gray-200 border-t-black rounded-full animate-spin"></div>
-                <p className="text-gray-400 font-medium">작품 목록을 불러오는 중...</p>
+                <p className="text-gray-600 font-medium">작품 목록을 불러오는 중...</p>
             </div>
         );
     }
@@ -56,7 +56,7 @@ const ArtworkListView = ({ artistId, onNewClick }: { artistId: string, onNewClic
             {/* Search and Filter bar */}
             <div className="bg-white p-4 rounded-2xl border border-gray-50 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
                 <div className="relative w-full md:w-96">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                     <input
                         type="text"
                         placeholder="작품명 또는 카테고리 검색"
@@ -79,7 +79,7 @@ const ArtworkListView = ({ artistId, onNewClick }: { artistId: string, onNewClic
             {/* Artworks List */}
             <div className="bg-white rounded-2xl border border-gray-50 shadow-sm overflow-hidden">
                 {artworks.length === 0 ? (
-                    <div className="py-32 flex flex-col items-center justify-center text-gray-300">
+                    <div className="py-32 flex flex-col items-center justify-center text-gray-500">
                         <Tag className="w-16 h-16 mb-4 opacity-10" />
                         <p className="text-lg font-medium">등록된 작품이 없습니다.</p>
                         <p className="text-sm">먼저 첫 번째 작품을 등록해보세요!</p>
@@ -89,11 +89,11 @@ const ArtworkListView = ({ artistId, onNewClick }: { artistId: string, onNewClic
                         <table className="w-full text-left">
                             <thead>
                                 <tr className="bg-gray-50/50 border-b border-gray-50">
-                                    <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">작품 정보</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">상태</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">판매가 / 렌탈료</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">등록일</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-right">관리</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-gray-600 uppercase tracking-wider">작품 정보</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-gray-600 uppercase tracking-wider">상태</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-gray-600 uppercase tracking-wider">판매가 / 렌탈료</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-gray-600 uppercase tracking-wider">등록일</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-gray-600 uppercase tracking-wider text-right">관리</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-50">
@@ -106,7 +106,7 @@ const ArtworkListView = ({ artistId, onNewClick }: { artistId: string, onNewClic
                                                 </div>
                                                 <div>
                                                     <h4 className="font-bold text-gray-900 line-clamp-1">{art.title}</h4>
-                                                    <p className="text-xs text-gray-400 mt-0.5">{art.category} • {art.size || '사이즈 미정'}</p>
+                                                    <p className="text-xs text-gray-600 mt-0.5">{art.category} • {art.size || '사이즈 미정'}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -120,11 +120,11 @@ const ArtworkListView = ({ artistId, onNewClick }: { artistId: string, onNewClic
                                         <td className="px-6 py-4">
                                             <div className="text-sm">
                                                 <p className="font-bold text-gray-900">{art.price?.toLocaleString()}원</p>
-                                                <p className="text-xs text-gray-400 mt-1">대여: {art.rental_price?.toLocaleString()}원</p>
+                                                <p className="text-xs text-gray-600 mt-1">대여: {art.rental_price?.toLocaleString()}원</p>
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <div className="flex items-center gap-2 text-xs text-gray-400">
+                                            <div className="flex items-center gap-2 text-xs text-gray-600">
                                                 <Calendar className="w-3 h-3" />
                                                 {new Date(art.createdAt).toLocaleDateString()}
                                             </div>
@@ -133,26 +133,26 @@ const ArtworkListView = ({ artistId, onNewClick }: { artistId: string, onNewClic
                                             <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <button
                                                     title="작품 보기"
-                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-black transition-all"
+                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-600 hover:text-black transition-all"
                                                 >
                                                     <Eye className="w-4 h-4" />
                                                 </button>
                                                 <button
                                                     title="작품 수정"
-                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-blue-600 transition-all"
+                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-600 hover:text-blue-600 transition-all"
                                                 >
                                                     <Edit2 className="w-4 h-4" />
                                                 </button>
                                                 <button
                                                     title="작품 삭제"
-                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-red-500 transition-all"
+                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-600 hover:text-red-500 transition-all"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
                                                 </button>
                                                 <div className="w-px h-4 bg-gray-200 mx-1"></div>
                                                 <button
                                                     title="더 보기"
-                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-400 hover:text-black transition-all"
+                                                    className="p-2 hover:bg-white hover:shadow-sm rounded-lg text-gray-600 hover:text-black transition-all"
                                                 >
                                                     <MoreVertical className="w-4 h-4" />
                                                 </button>

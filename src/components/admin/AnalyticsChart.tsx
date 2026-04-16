@@ -31,11 +31,11 @@ export default function AnalyticsChart() {
                 <div className="flex items-center justify-between">
                     <div className="space-y-1">
                         <h3 className="text-sm font-black uppercase tracking-widest text-black">Inquiry Trends</h3>
-                        <p className="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">Weekly Inquiries Received</p>
+                        <p className="text-[10px] text-gray-600 uppercase font-bold tracking-tighter">Weekly Inquiries Received</p>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full bg-black" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-300">Last 7 Days</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Last 7 Days</span>
                     </div>
                 </div>
 
@@ -75,16 +75,16 @@ export default function AnalyticsChart() {
                 <div className="flex items-center justify-between">
                     <div className="space-y-1">
                         <h3 className="text-sm font-black uppercase tracking-widest text-black">Activity Overview</h3>
-                        <p className="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">Artworks vs Inquiries</p>
+                        <p className="text-[10px] text-gray-600 uppercase font-bold tracking-tighter">Artworks vs Inquiries</p>
                     </div>
                     <div className="flex gap-4">
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-accent" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-gray-300">Artworks</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Artworks</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-black" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-gray-300">Inquiries</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Inquiries</span>
                         </div>
                     </div>
                 </div>

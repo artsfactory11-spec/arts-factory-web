@@ -17,7 +17,7 @@ const ArtistSection = ({ artists }: ArtistSectionProps) => {
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                     <div>
-                        <span className="text-[10px] font-black tracking-[0.3em] text-gray-400 uppercase mb-4 block">
+                        <span className="text-[10px] font-black tracking-[0.3em] text-gray-600 uppercase mb-4 block">
                             Our Visionary Creators
                         </span>
                         <h2 className="text-5xl font-extralight tracking-tighter text-black">
@@ -26,7 +26,7 @@ const ArtistSection = ({ artists }: ArtistSectionProps) => {
                     </div>
                     <Link
                         href="/artists"
-                        className="group flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-black transition-colors"
+                        className="group flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-black transition-colors"
                     >
                         전체 작가 보기
                         <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

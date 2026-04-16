@@ -33,7 +33,7 @@ export default function NotFound() {
                         <h2 className="text-4xl md:text-6xl font-serif font-bold tracking-tighter text-black">
                             캔버스가 비어있습니다.
                         </h2>
-                        <p className="text-gray-400 font-serif italic text-lg max-w-lg mx-auto leading-relaxed">
+                        <p className="text-gray-600 font-serif italic text-lg max-w-lg mx-auto leading-relaxed">
                             요청하신 페이지는 전시되지 않았거나 <br className="hidden md:block" />
                             존재하지 않는 작품의 경로인 것 같네요.
                         </p>
@@ -58,7 +58,7 @@ export default function NotFound() {
                                 <Link
                                     key={item}
                                     href={`/${item.toLowerCase()}`}
-                                    className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 hover:text-black transition-colors"
+                                    className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-black transition-colors"
                                 >
                                     {item}
                                 </Link>
@@ -73,7 +73,7 @@ export default function NotFound() {
                     transition={{ delay: 1 }}
                     className="fixed bottom-12 left-0 right-0 text-center"
                 >
-                    <p className="text-[10px] font-black tracking-[0.5em] text-gray-200 uppercase">
+                    <p className="text-[10px] font-black tracking-[0.5em] text-gray-400 uppercase">
                         Arts Factory Premium Experience
                     </p>
                 </motion.div>

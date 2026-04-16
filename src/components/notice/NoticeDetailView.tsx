@@ -14,7 +14,7 @@ export default function NoticeDetailView({ notice, onBack }: NoticeDetailViewPro
         <div className="max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
             <button
                 onClick={onBack}
-                className="inline-flex items-center gap-2 text-gray-400 hover:text-black transition-colors mb-12 group"
+                className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors mb-12 group"
             >
                 <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 <span className="text-[10px] font-black uppercase tracking-widest">Back to List</span>
@@ -26,7 +26,7 @@ export default function NoticeDetailView({ notice, onBack }: NoticeDetailViewPro
                         <span className="px-3 py-1 bg-gray-900 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
                             Notice
                         </span>
-                        <div className="flex items-center gap-2 text-[11px] text-gray-400 font-bold">
+                        <div className="flex items-center gap-2 text-[11px] text-gray-600 font-bold">
                             <Calendar className="w-3 h-3" />
                             {notice.createdAt ? new Date(notice.createdAt).toLocaleDateString() : '-'}
                         </div>
@@ -62,10 +62,10 @@ export default function NoticeDetailView({ notice, onBack }: NoticeDetailViewPro
 
             {/* Footer Section */}
             <div className="mt-32 pt-16 border-t border-gray-100 text-center">
-                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-8 text-gray-200">
+                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-8 text-gray-400">
                     <Bell className="w-8 h-8" />
                 </div>
-                <p className="text-sm text-gray-400 font-serif italic">Arts Factory: Where Art Meets Life</p>
+                <p className="text-sm text-gray-600 font-serif italic">Arts Factory: Where Art Meets Life</p>
             </div>
         </div>
     );

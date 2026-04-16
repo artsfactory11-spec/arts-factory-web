@@ -13,11 +13,11 @@ export default function ComparePage() {
     if (compareList.length === 0) {
         return (
             <main className="min-h-screen bg-white flex flex-col items-center justify-center p-6 text-center">
-                <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mb-10 text-gray-200">
+                <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mb-10 text-gray-400">
                     <X size={48} strokeWidth={1} />
                 </div>
                 <h1 className="text-4xl font-serif font-light italic mb-6">비교할 작품이 없습니다.</h1>
-                <p className="text-gray-400 font-serif italic mb-12">갤러리에서 관심 있는 작품을 선택하여 비교해보세요.</p>
+                <p className="text-gray-600 font-serif italic mb-12">갤러리에서 관심 있는 작품을 선택하여 비교해보세요.</p>
                 <Link
                     href="/gallery"
                     className="px-12 py-5 bg-black text-white rounded-full text-xs font-black uppercase tracking-widest hover:scale-105 transition-transform"
@@ -36,12 +36,12 @@ export default function ComparePage() {
                     <div className="space-y-6">
                         <Link
                             href="/gallery"
-                            className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-black transition-colors"
+                            className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-600 hover:text-black transition-colors"
                         >
                             <ChevronLeft size={14} /> Back to Gallery
                         </Link>
                         <h1 className="text-7xl font-serif font-light italic tracking-tighter">Compare Series</h1>
-                        <p className="text-gray-400 font-serif italic text-xl">엄선된 작품들의 가치와 사양을 한눈에 비교해 보세요.</p>
+                        <p className="text-gray-600 font-serif italic text-xl">엄선된 작품들의 가치와 사양을 한눈에 비교해 보세요.</p>
                     </div>
                     <button
                         onClick={clearCompare}
@@ -86,28 +86,28 @@ export default function ComparePage() {
                             <div className="space-y-4">
                                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent">{art.category}</span>
                                 <h3 className="text-4xl font-serif italic tracking-tight">{art.title}</h3>
-                                <p className="text-xs font-black uppercase tracking-widest text-gray-400">{art.artist_name}</p>
+                                <p className="text-xs font-black uppercase tracking-widest text-gray-600">{art.artist_name}</p>
                             </div>
 
                             {/* Specs Table */}
                             <div className="space-y-8 py-10 border-y border-gray-50">
                                 <div className="space-y-2">
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-300">Materials</p>
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-500">Materials</p>
                                     <p className="text-sm font-serif italic text-gray-600">{art.material || 'Mixed Media'}</p>
                                 </div>
                                 <div className="space-y-2">
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-300">Dimensions</p>
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-500">Dimensions</p>
                                     <p className="text-sm font-serif italic text-gray-600">{art.size || 'Variable Sizes'}</p>
                                 </div>
                                 <div className="space-y-2">
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-300">Monthly Rental</p>
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-500">Monthly Rental</p>
                                     <p className="text-2xl font-black italic tracking-tighter">
                                         {art.rental_price ? `₩ ${art.rental_price.toLocaleString()}` : 'Contact for Price'}
                                     </p>
                                 </div>
                                 <div className="space-y-2">
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-300">Purchase Price</p>
-                                    <p className="text-lg font-light text-gray-400">₩ {art.price.toLocaleString()}</p>
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-500">Purchase Price</p>
+                                    <p className="text-lg font-light text-gray-600">₩ {art.price.toLocaleString()}</p>
                                 </div>
                             </div>
 

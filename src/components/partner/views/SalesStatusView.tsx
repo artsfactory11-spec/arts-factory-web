@@ -32,7 +32,7 @@ const SalesStatusView = () => {
                         </div>
                         <span className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full uppercase">Earnings</span>
                     </div>
-                    <p className="text-sm font-medium text-gray-400">이번 달 총 매출</p>
+                    <p className="text-sm font-medium text-gray-600">이번 달 총 매출</p>
                     <h3 className="text-2xl font-bold text-gray-900 mt-1">2,200,000원</h3>
                 </div>
 
@@ -43,7 +43,7 @@ const SalesStatusView = () => {
                         </div>
                         <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full uppercase">Rentals</span>
                     </div>
-                    <p className="text-sm font-medium text-gray-400">진행 중인 렌탈</p>
+                    <p className="text-sm font-medium text-gray-600">진행 중인 렌탈</p>
                     <h3 className="text-2xl font-bold text-gray-900 mt-1">3건</h3>
                 </div>
 
@@ -54,7 +54,7 @@ const SalesStatusView = () => {
                         </div>
                         <span className="text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full uppercase">Settlement</span>
                     </div>
-                    <p className="text-sm font-medium text-gray-400">정산 예정 금액</p>
+                    <p className="text-sm font-medium text-gray-600">정산 예정 금액</p>
                     <h3 className="text-2xl font-bold text-gray-900 mt-1">850,000원</h3>
                 </div>
             </div>
@@ -63,18 +63,18 @@ const SalesStatusView = () => {
             <div className="bg-white rounded-2xl border border-gray-50 shadow-sm overflow-hidden">
                 <div className="px-8 py-6 border-b border-gray-50 flex items-center justify-between">
                     <h3 className="font-bold text-lg text-gray-900">최근 거래 내역</h3>
-                    <button className="text-sm font-bold text-gray-400 hover:text-black transition-colors">전체 내역 보기</button>
+                    <button className="text-sm font-bold text-gray-600 hover:text-black transition-colors">전체 내역 보기</button>
                 </div>
 
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
                         <thead>
                             <tr className="bg-gray-50/50 border-b border-gray-50">
-                                <th className="px-8 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">구분</th>
-                                <th className="px-8 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">작품명 / 구매자</th>
-                                <th className="px-8 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">거래 금액</th>
-                                <th className="px-8 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">상태</th>
-                                <th className="px-8 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">거래 일시</th>
+                                <th className="px-8 py-4 text-xs font-bold text-gray-600 uppercase tracking-wider">구분</th>
+                                <th className="px-8 py-4 text-xs font-bold text-gray-600 uppercase tracking-wider">작품명 / 구매자</th>
+                                <th className="px-8 py-4 text-xs font-bold text-gray-600 uppercase tracking-wider">거래 금액</th>
+                                <th className="px-8 py-4 text-xs font-bold text-gray-600 uppercase tracking-wider">상태</th>
+                                <th className="px-8 py-4 text-xs font-bold text-gray-600 uppercase tracking-wider">거래 일시</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
@@ -90,7 +90,7 @@ const SalesStatusView = () => {
                                     <td className="px-8 py-6">
                                         <div>
                                             <p className="font-bold text-gray-900">{tx.title}</p>
-                                            <p className="text-xs text-gray-400 mt-1">{tx.customer}</p>
+                                            <p className="text-xs text-gray-600 mt-1">{tx.customer}</p>
                                         </div>
                                     </td>
                                     <td className="px-8 py-6">
@@ -109,7 +109,7 @@ const SalesStatusView = () => {
                                         </div>
                                     </td>
                                     <td className="px-8 py-6">
-                                        <div className="flex items-center gap-2 text-xs text-gray-400">
+                                        <div className="flex items-center gap-2 text-xs text-gray-600">
                                             <Calendar className="w-3.5 h-3.5" />
                                             {tx.date}
                                         </div>
@@ -123,10 +123,10 @@ const SalesStatusView = () => {
 
             {/* Info Box */}
             <div className="bg-[#fafafa] p-8 rounded-3xl border border-gray-100 flex items-start gap-4">
-                <AlertCircle className="w-6 h-6 text-gray-400 mt-0.5" />
+                <AlertCircle className="w-6 h-6 text-gray-600 mt-0.5" />
                 <div>
                     <h4 className="font-bold text-gray-900 mb-2">정산 안내</h4>
-                    <p className="text-sm text-gray-500 leading-relaxed">
+                    <p className="text-sm text-gray-700 leading-relaxed">
                         모든 정산은 작품 판매/렌탈이 확정된 후 익월 10일에 일괄 처리됩니다. <br />
                         정산 내역에 대한 상세 문의는 파트너십 담당자에게 메일 부탁드립니다.
                     </p>

@@ -103,7 +103,7 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
             <div className="flex items-center justify-between mb-12">
                 <button
                     onClick={onBack}
-                    className="flex items-center gap-2 text-gray-400 hover:text-black transition-colors font-bold text-sm"
+                    className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors font-bold text-sm"
                 >
                     <ChevronLeft className="w-5 h-5" /> 목록으로 돌아가기
                 </button>
@@ -112,7 +112,7 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
                         type="button"
                         onClick={handleSubmit}
                         disabled={loading}
-                        className="flex items-center gap-2 px-8 py-4 bg-black text-white rounded-2xl text-sm font-bold hover:bg-gray-800 active:scale-95 transition-all shadow-xl shadow-black/10 disabled:bg-gray-100 disabled:text-gray-400"
+                        className="flex items-center gap-2 px-8 py-4 bg-black text-white rounded-2xl text-sm font-bold hover:bg-gray-800 active:scale-95 transition-all shadow-xl shadow-black/10 disabled:bg-gray-100 disabled:text-gray-600"
                     >
                         {loading ? <Loader2 className="w-4 h-4 animate-spin" /> :
                             success ? <CheckCircle2 className="w-4 h-4 text-green-400" /> :
@@ -140,11 +140,11 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
                     ) : (
                         <div className="text-center space-y-4">
                             <div className="w-16 h-16 bg-white rounded-3xl flex items-center justify-center mx-auto shadow-sm">
-                                <ImageIcon className="w-8 h-8 text-gray-300" />
+                                <ImageIcon className="w-8 h-8 text-gray-500" />
                             </div>
                             <div className="space-y-1">
                                 <p className="font-bold text-gray-900">대표 썸네일 이미지 등록</p>
-                                <p className="text-xs text-gray-400">권장 사이즈: 1200 x 515 (WebP 지원)</p>
+                                <p className="text-xs text-gray-600">권장 사이즈: 1200 x 515 (WebP 지원)</p>
                             </div>
                         </div>
                     )}
@@ -190,7 +190,7 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
                                 <div className={`w-12 h-6 rounded-full transition-all relative ${formData.is_published ? 'bg-black' : 'bg-gray-200'}`}>
                                     <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${formData.is_published ? 'left-7' : 'left-1'}`} />
                                 </div>
-                                <span className={`text-sm font-bold ${formData.is_published ? 'text-black' : 'text-gray-400'}`}>
+                                <span className={`text-sm font-bold ${formData.is_published ? 'text-black' : 'text-gray-600'}`}>
                                     {formData.is_published ? '기사 공개' : '비공개 저장'}
                                 </span>
                             </label>
@@ -221,7 +221,7 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
                             placeholder="여기에 소식을 작성하세요. (HTML 지원)"
                             className="w-full px-6 py-6 bg-gray-50 border-2 border-transparent rounded-3xl focus:bg-white focus:border-black text-gray-900 font-medium transition-all outline-none shadow-sm resize-none leading-relaxed"
                         />
-                        <p className="text-[10px] text-gray-400 ml-2 italic">* 추후 에디터(WYSIWYG) 라이브러리를 통해 고도화될 예정입니다.</p>
+                        <p className="text-[10px] text-gray-600 ml-2 italic">* 추후 에디터(WYSIWYG) 라이브러리를 통해 고도화될 예정입니다.</p>
                     </div>
                 </div>
             </form>

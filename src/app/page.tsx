@@ -21,11 +21,11 @@ async function HeroStats() {
     <div className="flex gap-12 mt-16">
       <div className="flex flex-col">
         <span className="text-4xl font-serif font-light tracking-tighter">{artworkCount}+</span>
-        <span className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] mt-1">엄선된 작품들</span>
+        <span className="text-[9px] font-black text-gray-600 uppercase tracking-[0.2em] mt-1">엄선된 작품들</span>
       </div>
       <div className="flex flex-col">
         <span className="text-4xl font-serif font-light tracking-tighter">{artistCount}+</span>
-        <span className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] mt-1">활동 작가군</span>
+        <span className="text-[9px] font-black text-gray-600 uppercase tracking-[0.2em] mt-1">활동 작가군</span>
       </div>
     </div>
   );
@@ -69,7 +69,7 @@ async function FeaturedSection() {
             <h2 className="text-7xl lg:text-9xl font-serif font-light tracking-tighter leading-[0.8] italic mb-10 text-charcoal">
               The <br /> Modern <br /> Archive
             </h2>
-            <p className="text-gray-400 font-serif text-xl italic leading-relaxed max-w-sm">
+            <p className="text-gray-600 font-serif text-xl italic leading-relaxed max-w-sm">
               예술적 가치와 투자 가치를 동시에 지닌, 아트팩토리 전문가들이 엄선한 이달의 핵심 컬렉션입니다.
             </p>
             <div className="mt-14 w-20 h-[1px] bg-accent/30" />
@@ -85,7 +85,7 @@ async function FeaturedSection() {
                   <div className="absolute -bottom-12 -left-6 lg:left-auto lg:-right-12 bg-white/80 backdrop-blur-xl p-10 rounded-[30px] shadow-[0_20px_40px_rgba(0,0,0,0.05)] border border-white/20 max-w-xs group-hover:-translate-y-6 transition-transform duration-700">
                     <span className="text-[9px] font-black tracking-[0.3em] text-accent uppercase mb-4 block">Selection 0{i + 1}</span>
                     <h3 className="text-3xl font-serif italic mb-3 text-charcoal">{item.title}</h3>
-                    <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em]">Artist. {item.artist_id?.name || 'Unknown'}</p>
+                    <p className="text-[9px] text-gray-600 font-bold uppercase tracking-[0.2em]">Artist. {item.artist_id?.name || 'Unknown'}</p>
                   </div>
                 </div>
               </RevealSection>
@@ -151,7 +151,7 @@ async function ArtistSpotlight() {
                 <h2 className="text-8xl lg:text-[140px] font-serif font-light italic leading-[0.8] tracking-tighter">
                   {artist.name}
                 </h2>
-                <p className="text-2xl text-gray-400 font-serif italic leading-relaxed max-w-xl">
+                <p className="text-2xl text-gray-600 font-serif italic leading-relaxed max-w-xl">
                   {artist.artist_bio || `"나의 작업은 보이지 않는 감정의 흐름을 캔버스 위에 고착시키는 과정이다."`}
                 </p>
               </div>
@@ -216,7 +216,7 @@ async function MagazineSection() {
                 </div>
                 <div className="space-y-6">
                   <h3 className="text-4xl font-serif italic leading-tight group-hover:text-accent transition-colors">{mag.title}</h3>
-                  <p className="text-gray-400 font-serif italic text-lg leading-relaxed line-clamp-2">
+                  <p className="text-gray-600 font-serif italic text-lg leading-relaxed line-clamp-2">
                     {mag.content.replace(/<[^>]*>/g, '').substring(0, 100)}...
                   </p>
                   <Link href={`/magazine/${mag._id}`} className="inline-block text-[10px] font-black uppercase tracking-widest border-b border-black pb-2">기사 자세히 보기</Link>
@@ -253,7 +253,7 @@ export default function Home() {
           </div>
 
           <div className="flex-1 flex flex-col gap-20 animate-in fade-in slide-in-from-bottom-12 duration-1200 cubic-bezier(0.2, 0, 0.2, 1)">
-            <p className="text-gray-500 font-serif italic leading-relaxed text-4xl lg:text-5xl max-w-2xl">
+            <p className="text-gray-700 font-serif italic leading-relaxed text-4xl lg:text-5xl max-w-2xl">
               &quot;우리는 당신의 공간에 <br className="hidden md:block" />
               숨 쉬는 예술을 제안합니다.&quot;
             </p>
@@ -264,7 +264,7 @@ export default function Home() {
               </Suspense>
 
               <div className="flex flex-col gap-12 items-start md:items-end w-full md:w-auto">
-                <span className="text-vertical hidden lg:block absolute -right-16 top-0 text-[10px] font-black tracking-[0.6em] text-gray-300 uppercase">
+                <span className="text-vertical hidden lg:block absolute -right-16 top-0 text-[10px] font-black tracking-[0.6em] text-gray-500 uppercase">
                   뮤지엄 표준 / 소장 가치
                 </span>
                 <Link
@@ -331,7 +331,7 @@ export default function Home() {
                   <item.icon className="w-10 h-10" />
                 </div>
                 <h4 className="text-3xl font-serif italic mb-6">{item.title}</h4>
-                <p className="text-gray-400 font-serif italic text-lg leading-relaxed">{item.desc}</p>
+                <p className="text-gray-600 font-serif italic text-lg leading-relaxed">{item.desc}</p>
               </div>
             </RevealSection>
           ))}

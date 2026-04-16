@@ -88,7 +88,7 @@ export default function NoticeModal() {
                                     <h2 className="text-3xl font-serif italic mb-6 leading-tight leading-relaxed">
                                         {currentNotice.title}
                                     </h2>
-                                    <p className="text-sm text-gray-400 line-clamp-3 leading-relaxed">
+                                    <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">
                                         {currentNotice.content}
                                     </p>
                                 </div>
@@ -107,7 +107,7 @@ export default function NoticeModal() {
                     <div className="bg-gray-50 px-10 py-5 flex items-center justify-between border-t border-gray-100">
                         <button
                             onClick={hideForToday}
-                            className="text-[11px] font-bold text-gray-400 hover:text-black transition-colors"
+                            className="text-[11px] font-bold text-gray-600 hover:text-black transition-colors"
                         >
                             오늘 하루 보지 않기
                         </button>

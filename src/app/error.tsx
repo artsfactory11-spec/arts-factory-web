@@ -50,7 +50,7 @@ export default function Error({
                             <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tighter text-black leading-tight">
                                 기술적인 오류가 <br /> 발생했습니다.
                             </h1>
-                            <p className="text-gray-400 font-serif italic text-lg max-w-md mx-auto leading-relaxed">
+                            <p className="text-gray-600 font-serif italic text-lg max-w-md mx-auto leading-relaxed">
                                 잠시 후 다시 시도해 주세요. <br className="hidden md:block" />
                                 문제가 지속되면 관리자에게 문의 바랍니다.
                             </p>
@@ -81,7 +81,7 @@ export default function Error({
                 </div>
 
                 <div className="pt-24 opacity-20 hover:opacity-100 transition-opacity">
-                    <p className="text-[9px] font-mono text-gray-400 max-w-xs mx-auto break-all uppercase">
+                    <p className="text-[9px] font-mono text-gray-600 max-w-xs mx-auto break-all uppercase">
                         Digest: {error.digest || 'no-digest-id'}
                     </p>
                 </div>

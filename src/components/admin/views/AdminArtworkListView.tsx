@@ -151,7 +151,7 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-4 flex-1">
                     <div className="relative flex-1 max-w-md group">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-black transition-colors" />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 group-focus-within:text-black transition-colors" />
                         <input
                             type="text"
                             placeholder="작품명 또는 작가명 검색"
@@ -161,7 +161,7 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                         />
                     </div>
                     <div className="relative">
-                        <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                         <select
                             value={statusFilter}
                             onChange={(e) => setStatusFilter(e.target.value as IAdminArtwork['status'] | 'all')}
@@ -190,13 +190,13 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-gray-50/50 border-b border-gray-50">
-                                <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">작품 정보</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">작가</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">가격 정보 (판매/렌탈)</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">렌탈 상태</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">큐레이션</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">상태</th>
-                                <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">작업</th>
+                                <th className="px-8 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">작품 정보</th>
+                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">작가</th>
+                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">가격 정보 (판매/렌탈)</th>
+                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest text-center">렌탈 상태</th>
+                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest text-center">큐레이션</th>
+                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">상태</th>
+                                <th className="px-8 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest text-right">작업</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
@@ -210,9 +210,9 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                             <div>
                                                 <p className="font-bold text-gray-900 text-sm">{art.title}</p>
                                                 <div className="flex items-center gap-2 mt-1">
-                                                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">{art.category}</span>
+                                                    <span className="text-[10px] text-gray-600 font-bold uppercase tracking-tighter">{art.category}</span>
                                                     <span className="w-1 h-1 bg-gray-200 rounded-full" />
-                                                    <span className="text-[10px] text-gray-400 font-medium">{art.size}</span>
+                                                    <span className="text-[10px] text-gray-600 font-medium">{art.size}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -244,7 +244,7 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                             onClick={() => handleToggleCurated(art._id, !art.isCurated)}
                                             className={`p-2 rounded-xl transition-all shadow-sm mx-auto flex items-center justify-center ${art.isCurated
                                                 ? 'bg-yellow-50 text-yellow-400 border border-yellow-100'
-                                                : 'bg-gray-50 text-gray-300 border border-gray-100 hover:text-gray-500 hover:bg-gray-100'
+                                                : 'bg-gray-50 text-gray-500 border border-gray-100 hover:text-gray-700 hover:bg-gray-100'
                                                 }`}
                                             title="큐레이션 추천 상태 변경"
                                         >
@@ -296,7 +296,7 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                             >
                                                 {loadingId === art._id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
                                             </button>
-                                            <Link href={`/gallery/${art._id}`} target="_blank" className="p-2 bg-gray-50 text-gray-400 rounded-lg hover:bg-black hover:text-white transition-all shadow-sm" title="작품 상세 페이지 방문">
+                                            <Link href={`/gallery/${art._id}`} target="_blank" className="p-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-black hover:text-white transition-all shadow-sm" title="작품 상세 페이지 방문">
                                                 <ExternalLink className="w-4 h-4" />
                                             </Link>
                                         </div>
@@ -307,7 +307,7 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                     </table>
                 </div>
                 {filteredArtworks.length === 0 && (
-                    <div className="py-32 text-center text-gray-300 font-medium">
+                    <div className="py-32 text-center text-gray-500 font-medium">
                         조건에 맞는 작품이 없습니다.
                     </div>
                 )}

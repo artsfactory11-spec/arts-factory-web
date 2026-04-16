@@ -57,7 +57,7 @@ export default function VRViewer({ imageUrl, artworkTitle, sizeDesc }: VRViewerP
     return (
         <div className="w-full h-[600px] bg-gray-100 rounded-[40px] overflow-hidden relative border border-gray-100 shadow-inner">
             <div className="absolute top-8 left-8 z-10">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-1">Virtual Preview</h3>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-600 mb-1">Virtual Preview</h3>
                 <p className="text-lg font-serif italic">{artworkTitle}</p>
             </div>
 
@@ -81,10 +81,10 @@ export default function VRViewer({ imageUrl, artworkTitle, sizeDesc }: VRViewerP
             </Canvas>
 
             <div className="absolute bottom-8 right-8 z-10 flex gap-4">
-                <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-full text-[9px] font-black uppercase tracking-tighter text-gray-500 border border-white/20">
+                <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-full text-[9px] font-black uppercase tracking-tighter text-gray-700 border border-white/20">
                     Drag to Rotate
                 </div>
-                <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-full text-[9px] font-black uppercase tracking-tighter text-gray-500 border border-white/20">
+                <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-full text-[9px] font-black uppercase tracking-tighter text-gray-700 border border-white/20">
                     Scroll to Zoom
                 </div>
             </div>

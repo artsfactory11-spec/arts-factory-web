@@ -217,8 +217,8 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                             <div className="relative w-full md:w-48 aspect-square rounded-lg overflow-hidden border-2 border-white shadow-xl ring-1 ring-black/5 flex-shrink-0 bg-white flex items-center justify-center">
                                 {isPreviewLoading ? (
                                     <div className="flex flex-col items-center gap-2">
-                                        <Loader2 className="w-8 h-8 animate-spin text-gray-300" />
-                                        <span className="text-[10px] text-gray-400 font-medium tracking-tight">이미지 최적화 중...</span>
+                                        <Loader2 className="w-8 h-8 animate-spin text-gray-500" />
+                                        <span className="text-[10px] text-gray-600 font-medium tracking-tight">이미지 최적화 중...</span>
                                     </div>
                                 ) : preview ? (
                                     <>
@@ -238,11 +238,11 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                                 ) : (
                                     <div className="flex flex-col items-center gap-3 p-4 text-center bg-gray-50/50 w-full h-full justify-center">
                                         <div className="p-3 bg-gray-100 rounded-full">
-                                            <ImageIcon className="w-6 h-6 text-gray-300" />
+                                            <ImageIcon className="w-6 h-6 text-gray-500" />
                                         </div>
                                         <div className="space-y-1">
-                                            <p className="text-[10px] text-gray-500 font-bold leading-tight">미리보기 미지원 포맷</p>
-                                            <p className="text-[9px] text-gray-400 leading-tight">TIFF 등 전문 포맷은<br />등록 후 갤러리에서 확인 가능합니다</p>
+                                            <p className="text-[10px] text-gray-700 font-bold leading-tight">미리보기 미지원 포맷</p>
+                                            <p className="text-[9px] text-gray-600 leading-tight">TIFF 등 전문 포맷은<br />등록 후 갤러리에서 확인 가능합니다</p>
                                         </div>
                                     </div>
                                 )}
@@ -250,10 +250,10 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                         </div>
                     ) : (
                         <div className="flex flex-col items-center">
-                            <Upload className="w-14 h-14 mb-3 text-gray-400 group-hover:text-black transition-colors" />
+                            <Upload className="w-14 h-14 mb-3 text-gray-600 group-hover:text-black transition-colors" />
                             <p className="text-lg font-bold text-gray-900 tracking-tight">이미지 업로드</p>
-                            <p className="text-sm text-gray-400 mt-1">이곳을 클릭하여 작품 파일을 선택하세요</p>
-                            <p className="text-xs text-gray-300 mt-3 font-light italic">장기 보존과 로딩 속도를 위해 자동으로 WebP 변환이 수행됩니다</p>
+                            <p className="text-sm text-gray-600 mt-1">이곳을 클릭하여 작품 파일을 선택하세요</p>
+                            <p className="text-xs text-gray-500 mt-3 font-light italic">장기 보존과 로딩 속도를 위해 자동으로 WebP 변환이 수행됩니다</p>
                         </div>
                     )}
                 </div>
@@ -288,7 +288,7 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                             value={formData.title}
                             onChange={handleInputChange}
                             required
-                            className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all bg-white"
+                            className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-500 outline-none transition-all bg-white"
                             placeholder="작품 제목을 입력하세요"
                         />
                     </div>
@@ -309,7 +309,7 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                                         <option>회화</option><option>판화 및 에디션</option><option>드로잉 및 스케치</option>
                                         <option>사진</option><option>조각 및 설치</option><option>디지털 아트</option><option>기타</option>
                                     </select>
-                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 pointer-events-none" />
                                 </div>
                             </div>
                             <div className="space-y-2.5">
@@ -325,7 +325,7 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                                         <option>추상</option><option>구상/재현</option><option>팝 아트</option>
                                         <option>미니멀리즘</option><option>인상주의</option><option>초현실주의</option><option>기타</option>
                                     </select>
-                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 pointer-events-none" />
                                 </div>
                             </div>
                             <div className="space-y-2.5">
@@ -341,7 +341,7 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                                         <option>풍경</option><option>인물</option><option>정물</option>
                                         <option>동물</option><option>기하학</option><option>일상/사회</option><option>기타</option>
                                     </select>
-                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 pointer-events-none" />
                                 </div>
                             </div>
                             <div className="space-y-2.5">
@@ -356,7 +356,7 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                                     >
                                         <option>거실용</option><option>침실용</option><option>아이방</option><option>사무실/카페</option>
                                     </select>
-                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                                    <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 pointer-events-none" />
                                 </div>
                             </div>
                         </div>
@@ -367,25 +367,25 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="space-y-2.5">
                                 <label htmlFor="artwork-width" className="text-sm font-bold text-gray-900 ml-1">가로 (cm)</label>
-                                <input type="number" id="artwork-width" name="width" value={formData.width} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all bg-white" placeholder="예: 53" />
+                                <input type="number" id="artwork-width" name="width" value={formData.width} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-500 outline-none transition-all bg-white" placeholder="예: 53" />
                             </div>
                             <div className="space-y-2.5">
                                 <label htmlFor="artwork-height" className="text-sm font-bold text-gray-900 ml-1">세로 (cm)</label>
-                                <input type="number" id="artwork-height" name="height" value={formData.height} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all bg-white" placeholder="예: 45.5" />
+                                <input type="number" id="artwork-height" name="height" value={formData.height} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-500 outline-none transition-all bg-white" placeholder="예: 45.5" />
                             </div>
                             <div className="space-y-2.5">
                                 <label htmlFor="artwork-ho" className="text-sm font-bold text-gray-900 ml-1">호수 (호)</label>
-                                <input type="number" id="artwork-ho" name="ho" value={formData.ho} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all bg-white" placeholder="예: 10" />
+                                <input type="number" id="artwork-ho" name="ho" value={formData.ho} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-500 outline-none transition-all bg-white" placeholder="예: 10" />
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2.5">
                                 <label htmlFor="artwork-year" className="text-sm font-bold text-gray-900 ml-1">제작연도</label>
-                                <input type="text" id="artwork-year" name="year" value={formData.year} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all bg-white" placeholder="예: 2023" />
+                                <input type="text" id="artwork-year" name="year" value={formData.year} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-500 outline-none transition-all bg-white" placeholder="예: 2023" />
                             </div>
                             <div className="space-y-2.5">
                                 <label htmlFor="artwork-material" className="text-sm font-bold text-gray-900 ml-1">재료</label>
-                                <input type="text" id="artwork-material" name="material" value={formData.material} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all bg-white" placeholder="예: 캔버스에 유채" />
+                                <input type="text" id="artwork-material" name="material" value={formData.material} onChange={handleInputChange} className="w-full p-3.5 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-500 outline-none transition-all bg-white" placeholder="예: 캔버스에 유채" />
                             </div>
                         </div>
                     </div>
@@ -403,7 +403,7 @@ export default function UploadForm({ artistId }: { artistId: string }) {
 
                     <div className="space-y-2.5">
                         <label htmlFor="artwork-description" className="text-sm font-bold text-gray-900 ml-1">작품 설명</label>
-                        <textarea id="artwork-description" name="description" value={formData.description} onChange={handleInputChange} rows={5} className="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-300 outline-none transition-all resize-none" placeholder="작품에 대한 이야기를 들려주세요" />
+                        <textarea id="artwork-description" name="description" value={formData.description} onChange={handleInputChange} rows={5} className="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-black text-black font-medium placeholder:text-gray-500 outline-none transition-all resize-none" placeholder="작품에 대한 이야기를 들려주세요" />
                     </div>
                 </div>
 

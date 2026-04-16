@@ -53,7 +53,7 @@ export default function SignUpPage() {
                     <h1 className="text-4xl font-serif font-light tracking-tight text-charcoal italic">
                         웰컴 투 아트팩토리
                     </h1>
-                    <p className="text-gray-500 font-serif italic text-lg leading-relaxed">
+                    <p className="text-gray-700 font-serif italic text-lg leading-relaxed">
                         계정 생성이 완료되었습니다. <br />
                         잠시 후 로그인 페이지로 이동합니다.
                     </p>
@@ -84,11 +84,11 @@ export default function SignUpPage() {
 
                         <div className="space-y-8">
                             <div className="group relative">
-                                <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
+                                <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
                                     성함
                                 </label>
                                 <div className="relative">
-                                    <User className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-charcoal transition-colors" />
+                                    <User className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-charcoal transition-colors" />
                                     <input
                                         required
                                         name="name"
@@ -100,11 +100,11 @@ export default function SignUpPage() {
                             </div>
 
                             <div className="group relative">
-                                <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
+                                <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
                                     이메일 주소
                                 </label>
                                 <div className="relative">
-                                    <Mail className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-charcoal transition-colors" />
+                                    <Mail className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-charcoal transition-colors" />
                                     <input
                                         required
                                         name="email"
@@ -116,11 +116,11 @@ export default function SignUpPage() {
                             </div>
 
                             <div className="group relative">
-                                <label className="text-[10px] font-black tracking-widest text-gray-400 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
+                                <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
                                     비밀번호
                                 </label>
                                 <div className="relative">
-                                    <Lock className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-charcoal transition-colors" />
+                                    <Lock className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-charcoal transition-colors" />
                                     <input
                                         required
                                         name="password"
@@ -131,7 +131,7 @@ export default function SignUpPage() {
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-gray-300 hover:text-charcoal transition-colors"
+                                        className="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-gray-500 hover:text-charcoal transition-colors"
                                     >
                                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                     </button>
@@ -155,7 +155,7 @@ export default function SignUpPage() {
                         </div>
                     </form>
 
-                    <div className="mt-12 text-center text-[11px] text-gray-400 font-medium tracking-tight uppercase">
+                    <div className="mt-12 text-center text-[11px] text-gray-600 font-medium tracking-tight uppercase">
                         이미 계정이 있으신가요? <Link href="/partner/login" className="text-charcoal underline underline-offset-4 hover:text-accent transition-colors ml-2">로그인</Link>
                     </div>
                 </div>

@@ -21,7 +21,7 @@ export default function VRSection({ artwork }: VRSectionProps) {
             <div className="flex items-center justify-between">
                 <div className="space-y-1">
                     <h3 className="text-sm font-bold text-black uppercase tracking-tighter">Virtual Placement</h3>
-                    <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">가상 공간에서 작품의 크기와 느낌을 확인해보세요.</p>
+                    <p className="text-[10px] text-gray-600 uppercase tracking-widest font-medium">가상 공간에서 작품의 크기와 느낌을 확인해보세요.</p>
                 </div>
                 {!showVR && (
                     <button

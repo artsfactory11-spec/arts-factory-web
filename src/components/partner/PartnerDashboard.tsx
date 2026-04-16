@@ -51,12 +51,12 @@ const PartnerDashboard = ({ partnerName, partnerId, stats }: PartnerDashboardPro
                         <div className="flex items-center justify-between">
                             <div>
                                 <h2 className="text-3xl font-bold text-gray-900 tracking-tight">안녕하세요, {partnerName} 작가님! 👋</h2>
-                                <p className="text-gray-500 mt-1">오늘의 활동 현황을 확인해보세요.</p>
+                                <p className="text-gray-700 mt-1">오늘의 활동 현황을 확인해보세요.</p>
                             </div>
                             <div className="flex gap-3">
                                 <button
                                     title="알림 확인"
-                                    className="p-2.5 bg-white border border-gray-100 rounded-xl text-gray-400 hover:text-black transition-colors relative"
+                                    className="p-2.5 bg-white border border-gray-100 rounded-xl text-gray-600 hover:text-black transition-colors relative"
                                 >
                                     <Bell className="w-5 h-5" />
                                     <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
@@ -66,7 +66,7 @@ const PartnerDashboard = ({ partnerName, partnerId, stats }: PartnerDashboardPro
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[
-                                { label: '전체 작품', value: stats.total, icon: HomeIcon, color: 'text-gray-500', bg: 'bg-gray-50' },
+                                { label: '전체 작품', value: stats.total, icon: HomeIcon, color: 'text-gray-700', bg: 'bg-gray-50' },
                                 { label: '승인된 작품', value: stats.approved, icon: Palette, color: 'text-blue-500', bg: 'bg-blue-50' },
                                 { label: '심사 대기', value: stats.pending, icon: Clock, color: 'text-orange-500', bg: 'bg-orange-50' },
                                 { label: '반려된 작품', value: stats.rejected, icon: XCircle, color: 'text-red-500', bg: 'bg-red-50' },
@@ -75,8 +75,8 @@ const PartnerDashboard = ({ partnerName, partnerId, stats }: PartnerDashboardPro
                                     <div className={`${stat.bg} ${stat.color} w-12 h-12 rounded-xl flex items-center justify-center mb-4`}>
                                         <stat.icon className="w-6 h-6" />
                                     </div>
-                                    <p className="text-sm font-medium text-gray-400">{stat.label}</p>
-                                    <h3 className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</h3>
+                                    <p className="text-sm font-bold text-gray-700">{stat.label}</p>
+                                    <h3 className="text-3xl font-black text-gray-900 mt-1">{stat.value}</h3>
                                 </div>
                             ))}
                         </div>
@@ -87,12 +87,12 @@ const PartnerDashboard = ({ partnerName, partnerId, stats }: PartnerDashboardPro
                                     <h3 className="font-bold text-xl">최근 등록 작품</h3>
                                     <button
                                         onClick={() => setCurrentView('artworks')}
-                                        className="text-sm font-bold text-gray-400 hover:text-black flex items-center gap-1"
+                                        className="text-sm font-bold text-gray-600 hover:text-black flex items-center gap-1"
                                     >
                                         전체보기 <ChevronRight className="w-4 h-4" />
                                     </button>
                                 </div>
-                                <div className="flex flex-col items-center justify-center py-12 text-gray-300">
+                                <div className="flex flex-col items-center justify-center py-12 text-gray-500">
                                     <Palette className="w-12 h-12 mb-4 opacity-20" />
                                     <p>최근 등록된 작품이 없습니다.</p>
                                 </div>
@@ -143,7 +143,7 @@ const PartnerDashboard = ({ partnerName, partnerId, stats }: PartnerDashboardPro
             default:
                 return (
                     <ViewContainer title="준비 중">
-                        <div className="bg-white rounded-2xl border border-gray-50 shadow-sm p-20 flex flex-col items-center text-gray-300">
+                        <div className="bg-white rounded-2xl border border-gray-50 shadow-sm p-20 flex flex-col items-center text-gray-500">
                             <Settings className="w-16 h-16 mb-6 opacity-20" />
                             <p className="text-lg font-medium">준비 중인 기능입니다.</p>
                         </div>

@@ -39,7 +39,7 @@ export default async function GalleryPage({ searchParams }: Props) {
                 <header className="mb-12">
                     <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-4 block">아카이브</span>
                     <h1 className="text-6xl font-serif font-light tracking-tight italic">전체 컬렉션</h1>
-                    <p className="text-gray-400 mt-6 text-lg font-serif italic max-w-xl">
+                    <p className="text-gray-600 mt-6 text-lg font-serif italic max-w-xl">
                         &quot;아트팩토리가 큐레이션한 모든 작품들을 한자리에서 만나보세요.&quot;
                     </p>
                 </header>

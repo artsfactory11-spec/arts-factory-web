@@ -164,15 +164,14 @@ export default function GalleryItem({ artwork }: GalleryItemProps) {
                 {/* 하단 텍스트 정보 (모바일 및 기본 상태 가독성) */}
                 <div className="mt-5 space-y-2 px-2">
                     <div className="flex justify-between items-start">
-                        <h3 className="text-lg font-serif italic text-black leading-none">{artwork.title}</h3>
-                        <span className="text-[9px] font-black tracking-widest text-gray-300 uppercase shrink-0 pt-0.5">
+                        <h3 className="text-lg font-black text-black leading-none">{artwork.title}</h3>
+                        <span className="text-[9px] font-black tracking-widest text-gray-700 uppercase shrink-0 pt-0.5">
                             {artwork.category}
                         </span>
                     </div>
-                    <p className="text-[10px] text-gray-400 uppercase tracking-[0.2em] font-black">{artwork.artist_name}</p>
-                    <p className="text-xs text-black font-medium pt-1">
-                        <span className="text-gray-400 font-light mr-1">월</span>
-                        ₩ {artwork.rental_price ? `${artwork.rental_price.toLocaleString()}` : artwork.price.toLocaleString()}
+                    <p className="text-[10px] text-gray-600 uppercase tracking-[0.2em] font-black">{artwork.artist_name}</p>
+                    <p className="text-xs text-black font-semibold pt-1">
+                        ₩ {artwork.price.toLocaleString()}
                     </p>
                 </div>
             </motion.div>

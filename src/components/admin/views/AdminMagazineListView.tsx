@@ -73,7 +73,7 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
         <div className="space-y-6 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="relative flex-1 max-w-md group">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-black transition-colors" />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 group-focus-within:text-black transition-colors" />
                     <input
                         type="text"
                         placeholder="기사 제목 또는 카테고리 검색"
@@ -95,12 +95,12 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-gray-50/50 border-b border-gray-50">
-                                <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">기사 정보</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">카테고리</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">조회수</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">홈 추천</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">상태</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">관리</th>
+                                <th className="px-8 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">기사 정보</th>
+                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">카테고리</th>
+                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">조회수</th>
+                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest text-center">홈 추천</th>
+                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">상태</th>
+                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest text-right">관리</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
@@ -114,8 +114,8 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
                                             <div>
                                                 <p className="font-bold text-gray-900 text-sm line-clamp-1">{mag.title}</p>
                                                 <div className="flex items-center gap-2 mt-1">
-                                                    <Clock className="w-3 h-3 text-gray-400" />
-                                                    <span className="text-[10px] text-gray-400 font-medium">
+                                                    <Clock className="w-3 h-3 text-gray-600" />
+                                                    <span className="text-[10px] text-gray-600 font-medium">
                                                         {new Date(mag.createdAt).toLocaleDateString()}
                                                     </span>
                                                 </div>
@@ -129,7 +129,7 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
                                     </td>
                                     <td className="px-6 py-5">
                                         <div className="flex items-center gap-2 text-sm text-gray-600">
-                                            <Eye className="w-4 h-4 text-gray-300" />
+                                            <Eye className="w-4 h-4 text-gray-500" />
                                             {mag.view_count || 0}
                                         </div>
                                     </td>
@@ -139,12 +139,12 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
                                             disabled={loadingId === mag._id}
                                             className={`p-2 rounded-xl transition-all shadow-sm mx-auto flex items-center justify-center ${mag.isFeatured
                                                     ? 'bg-yellow-50 text-yellow-400 border border-yellow-100'
-                                                    : 'bg-gray-50 text-gray-300 border border-gray-100 hover:text-gray-500 hover:bg-gray-100'
+                                                    : 'bg-gray-50 text-gray-500 border border-gray-100 hover:text-gray-700 hover:bg-gray-100'
                                                 }`}
                                             title="홈페이지 추천 기사 노출"
                                         >
                                             {loadingId === mag._id ? (
-                                                <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+                                                <Loader2 className="w-5 h-5 animate-spin text-gray-600" />
                                             ) : (
                                                 <Star fill={mag.isFeatured ? "currentColor" : "none"} className="w-5 h-5" />
                                             )}
@@ -157,7 +157,7 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
                                                     <CheckCircle2 className="w-3 h-3" /> 공개 중
                                                 </span>
                                             ) : (
-                                                <span className="flex items-center gap-1.5 text-[10px] font-black text-gray-300 uppercase tracking-widest">
+                                                <span className="flex items-center gap-1.5 text-[10px] font-black text-gray-500 uppercase tracking-widest">
                                                     <XCircle className="w-3 h-3" /> 비공개
                                                 </span>
                                             )}
@@ -167,7 +167,7 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
                                         <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
                                             <button
                                                 onClick={() => onEdit(mag)}
-                                                className="p-2 bg-gray-50 text-gray-400 rounded-lg hover:bg-black hover:text-white transition-all shadow-sm"
+                                                className="p-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-black hover:text-white transition-all shadow-sm"
                                                 title="수정"
                                             >
                                                 <Edit2 className="w-4 h-4" />
@@ -187,7 +187,7 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
                     </table>
                 </div>
                 {!loading && filteredMagazines.length === 0 && (
-                    <div className="py-32 text-center text-gray-300 font-medium">
+                    <div className="py-32 text-center text-gray-500 font-medium">
                         등록된 매거진 기사가 없습니다.
                     </div>
                 )}

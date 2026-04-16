@@ -168,7 +168,7 @@ const AdminDashboard = ({ initialArtworks, initialUsers, stats }: AdminDashboard
                     <div className="flex items-center gap-6">
                         <div className="flex flex-col items-end">
                             <span className="text-xs font-black text-black leading-none">MASTER ADMIN</span>
-                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Status: Online</span>
+                            <span className="text-[10px] text-gray-600 font-bold uppercase tracking-widest mt-1">Status: Online</span>
                         </div>
                         <div className="w-10 h-10 rounded-2xl bg-black flex items-center justify-center text-white text-xs font-black">
                             AF

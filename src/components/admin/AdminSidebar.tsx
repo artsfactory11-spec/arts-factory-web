@@ -35,7 +35,7 @@ const SidebarItem = ({ icon: Icon, label, active, onClick, collapsed, badgeCount
         onClick={onClick}
         className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group ${active
             ? 'bg-black text-white shadow-lg shadow-gray-200'
-            : 'text-gray-500 hover:bg-gray-100 hover:text-black'
+            : 'text-gray-700 hover:bg-gray-100 hover:text-black'
             }`}
     >
         <div className="flex items-center gap-3">
@@ -94,13 +94,13 @@ const AdminSidebar = ({ currentView, setView, isCollapsed, setIsCollapsed, pendi
                         <span className="text-2xl font-serif font-light tracking-tighter text-black italic leading-none">Arts Factory</span>
                         <div className="flex items-center gap-2 mt-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                            <span className="text-[9px] text-gray-400 font-black uppercase tracking-[0.2em]">Management</span>
+                            <span className="text-[9px] text-gray-600 font-black uppercase tracking-[0.2em]">Management</span>
                         </div>
                     </div>
                 )}
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
-                    className={`p-2 hover:bg-black hover:text-white rounded-xl text-gray-300 transition-all duration-300 ${isCollapsed ? 'mx-auto' : ''}`}
+                    className={`p-2 hover:bg-black hover:text-white rounded-xl text-gray-500 transition-all duration-300 ${isCollapsed ? 'mx-auto' : ''}`}
                 >
                     {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
                 </button>
@@ -108,7 +108,7 @@ const AdminSidebar = ({ currentView, setView, isCollapsed, setIsCollapsed, pendi
 
             {/* Navigation section */}
             <nav className="flex-1 px-4 space-y-1.5">
-                {!isCollapsed && <p className="px-4 mb-4 text-[9px] font-black text-gray-300 uppercase tracking-[0.3em]">Main Menu</p>}
+                {!isCollapsed && <p className="px-4 mb-4 text-[9px] font-black text-gray-500 uppercase tracking-[0.3em]">Main Menu</p>}
 
                 {menuItems.map((item) => (
                     <SidebarItem
@@ -126,8 +126,8 @@ const AdminSidebar = ({ currentView, setView, isCollapsed, setIsCollapsed, pendi
                     <div className="h-px bg-gray-50 mx-4 mb-6" />
                     <Link href="/" className="group block">
                         <div className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-gray-100 ${isCollapsed ? 'justify-center' : ''}`}>
-                            <LayoutDashboard className="w-5 h-5 text-gray-400 group-hover:text-black transition-colors" />
-                            {!isCollapsed && <span className="text-sm font-bold text-gray-400 group-hover:text-black">Public Site</span>}
+                            <LayoutDashboard className="w-5 h-5 text-gray-600 group-hover:text-black transition-colors" />
+                            {!isCollapsed && <span className="text-sm font-bold text-gray-600 group-hover:text-black">Public Site</span>}
                         </div>
                     </Link>
                 </div>
@@ -136,7 +136,7 @@ const AdminSidebar = ({ currentView, setView, isCollapsed, setIsCollapsed, pendi
             {/* Footer Section */}
             <div className="p-6">
                 <button
-                    className={`w-full flex items-center gap-3 px-5 py-4 bg-gray-50 text-gray-400 hover:bg-red-500 hover:text-white rounded-[20px] transition-all duration-500 group ${isCollapsed ? 'justify-center' : ''}`}
+                    className={`w-full flex items-center gap-3 px-5 py-4 bg-gray-50 text-gray-600 hover:bg-red-500 hover:text-white rounded-[20px] transition-all duration-500 group ${isCollapsed ? 'justify-center' : ''}`}
                 >
                     <LogOut className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                     {!isCollapsed && <span className="font-black text-[10px] uppercase tracking-widest">Sign Out</span>}

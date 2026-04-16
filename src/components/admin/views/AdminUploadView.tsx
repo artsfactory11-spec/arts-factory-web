@@ -263,7 +263,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 {onBack && (
                     <button
                         onClick={onBack}
-                        className="absolute -top-4 -left-4 p-2 text-gray-400 hover:text-black hover:bg-gray-50 rounded-full transition-all"
+                        className="absolute -top-4 -left-4 p-2 text-gray-600 hover:text-black hover:bg-gray-50 rounded-full transition-all"
                         title="뒤로 가기"
                     >
                         <ArrowLeft className="w-5 h-5" />
@@ -273,7 +273,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                     {isEdit ? "작품 정보 수정" : "작품 대리 등록"}
                 </h2>
                 <div className="h-1 w-12 bg-black rounded-full" />
-                <p className="text-gray-400 mt-4 text-sm font-medium">
+                <p className="text-gray-600 mt-4 text-sm font-medium">
                     {isEdit ? "선택한 작품의 상세 정보를 수정합니다." : "관리자가 작가를 대신하여 새로운 작품을 시스템에 등록합니다."}
                 </p>
             </div>
@@ -281,7 +281,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
             <form onSubmit={handleSubmit} className="space-y-8">
                 {/* 1. 작가 선택 (관리자 전용) */}
                 <div className="space-y-3">
-                    <label htmlFor="artist_id" className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] ml-1 flex items-center gap-2">
+                    <label htmlFor="artist_id" className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] ml-1 flex items-center gap-2">
                         <User className="w-3 h-3" /> 등록 작가 선택
                     </label>
                     <div className="relative group">
@@ -299,13 +299,13 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                                 <option key={u._id} value={u._id}>{u.name} ({u.email})</option>
                             ))}
                         </select>
-                        <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none group-focus-within:text-black transition-colors" />
+                        <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 pointer-events-none group-focus-within:text-black transition-colors" />
                     </div>
                 </div>
 
                 {/* 2. 작품 이미지 업로드 */}
                 <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] ml-1">작품 이미지 업로드</label>
+                    <label className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] ml-1">작품 이미지 업로드</label>
                     <div className="relative border-2 border-dashed border-gray-200 rounded-[32px] p-8 min-h-[280px] transition-all bg-gray-50/50 group flex items-center justify-center hover:bg-gray-50 hover:border-black">
                         <input
                             type="file"
@@ -343,7 +343,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                                 <div className="relative w-full md:w-40 aspect-square rounded-[24px] overflow-hidden border-4 border-white shadow-2xl ring-1 ring-black/5 flex-shrink-0 bg-white flex items-center justify-center">
                                     {isPreviewLoading ? (
                                         <div className="flex flex-col items-center gap-2">
-                                            <Loader2 className="w-8 h-8 animate-spin text-gray-200" />
+                                            <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
                                         </div>
                                     ) : preview ? (
                                         <Image
@@ -361,11 +361,11 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                         ) : (
                             <div className="flex flex-col items-center text-center">
                                 <div className="w-20 h-20 bg-white rounded-3xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-xl transition-all duration-500">
-                                    <Upload className="w-8 h-8 text-gray-400 group-hover:text-black transition-colors" />
+                                    <Upload className="w-8 h-8 text-gray-600 group-hover:text-black transition-colors" />
                                 </div>
                                 <p className="text-xl font-bold text-gray-900 tracking-tight">작품 이미지 업로드</p>
-                                <p className="text-xs text-gray-400 mt-2 font-medium">클릭하거나 파일을 이곳에 드래그하세요</p>
-                                <p className="text-[9px] text-gray-300 mt-4 font-bold uppercase tracking-[0.2em]">WebP High Performance Protocol</p>
+                                <p className="text-xs text-gray-600 mt-2 font-medium">클릭하거나 파일을 이곳에 드래그하세요</p>
+                                <p className="text-[9px] text-gray-500 mt-4 font-bold uppercase tracking-[0.2em]">WebP High Performance Protocol</p>
                             </div>
                         )}
                     </div>
@@ -383,7 +383,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 {/* 3. 작품 상세 정보 */}
                 {/* 3. 작품 제목 (Full Width) */}
                 <div className="space-y-3">
-                    <label htmlFor="title" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">작품 제목</label>
+                    <label htmlFor="title" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">작품 제목</label>
                     <input
                         id="title"
                         type="text"
@@ -391,7 +391,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                         value={formData.title}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-8 py-5 bg-white border-2 border-gray-100 rounded-[24px] focus:border-black text-xl text-black font-black placeholder:text-gray-200 outline-none transition-all shadow-sm"
+                        className="w-full px-8 py-5 bg-white border-2 border-gray-100 rounded-[24px] focus:border-black text-xl text-black font-black placeholder:text-gray-600 outline-none transition-all shadow-sm"
                         placeholder="작품 제목을 입력하세요"
                     />
                 </div>
@@ -410,7 +410,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                             { id: 'space', label: '4. 추천 설치 공간', options: ['거실용', '침실용', '아이방', '사무실/카페'] }
                         ].map((item) => (
                             <div key={item.id} className="space-y-3">
-                                <label htmlFor={item.id} className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">{item.label}</label>
+                                <label htmlFor={item.id} className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">{item.label}</label>
                                 <div className="relative group">
                                     <select
                                         id={item.id}
@@ -421,7 +421,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                                     >
                                         {item.options.map(opt => <option key={opt}>{opt}</option>)}
                                     </select>
-                                    <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 pointer-events-none group-focus-within:text-black transition-colors" />
+                                    <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none group-focus-within:text-black transition-colors" />
                                 </div>
                             </div>
                         ))}
@@ -436,23 +436,23 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
                         <div className="space-y-3">
-                            <label htmlFor="width" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">가로 (cm)</label>
+                            <label htmlFor="width" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">가로 (cm)</label>
                             <input id="width" type="number" name="width" value={formData.width} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="53" />
                         </div>
                         <div className="space-y-3">
-                            <label htmlFor="height" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">세로 (cm)</label>
+                            <label htmlFor="height" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">세로 (cm)</label>
                             <input id="height" type="number" name="height" value={formData.height} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="45.5" />
                         </div>
                         <div className="space-y-3">
-                            <label htmlFor="ho" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">호수 (호)</label>
+                            <label htmlFor="ho" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">호수 (호)</label>
                             <input id="ho" type="number" name="ho" value={formData.ho} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="10" />
                         </div>
                         <div className="space-y-3">
-                            <label htmlFor="year" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">제작 연도</label>
+                            <label htmlFor="year" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">제작 연도</label>
                             <input id="year" type="text" name="year" value={formData.year} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="2024" />
                         </div>
                         <div className="space-y-3 col-span-2 md:col-span-1">
-                            <label htmlFor="material" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">재질 및 기법</label>
+                            <label htmlFor="material" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">재질 및 기법</label>
                             <input id="material" type="text" name="material" value={formData.material} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="Oil on canvas" />
                         </div>
                     </div>
@@ -461,9 +461,9 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 {/* 6. 가격 정보 (Sale & Rental) */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-black/5 p-8 rounded-[32px] border border-black/5">
                     <div className="space-y-3">
-                        <label htmlFor="price" className="text-[11px] font-black text-gray-500 uppercase tracking-[0.2em] ml-1">판매 가격 (KRW)</label>
+                        <label htmlFor="price" className="text-[11px] font-black text-gray-700 uppercase tracking-[0.2em] ml-1">판매 가격 (KRW)</label>
                         <div className="relative">
-                            <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-gray-400">₩</span>
+                            <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-gray-600">₩</span>
                             <input id="price" type="text" name="price" value={formData.price} onChange={handleInputChange} className="w-full pl-12 pr-6 py-5 bg-white border-2 border-transparent rounded-2xl focus:border-black text-2xl text-black font-black outline-none transition-all shadow-sm" placeholder="0" />
                         </div>
                     </div>
@@ -479,7 +479,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 {/* 7. 작품 설명 (AI Integration) */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between px-1">
-                        <label htmlFor="description" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">작품 설명 (Story)</label>
+                        <label htmlFor="description" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">작품 설명 (Story)</label>
                         <button
                             type="button"
                             onClick={handleGenerateDescription}
@@ -496,7 +496,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                         value={formData.description}
                         onChange={handleInputChange}
                         rows={8}
-                        className="w-full px-8 py-6 bg-white border-2 border-gray-100 rounded-[32px] focus:border-black text-black font-medium placeholder:text-gray-200 outline-none transition-all resize-none shadow-sm leading-relaxed"
+                        className="w-full px-8 py-6 bg-white border-2 border-gray-100 rounded-[32px] focus:border-black text-black font-medium placeholder:text-gray-600 outline-none transition-all resize-none shadow-sm leading-relaxed"
                         placeholder="작품에 얽힌 소중한 이야기를 작성해 주세요. 전문적인 큐레이팅을 위해 상세할수록 좋습니다."
                     />
                 </div>
@@ -504,7 +504,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 <button
                     type="submit"
                     disabled={uploading || (!isEdit && !file) || !formData.artist_id}
-                    className="w-full py-6 bg-black text-white rounded-[28px] font-black text-lg hover:bg-gray-800 active:scale-[0.98] transition-all disabled:bg-gray-100 disabled:text-gray-400 flex items-center justify-center gap-3 shadow-2xl shadow-black/10 mt-6 overflow-hidden relative group"
+                    className="w-full py-6 bg-black text-white rounded-[28px] font-black text-lg hover:bg-gray-800 active:scale-[0.98] transition-all disabled:bg-gray-100 disabled:text-gray-600 flex items-center justify-center gap-3 shadow-2xl shadow-black/10 mt-6 overflow-hidden relative group"
                 >
                     {uploading ? (
                         <>

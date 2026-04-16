@@ -29,7 +29,7 @@ export default function CompareTray() {
                             </div>
                             <div className="hidden sm:block">
                                 <h4 className="text-sm font-bold tracking-tight">작품 비교하기</h4>
-                                <p className="text-[10px] text-gray-500 uppercase tracking-widest font-black">Max 4 Artworks</p>
+                                <p className="text-[10px] text-gray-700 uppercase tracking-widest font-black">Max 4 Artworks</p>
                             </div>
                         </div>
 
@@ -67,7 +67,7 @@ export default function CompareTray() {
                         <div className="flex items-center gap-4 shrink-0">
                             <button
                                 onClick={clearCompare}
-                                className="hidden lg:block text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-colors"
+                                className="hidden lg:block text-[10px] font-black uppercase tracking-widest text-gray-700 hover:text-white transition-colors"
                             >
                                 Clear All
                             </button>

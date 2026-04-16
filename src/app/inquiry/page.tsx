@@ -67,7 +67,7 @@ export default function InquiryPage() {
                     <h1 className="text-4xl font-serif font-light tracking-tight text-charcoal italic">
                         문의가 무사히 접수되었습니다
                     </h1>
-                    <p className="text-gray-500 font-serif italic text-lg leading-relaxed">
+                    <p className="text-gray-700 font-serif italic text-lg leading-relaxed">
                         보내주신 소중한 메시지를 담당 큐레이터가 <br />
                         빠른 시일 내에 확인하여 연락드리겠습니다.
                     </p>
@@ -98,7 +98,7 @@ export default function InquiryPage() {
                         </h1>
                     </RevealSection>
                     <RevealSection delay={0.4}>
-                        <p className="max-w-2xl mx-auto text-xl text-gray-400 font-serif italic leading-relaxed">
+                        <p className="max-w-2xl mx-auto text-xl text-gray-600 font-serif italic leading-relaxed">
                             작품 소장부터 렌탈, 비즈니스 협업까지 <br />
                             예술공장이 제안하는 새로운 공간의 경험을 문의하세요.
                         </p>
@@ -124,18 +124,18 @@ export default function InquiryPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
                             {/* Name Input */}
                             <div className="group relative">
-                                <label htmlFor="name" className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="name" className="text-[11px] font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     성함 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
-                                    <User className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-charcoal transition-colors" />
+                                    <User className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-charcoal transition-colors" />
                                     <input
                                         id="name"
                                         required
                                         type="text"
                                         value={formData.name}
                                         onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full bg-transparent border-b border-gray-100 py-4 pl-8 text-xl font-serif focus:outline-none focus:border-charcoal transition-all placeholder:text-gray-200"
+                                        className="w-full bg-transparent border-b border-gray-100 py-4 pl-8 text-xl font-serif focus:outline-none focus:border-charcoal transition-all placeholder:text-gray-600"
                                         placeholder="Name / Organization"
                                     />
                                 </div>
@@ -143,18 +143,18 @@ export default function InquiryPage() {
 
                             {/* Phone Input */}
                             <div className="group relative">
-                                <label htmlFor="phone" className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="phone" className="text-[11px] font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     연락처 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
-                                    <Phone className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-charcoal transition-colors" />
+                                    <Phone className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-charcoal transition-colors" />
                                     <input
                                         id="phone"
                                         required
                                         type="tel"
                                         value={formData.phone}
                                         onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                                        className="w-full bg-transparent border-b border-gray-100 py-4 pl-8 text-xl font-serif focus:outline-none focus:border-charcoal transition-all placeholder:text-gray-200"
+                                        className="w-full bg-transparent border-b border-gray-100 py-4 pl-8 text-xl font-serif focus:outline-none focus:border-charcoal transition-all placeholder:text-gray-600"
                                         placeholder="010-0000-0000"
                                     />
                                 </div>
@@ -162,18 +162,18 @@ export default function InquiryPage() {
 
                             {/* Email Input */}
                             <div className="group relative">
-                                <label htmlFor="email" className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="email" className="text-[11px] font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     이메일 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
-                                    <Mail className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-charcoal transition-colors" />
+                                    <Mail className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-charcoal transition-colors" />
                                     <input
                                         id="email"
                                         required
                                         type="email"
                                         value={formData.email}
                                         onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full bg-transparent border-b border-gray-100 py-4 pl-8 text-xl font-serif focus:outline-none focus:border-charcoal transition-all placeholder:text-gray-200"
+                                        className="w-full bg-transparent border-b border-gray-100 py-4 pl-8 text-xl font-serif focus:outline-none focus:border-charcoal transition-all placeholder:text-gray-600"
                                         placeholder="email@example.com"
                                     />
                                 </div>
@@ -181,11 +181,11 @@ export default function InquiryPage() {
 
                             {/* Inquiry Type Select */}
                             <div className="group relative">
-                                <label htmlFor="type" className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="type" className="text-[11px] font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     문의 유형 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
-                                    <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 pointer-events-none" />
+                                    <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
                                     <select
                                         id="type"
                                         title="문의 유형 선택"
@@ -203,17 +203,17 @@ export default function InquiryPage() {
 
                         {/* Message Textarea */}
                         <div className="group relative">
-                            <label htmlFor="message" className="text-[11px] font-black tracking-widest text-gray-400 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                            <label htmlFor="message" className="text-[11px] font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                 상세 내용
                             </label>
                             <div className="relative">
-                                <MessageSquare className="absolute left-0 top-6 w-4 h-4 text-gray-300 group-focus-within:text-charcoal transition-colors" />
+                                <MessageSquare className="absolute left-0 top-6 w-4 h-4 text-gray-500 group-focus-within:text-charcoal transition-colors" />
                                 <textarea
                                     id="message"
                                     rows={5}
                                     value={formData.message}
                                     onChange={e => setFormData({ ...formData, message: e.target.value })}
-                                    className="w-full bg-transparent border-b border-gray-100 py-4 pl-8 text-xl font-serif focus:outline-none focus:border-charcoal transition-all resize-none placeholder:text-gray-200"
+                                    className="w-full bg-transparent border-b border-gray-100 py-4 pl-8 text-xl font-serif focus:outline-none focus:border-charcoal transition-all resize-none placeholder:text-gray-600"
                                     placeholder="상세 내용을 자유롭게 작성해 주세요"
                                 />
                             </div>
@@ -235,7 +235,7 @@ export default function InquiryPage() {
                                 </span>
                                 <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
                             </button>
-                            <p className="mt-12 text-[10px] text-gray-300 font-black tracking-[0.2em] uppercase">
+                            <p className="mt-12 text-[10px] text-gray-500 font-black tracking-[0.2em] uppercase">
                                 Typically responds within 24 hours
                             </p>
                         </div>

@@ -43,7 +43,7 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
                 </div>
 
                 {/* Specialty Badge */}
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-3 py-1 bg-gray-50 rounded-full mb-3">
+                <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest px-3 py-1 bg-gray-50 rounded-full mb-3">
                     {artist.artist_specialty || "Contemporary Artist"}
                 </span>
 
@@ -51,12 +51,12 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
                     {artist.name}
                 </h3>
 
-                <p className="text-sm text-gray-500 line-clamp-2 mb-6 leading-relaxed max-w-[240px]">
+                <p className="text-sm text-gray-700 line-clamp-2 mb-6 leading-relaxed max-w-[240px]">
                     {artist.artist_bio || "작가의 철학과 감성이 담긴 작품 세계를 만나보세요."}
                 </p>
 
                 {/* Artist Activity Quick View */}
-                <div className="flex gap-4 mb-8 text-gray-400 text-xs font-medium">
+                <div className="flex gap-4 mb-8 text-gray-600 text-xs font-medium">
                     {artist.activity_region && (
                         <div className="flex items-center gap-1">
                             <MapPin className="w-3 h-3" />
@@ -83,7 +83,7 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
                     {artist.signature_url ? (
                         <img src={artist.signature_url} alt="Signature" className="h-6 object-contain opacity-40 group-hover:opacity-80 transition-opacity" />
                     ) : (
-                        <span className="text-[10px] text-gray-300 font-bold uppercase tracking-widest italic font-serif">Original Artist</span>
+                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest italic font-serif">Original Artist</span>
                     )}
                 </div>
             </div>

@@ -29,7 +29,7 @@ export default async function Footer() {
                     {/* Brand & Terms */}
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
                         <h2 className="text-2xl font-serif font-light tracking-tighter italic text-white">{s.siteName}</h2>
-                        <nav className="flex gap-x-5 text-[10px] font-black tracking-widest uppercase text-gray-400">
+                        <nav className="flex gap-x-5 text-[10px] font-black tracking-widest uppercase text-gray-600">
                             <Link href="/about" className="hover:text-accent transition-colors">소개</Link>
                             <Link href="/terms" className="hover:text-accent transition-colors">이용약관</Link>
                             <Link href="/privacy" className="hover:text-accent transition-colors">개인정보처리방침</Link>
@@ -42,7 +42,7 @@ export default async function Footer() {
                             <div className="text-[10px] font-black tracking-[0.2em] text-accent uppercase">고객센터</div>
                             <div className="text-2xl font-serif italic text-white tracking-tight">{s.phone}</div>
                         </div>
-                        <div className="text-[10px] text-gray-400 font-serif italic tracking-wide">
+                        <div className="text-[10px] text-gray-600 font-serif italic tracking-wide">
                             {s.operationHours}
                         </div>
                     </div>
@@ -51,17 +51,17 @@ export default async function Footer() {
                     <div className="flex items-center gap-4 bg-white/[0.05] px-5 py-2.5 rounded-full border border-white/10 shadow-sm">
                         <div className="flex items-center gap-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                            <span className="text-[11px] font-bold text-gray-200">{s.bankName}</span>
+                            <span className="text-[11px] font-bold text-gray-400">{s.bankName}</span>
                         </div>
-                        <span className="text-sm font-serif text-gray-300 tracking-tight">{s.accountNumber}</span>
-                        <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">예금주. {s.accountHolder}</span>
+                        <span className="text-sm font-serif text-gray-500 tracking-tight">{s.accountNumber}</span>
+                        <span className="text-[10px] font-black text-gray-700 uppercase tracking-widest">예금주. {s.accountHolder}</span>
                     </div>
                 </div>
 
                 {/* Lower Section: Corporate & Copyright Combined */}
                 <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-                    <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-[10px] text-gray-400 font-medium tracking-tight leading-relaxed">
-                        <span className="text-gray-300">대표. {s.representative}</span>
+                    <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-[10px] text-gray-600 font-medium tracking-tight leading-relaxed">
+                        <span className="text-gray-500">대표. {s.representative}</span>
                         <span className="opacity-30 border-l border-white h-2 hidden md:inline" />
                         <span>사업자등록번호. {s.businessNumber}</span>
                         <span className="opacity-30 border-l border-white h-2 hidden md:inline" />
@@ -69,23 +69,23 @@ export default async function Footer() {
                         <span className="opacity-30 border-l border-white h-2 hidden md:inline" />
                         <span className="flex items-center gap-1.5"><MapPin className="w-3 h-3 opacity-60 text-accent" /> {s.address}</span>
                         <span className="opacity-30 border-l border-white h-2 hidden md:inline" />
-                        <span className="flex items-center gap-1.5 font-serif italic lowercase text-gray-300 underline underline-offset-4 decoration-white/10">{s.email}</span>
+                        <span className="flex items-center gap-1.5 font-serif italic lowercase text-gray-500 underline underline-offset-4 decoration-white/10">{s.email}</span>
                     </div>
 
                     <div className="flex items-center gap-10">
                         <div className="flex gap-5">
                             {s.snsLinks.instagram && (
-                                <a href={s.snsLinks.instagram} target="_blank" rel="noopener noreferrer" title="인스타그램" className="text-gray-400 hover:text-accent transition-colors">
+                                <a href={s.snsLinks.instagram} target="_blank" rel="noopener noreferrer" title="인스타그램" className="text-gray-600 hover:text-accent transition-colors">
                                     <Instagram className="w-4 h-4" />
                                 </a>
                             )}
                             {s.snsLinks.blog && (
-                                <a href={s.snsLinks.blog} target="_blank" rel="noopener noreferrer" title="네이버 블로그" className="text-gray-400 hover:text-accent transition-colors">
+                                <a href={s.snsLinks.blog} target="_blank" rel="noopener noreferrer" title="네이버 블로그" className="text-gray-600 hover:text-accent transition-colors">
                                     <Chrome className="w-4 h-4" />
                                 </a>
                             )}
                             {s.snsLinks.youtube && (
-                                <a href={s.snsLinks.youtube} target="_blank" rel="noopener noreferrer" title="유튜브" className="text-gray-400 hover:text-accent transition-colors">
+                                <a href={s.snsLinks.youtube} target="_blank" rel="noopener noreferrer" title="유튜브" className="text-gray-600 hover:text-accent transition-colors">
                                     <Youtube className="w-4 h-4" />
                                 </a>
                             )}

@@ -96,7 +96,7 @@ export default function ArtworkImageViewer({ src, alt }: ArtworkImageViewerProps
                         </div>
 
                         {/* 정보 텍스트 */}
-                        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-400 text-[10px] font-bold uppercase tracking-[0.3em]">
+                        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-600 text-[10px] font-bold uppercase tracking-[0.3em]">
                             Click anywhere to return
                         </div>
                     </motion.div>

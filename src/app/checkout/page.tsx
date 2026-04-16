@@ -83,23 +83,23 @@ function CheckoutContent() {
                     </svg>
                 </div>
                 <h2 className="text-3xl font-serif italic mb-4">주문이 접수되었습니다!</h2>
-                <p className="text-gray-500 mb-8">아래 계좌로 입금해 주시면 확인 후 배송/서비스가 시작됩니다.</p>
+                <p className="text-gray-700 mb-8">아래 계좌로 입금해 주시면 확인 후 배송/서비스가 시작됩니다.</p>
 
                 <div className="bg-gray-50 p-8 rounded-2xl text-left space-y-4 mb-10 border border-gray-100">
                     <div>
-                        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">은행명</span>
+                        <span className="text-xs font-bold text-gray-600 uppercase tracking-widest block mb-1">은행명</span>
                         <p className="font-serif text-xl">{bankInfo.bankName}</p>
                     </div>
                     <div>
-                        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">계좌번호</span>
+                        <span className="text-xs font-bold text-gray-600 uppercase tracking-widest block mb-1">계좌번호</span>
                         <p className="font-serif text-2xl font-bold text-accent">{bankInfo.accountNumber}</p>
                     </div>
                     <div>
-                        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">예금주</span>
+                        <span className="text-xs font-bold text-gray-600 uppercase tracking-widest block mb-1">예금주</span>
                         <p className="font-serif text-xl">{bankInfo.accountHolder}</p>
                     </div>
                     <div className="pt-4 border-t border-gray-200 mt-4">
-                        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">총 입금 금액</span>
+                        <span className="text-xs font-bold text-gray-600 uppercase tracking-widest block mb-1">총 입금 금액</span>
                         <p className="font-serif text-3xl font-bold text-charcoal">{price.toLocaleString()} KRW</p>
                     </div>
                 </div>
@@ -158,7 +158,7 @@ function CheckoutContent() {
                         <h3 className="text-xs font-bold uppercase tracking-widest mb-6 border-b border-black pb-2">배송 정보</h3>
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase mb-2">받는 분</label>
+                                <label className="block text-xs font-bold text-gray-700 uppercase mb-2">받는 분</label>
                                 <input
                                     type="text"
                                     required
@@ -169,7 +169,7 @@ function CheckoutContent() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase mb-2">연락처</label>
+                                <label className="block text-xs font-bold text-gray-700 uppercase mb-2">연락처</label>
                                 <input
                                     type="tel"
                                     required
@@ -181,7 +181,7 @@ function CheckoutContent() {
                             </div>
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="col-span-1">
-                                    <label className="block text-xs font-bold text-gray-500 uppercase mb-2">우편번호</label>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase mb-2">우편번호</label>
                                     <input
                                         type="text"
                                         required
@@ -192,7 +192,7 @@ function CheckoutContent() {
                                     />
                                 </div>
                                 <div className="col-span-2">
-                                    <label className="block text-xs font-bold text-gray-500 uppercase mb-2">주소</label>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase mb-2">주소</label>
                                     <input
                                         type="text"
                                         required
@@ -204,7 +204,7 @@ function CheckoutContent() {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase mb-2">상세 주소</label>
+                                <label className="block text-xs font-bold text-gray-700 uppercase mb-2">상세 주소</label>
                                 <input
                                     type="text"
                                     className="w-full border-b border-gray-200 py-2 text-lg focus:border-black outline-none bg-transparent transition-colors"
@@ -221,7 +221,7 @@ function CheckoutContent() {
                                     checked={formData.saveAddress}
                                     onChange={e => setFormData({ ...formData, saveAddress: e.target.checked })}
                                 />
-                                <label htmlFor="saveAddress" className="text-sm text-gray-500">이 배송지를 기본 배송지로 저장</label>
+                                <label htmlFor="saveAddress" className="text-sm text-gray-700">이 배송지를 기본 배송지로 저장</label>
                             </div>
                         </div>
                     </div>
@@ -229,7 +229,7 @@ function CheckoutContent() {
                     <div className="pt-8">
                         <h3 className="text-xs font-bold uppercase tracking-widest mb-6 border-b border-black pb-2">입금 정보</h3>
                         <div>
-                            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">입금자명</label>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-2">입금자명</label>
                             <input
                                 type="text"
                                 required
@@ -238,7 +238,7 @@ function CheckoutContent() {
                                 onChange={e => setFormData({ ...formData, depositorName: e.target.value })}
                                 placeholder="실제 입금하실 분의 성함을 입력하세요"
                             />
-                            <p className="text-xs text-gray-400 mt-2">입금 확인을 위해 정확한 성함을 입력해 주세요.</p>
+                            <p className="text-xs text-gray-600 mt-2">입금 확인을 위해 정확한 성함을 입력해 주세요.</p>
                         </div>
                     </div>
 

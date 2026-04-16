@@ -115,7 +115,7 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
             {/* Control Bar */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="relative flex-1 max-w-md group">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-black transition-colors" />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 group-focus-within:text-black transition-colors" />
                     <input
                         type="text"
                         placeholder="작가명 또는 이메일 검색"
@@ -124,7 +124,7 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
                         className="w-full pl-12 pr-4 py-3 bg-white border border-gray-100 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-all shadow-sm"
                     />
                 </div>
-                <div className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                <div className="text-sm font-bold text-gray-600 uppercase tracking-widest">
                     총 <span className="text-black">{filteredUsers.length}</span> 명의 작가
                 </div>
             </div>
@@ -141,7 +141,7 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
                                     {user.avatar_url ? (
                                         <Image src={user.avatar_url} alt={`${user.name} 작가 프로필`} fill className="object-cover" />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-gray-300">
+                                        <div className="w-full h-full flex items-center justify-center text-gray-500">
                                             <UserIcon className="w-8 h-8" />
                                         </div>
                                     )}
@@ -157,24 +157,24 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
                                             disabled={loadingId === user._id}
                                             className={`p-2 rounded-xl transition-all shadow-sm ${user.isSpotlight
                                                 ? 'bg-yellow-50 text-yellow-400 border border-yellow-100'
-                                                : 'bg-gray-50 text-gray-300 border border-gray-100 hover:text-gray-500 hover:bg-gray-100'
+                                                : 'bg-gray-50 text-gray-500 border border-gray-100 hover:text-gray-700 hover:bg-gray-100'
                                                 }`}
                                             title="홈페이지 스포트라이트 작가 지정"
                                         >
                                             {loadingId === user._id ? (
-                                                <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+                                                <Loader2 className="w-5 h-5 animate-spin text-gray-600" />
                                             ) : (
                                                 <Star fill={user.isSpotlight ? "currentColor" : "none"} className="w-5 h-5" />
                                             )}
                                         </button>
                                     </div>
                                     <div className="flex items-center gap-2 mt-1">
-                                        <p className="text-xs text-gray-400 font-bold uppercase tracking-tighter">{user.artist_specialty || '분야 미입력'}</p>
+                                        <p className="text-xs text-gray-600 font-bold uppercase tracking-tighter">{user.artist_specialty || '분야 미입력'}</p>
                                         <span className={`text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-widest ${user.status === 'pending'
                                             ? 'bg-amber-50 text-amber-500 border border-amber-100'
                                             : user.status === 'approved'
                                                 ? 'bg-emerald-50 text-emerald-500 border border-emerald-100'
-                                                : 'bg-gray-50 text-gray-400 border border-gray-100'
+                                                : 'bg-gray-50 text-gray-600 border border-gray-100'
                                             }`}>
                                             {user.status === 'pending' ? 'Pending' : user.status === 'approved' ? 'Approved' : 'None'}
                                         </span>
@@ -204,7 +204,7 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
                                 )}
                                 <button
                                     onClick={() => onEdit && onEdit(user)}
-                                    className="p-2 bg-gray-50 text-gray-300 rounded-xl hover:bg-black hover:text-white transition-all cursor-pointer"
+                                    className="p-2 bg-gray-50 text-gray-500 rounded-xl hover:bg-black hover:text-white transition-all cursor-pointer"
                                     title="수정"
                                 >
                                     <ChevronRight className="w-5 h-5" />
@@ -222,15 +222,15 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
 
                         <div className="space-y-4">
                             <div className="flex items-center gap-3 text-sm text-gray-600">
-                                <Mail className="w-4 h-4 text-gray-300" />
+                                <Mail className="w-4 h-4 text-gray-500" />
                                 <span className="truncate">{user.email}</span>
                             </div>
                             <div className="flex items-center gap-3 text-sm text-gray-600">
-                                <Phone className="w-4 h-4 text-gray-300" />
+                                <Phone className="w-4 h-4 text-gray-500" />
                                 <span>{user.phone || '연락처 없음'}</span>
                             </div>
                             <div className="flex items-center gap-3 text-sm text-gray-600">
-                                <MapPin className="w-4 h-4 text-gray-300" />
+                                <MapPin className="w-4 h-4 text-gray-500" />
                                 <span>{user.activity_region || '지역 미입력'}</span>
                             </div>
                         </div>
@@ -244,11 +244,11 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
                                         <Instagram className="w-4 h-4" />
                                     </a>
                                 )}
-                                <Link href={`/artists/${user._id}`} target="_blank" className="p-2 bg-gray-50 text-gray-400 rounded-lg hover:bg-black hover:text-white transition-all" title="작가 아카이브 페이지 방문">
+                                <Link href={`/artists/${user._id}`} target="_blank" className="p-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-black hover:text-white transition-all" title="작가 아카이브 페이지 방문">
                                     <ExternalLink className="w-4 h-4" />
                                 </Link>
                             </div>
-                            <div className="flex items-center gap-2 text-[10px] font-black text-gray-300 uppercase tracking-widest leading-none">
+                            <div className="flex items-center gap-2 text-[10px] font-black text-gray-500 uppercase tracking-widest leading-none">
                                 <Calendar className="w-3.5 h-3.5" />
                                 {new Date(user.createdAt).toLocaleDateString()}
                             </div>
@@ -258,7 +258,7 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
             </div>
 
             {filteredUsers.length === 0 && (
-                <div className="py-32 text-center text-gray-300 font-medium">
+                <div className="py-32 text-center text-gray-500 font-medium">
                     등록된 작가가 없습니다.
                 </div>
             )}

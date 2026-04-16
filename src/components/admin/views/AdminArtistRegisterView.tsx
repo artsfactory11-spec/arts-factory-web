@@ -179,7 +179,7 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                                         className="object-cover"
                                     />
                                 ) : (
-                                    <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300">
+                                    <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-500">
                                         <User className="w-8 h-8" />
                                     </div>
                                 )}
@@ -201,10 +201,10 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                         </div>
 
                         <h3 className="text-xl font-bold text-gray-900 mt-6">{formData.name || '작가명'}</h3>
-                        <p className="text-gray-500 text-sm mt-1">{formData.artist_specialty || '전문 분야 미입력'}</p>
+                        <p className="text-gray-700 text-sm mt-1">{formData.artist_specialty || '전문 분야 미입력'}</p>
 
                         <div className="mt-8 w-full">
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center mb-3">작가 시그니처 / 서명</p>
+                            <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest text-center mb-3">작가 시그니처 / 서명</p>
                             <div
                                 className="w-full aspect-[3/1] bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors overflow-hidden group relative"
                                 onClick={() => signatureInputRef.current?.click()}
@@ -213,8 +213,8 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                                     <Image src={signaturePreview} alt="Signature" fill className="object-contain p-4" />
                                 ) : (
                                     <>
-                                        <FileText className="w-5 h-5 text-gray-300 group-hover:text-gray-400 mb-1" />
-                                        <span className="text-[11px] text-gray-400">이미지 등록 (WebP)</span>
+                                        <FileText className="w-5 h-5 text-gray-500 group-hover:text-gray-600 mb-1" />
+                                        <span className="text-[11px] text-gray-600">이미지 등록 (WebP)</span>
                                     </>
                                 )}
                                 <input
@@ -233,7 +233,7 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                         <h4 className="font-bold text-gray-900 mb-4 px-2 tracking-tight">작가 활동 정보</h4>
                         <div className="space-y-4">
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity_exhibitions" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">누적 전시 기록</label>
+                                <label htmlFor="activity_exhibitions" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">누적 전시 기록</label>
                                 <input
                                     id="activity_exhibitions"
                                     type="text"
@@ -245,7 +245,7 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                                 />
                             </div>
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity_region" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">활동 지역</label>
+                                <label htmlFor="activity_region" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">활동 지역</label>
                                 <input
                                     id="activity_region"
                                     type="text"
@@ -257,7 +257,7 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                                 />
                             </div>
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity_material" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">주요 매체/재료</label>
+                                <label htmlFor="activity_material" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">주요 매체/재료</label>
                                 <input
                                     id="activity_material"
                                     type="text"
@@ -328,9 +328,9 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                             </div>
 
                             <div className="space-y-2.5 px-1">
-                                <label htmlFor="email" className="text-sm font-bold text-gray-900 ml-1">이메일 주소 (ID) <span className="text-gray-400 font-normal text-xs">(자동생성 가능)</span></label>
+                                <label htmlFor="email" className="text-sm font-bold text-gray-900 ml-1">이메일 주소 (ID) <span className="text-gray-600 font-normal text-xs">(자동생성 가능)</span></label>
                                 <div className="relative">
-                                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                                     <input
                                         id="email"
                                         type="email"
@@ -338,7 +338,7 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                                         value={formData.email}
                                         onChange={handleInputChange}
                                         placeholder="비워두면 시스템이 임시 ID를 생성합니다"
-                                        className="w-full pl-12 pr-5 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-gray-900 font-medium transition-all outline-none shadow-sm placeholder:text-gray-400"
+                                        className="w-full pl-12 pr-5 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-gray-900 font-medium transition-all outline-none shadow-sm placeholder:text-gray-600"
                                     />
                                 </div>
                             </div>
@@ -346,7 +346,7 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                             <div className="space-y-2.5 px-1">
                                 <label htmlFor="phone" className="text-sm font-bold text-gray-900 ml-1">연락처</label>
                                 <div className="relative">
-                                    <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                    <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
                                     <input
                                         id="phone"
                                         type="text"

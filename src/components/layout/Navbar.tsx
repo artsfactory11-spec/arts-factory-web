@@ -16,7 +16,7 @@ function UserIconLink() {
         return (
             <Link
                 href="/login"
-                className="text-xs font-bold text-gray-500 hover:text-charcoal transition-colors uppercase tracking-widest"
+                className="text-xs font-bold text-gray-700 hover:text-charcoal transition-colors uppercase tracking-widest"
             >
                 Login
             </Link>
@@ -26,7 +26,7 @@ function UserIconLink() {
     return (
         <Link
             href={href}
-            className="text-gray-400 hover:text-charcoal transition-colors"
+            className="text-gray-600 hover:text-charcoal transition-colors"
             title="마이 페이지"
         >
             <User className="w-5 h-5" />
@@ -81,7 +81,7 @@ export default function Navbar() {
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`text-[13px] font-bold tracking-tight transition-colors relative ${pathname === item.href ? 'text-charcoal' : 'text-gray-500 hover:text-charcoal'
+                            className={`text-[13px] font-bold tracking-tight transition-colors relative ${pathname === item.href ? 'text-charcoal' : 'text-gray-700 hover:text-charcoal'
                                 }`}
                         >
                             {item.name}
@@ -98,7 +98,7 @@ export default function Navbar() {
                         <UserIconLink />
                         <Link
                             href="/gallery/wishlist"
-                            className="text-gray-400 hover:text-charcoal transition-colors"
+                            className="text-gray-600 hover:text-charcoal transition-colors"
                             title="찜한 작품 보기"
                         >
                             <Heart className="w-5 h-5" />
@@ -135,7 +135,7 @@ export default function Navbar() {
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`py-4 text-2xl font-serif tracking-tight border-b border-gray-50 ${pathname === item.href ? 'text-black font-semibold' : 'text-gray-400'
+                                className={`py-4 text-2xl font-serif tracking-tight border-b border-gray-50 ${pathname === item.href ? 'text-black font-semibold' : 'text-gray-600'
                                     }`}
                             >
                                 {item.name}

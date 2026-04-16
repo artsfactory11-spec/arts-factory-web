@@ -11,7 +11,7 @@ interface NoticeListViewProps {
 export default function NoticeListView({ notices, onSelect }: NoticeListViewProps) {
     if (!notices.length) {
         return (
-            <div className="py-32 text-center text-gray-300">
+            <div className="py-32 text-center text-gray-500">
                 <p className="text-xl font-light font-serif italic">현재 게시된 공지사항이 없습니다.</p>
             </div>
         );
@@ -31,7 +31,7 @@ export default function NoticeListView({ notices, onSelect }: NoticeListViewProp
                                 <span className="px-3 py-1 bg-gray-900 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
                                     Official
                                 </span>
-                                <div className="flex items-center gap-2 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                                <div className="flex items-center gap-2 text-[10px] text-gray-600 font-bold uppercase tracking-widest">
                                     <Calendar className="w-3 h-3" />
                                     {notice.createdAt ? new Date(notice.createdAt).toLocaleDateString() : '-'}
                                 </div>
@@ -39,7 +39,7 @@ export default function NoticeListView({ notices, onSelect }: NoticeListViewProp
                             <h3 className="text-2xl font-bold tracking-tight text-black group-hover:text-accent transition-colors">
                                 {notice.title}
                             </h3>
-                            <p className="text-gray-400 font-medium line-clamp-1 max-w-2xl">
+                            <p className="text-gray-600 font-medium line-clamp-1 max-w-2xl">
                                 {notice.content}
                             </p>
                         </div>

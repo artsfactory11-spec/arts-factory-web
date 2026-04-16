@@ -30,7 +30,7 @@ export default function SubscriptionManagementView() {
 
             <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
                 <table className="w-full text-left">
-                    <thead className="bg-gray-50 border-b border-gray-100 text-xs uppercase text-gray-400 font-bold">
+                    <thead className="bg-gray-50 border-b border-gray-100 text-xs uppercase text-gray-600 font-bold">
                         <tr>
                             <th className="px-6 py-4">구독 정보</th>
                             <th className="px-6 py-4">사용자</th>
@@ -44,17 +44,17 @@ export default function SubscriptionManagementView() {
                         {isLoading ? (
                             <tr><td colSpan={6} className="px-6 py-8 text-center">Loading...</td></tr>
                         ) : subscriptions.length === 0 ? (
-                            <tr><td colSpan={6} className="px-6 py-8 text-center text-gray-400">구독 내역이 없습니다.</td></tr>
+                            <tr><td colSpan={6} className="px-6 py-8 text-center text-gray-600">구독 내역이 없습니다.</td></tr>
                         ) : (
                             subscriptions.map((sub) => (
                                 <tr key={sub._id} className="hover:bg-gray-50/50">
                                     <td className="px-6 py-4">
                                         <div className="font-bold text-sm">{sub.artwork_id?.title || 'Unknown Artwork'}</div>
-                                        <div className="text-xs text-gray-400 capitalize">{sub.billing_cycle}</div>
+                                        <div className="text-xs text-gray-600 capitalize">{sub.billing_cycle}</div>
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="text-sm">{sub.user_id?.name}</div>
-                                        <div className="text-xs text-gray-400">{sub.user_id?.email}</div>
+                                        <div className="text-xs text-gray-600">{sub.user_id?.email}</div>
                                     </td>
                                     <td className="px-6 py-4 text-xs">
                                         <div>{new Date(sub.start_date).toLocaleDateString()} ~</div>
@@ -66,7 +66,7 @@ export default function SubscriptionManagementView() {
                                     <td className="px-6 py-4">
                                         <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest ${sub.status === 'active' ? 'bg-green-100 text-green-700' :
                                                 sub.status === 'overdue' ? 'bg-red-100 text-red-700' :
-                                                    'bg-gray-100 text-gray-500'
+                                                    'bg-gray-100 text-gray-700'
                                             }`}>
                                             {sub.status.toUpperCase()}
                                         </span>

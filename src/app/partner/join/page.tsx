@@ -111,7 +111,7 @@ export default function PartnerJoinPage() {
                                         required
                                         name="specialty"
                                         type="text"
-                                        className="w-full bg-transparent border-b border-charcoal/20 py-3 text-lg font-serif focus:outline-none focus:border-charcoal transition-all placeholder:text-gray-400"
+                                        className="w-full bg-transparent border-b border-charcoal/20 py-3 text-lg font-serif focus:outline-none focus:border-charcoal transition-all placeholder:text-gray-600"
                                         placeholder="예: 현대 미술, 서양화, 디지털 아트"
                                     />
                                 </div>
@@ -123,7 +123,7 @@ export default function PartnerJoinPage() {
                                         required
                                         name="region"
                                         type="text"
-                                        className="w-full bg-transparent border-b border-charcoal/20 py-3 text-lg font-serif focus:outline-none focus:border-charcoal transition-all placeholder:text-gray-400"
+                                        className="w-full bg-transparent border-b border-charcoal/20 py-3 text-lg font-serif focus:outline-none focus:border-charcoal transition-all placeholder:text-gray-600"
                                         placeholder="예: 서울, 경기, 해외 등"
                                     />
                                 </div>
@@ -137,7 +137,7 @@ export default function PartnerJoinPage() {
                                     required
                                     name="bio"
                                     rows={5}
-                                    className="w-full bg-transparent border-b border-charcoal/20 py-3 text-lg font-serif focus:outline-none focus:border-charcoal transition-all resize-none placeholder:text-gray-400"
+                                    className="w-full bg-transparent border-b border-charcoal/20 py-3 text-lg font-serif focus:outline-none focus:border-charcoal transition-all resize-none placeholder:text-gray-600"
                                     placeholder="작가님의 활동과 철학에 대해 정성스럽게 들려주세요."
                                 />
                             </div>
