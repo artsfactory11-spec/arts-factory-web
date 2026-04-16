@@ -45,48 +45,48 @@ export default function ArtworkQRCode({ artworkId, title, artistName, price }: A
                 
                 // 2. 상단 브랜드 필러 (Arts Factory)
                 ctx.fillStyle = '#000000';
-                ctx.font = 'black 32px sans-serif';
+                ctx.font = '900 54px sans-serif'; // 크기 키움 (32px -> 54px)
                 ctx.textAlign = 'center';
-                ctx.letterSpacing = '8px';
-                ctx.fillText('ARTS FACTORY', canvas.width / 2, 100);
+                ctx.letterSpacing = '12px'; // 간격 넓힘
+                ctx.fillText('ARTS FACTORY', canvas.width / 2, 120);
 
                 // 3. QR 코드 배치 (중앙 상단)
                 // QR 이미지를 600x600 크기로 중앙에 배치
                 const qrSize = 600;
                 const qrX = (canvas.width - qrSize) / 2;
-                const qrY = 220;
+                const qrY = 240;
                 ctx.drawImage(img, qrX, qrY, qrSize, qrSize);
                 
                 // 4. 정보 구분선 (선택사항 - 미니멀을 위해 아주 연하게)
-                ctx.strokeStyle = '#f3f4f6';
-                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#e5e7eb'; // gray-200 (약간 더 진하게)
+                ctx.lineWidth = 3;
                 ctx.beginPath();
-                ctx.moveTo(300, 920);
-                ctx.lineTo(900, 920);
+                ctx.moveTo(300, 940);
+                ctx.lineTo(900, 940);
                 ctx.stroke();
 
                 // 5. 작품 정보 렌더링
                 // 작품명 (가장 크게)
                 ctx.fillStyle = '#000000';
-                ctx.font = '900 64px sans-serif';
+                ctx.font = '900 68px sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText(title, canvas.width / 2, 1050);
+                ctx.fillText(title, canvas.width / 2, 1070);
 
                 // 작가명
-                ctx.font = '700 42px sans-serif';
-                ctx.fillStyle = '#1f2937'; // gray-800
-                ctx.fillText(artistName, canvas.width / 2, 1140);
+                ctx.font = '700 46px sans-serif';
+                ctx.fillStyle = '#111827'; // gray-900
+                ctx.fillText(artistName, canvas.width / 2, 1160);
 
                 // 가격 (₩ 표시)
-                ctx.font = '500 38px sans-serif';
+                ctx.font = '600 42px sans-serif';
                 ctx.fillStyle = '#374151'; // gray-700
                 const formattedPrice = `₩ ${price.toLocaleString()}`;
-                ctx.fillText(formattedPrice, canvas.width / 2, 1220);
+                ctx.fillText(formattedPrice, canvas.width / 2, 1250);
 
                 // 6. 하단 안내 문구
-                ctx.font = '400 24px sans-serif';
-                ctx.fillStyle = '#9ca3af'; // gray-400
-                ctx.fillText('Scan to view curation details', canvas.width / 2, 1450);
+                ctx.font = '600 32px sans-serif'; // 크기 키움 (24px -> 32px)
+                ctx.fillStyle = '#6b7280'; // gray-500 (더 진하게)
+                ctx.fillText('Scan to view curation details', canvas.width / 2, 1480);
 
                 const pngFile = canvas.toDataURL('image/png');
                 const downloadLink = document.createElement('a');
