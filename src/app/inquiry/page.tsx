@@ -64,10 +64,10 @@ export default function InquiryPage() {
                     <div className="w-24 h-24 bg-charcoal text-accent rounded-full flex items-center justify-center mx-auto mb-10 shadow-2xl">
                         <CheckCircle2 className="w-10 h-10" />
                     </div>
-                    <h1 className="text-4xl font-serif font-light tracking-tight text-charcoal italic">
+                    <h1 className="text-3xl lg:text-4xl font-serif font-light tracking-tight text-charcoal">
                         문의가 무사히 접수되었습니다
                     </h1>
-                    <p className="text-gray-700 font-serif italic text-lg leading-relaxed">
+                    <p className="text-gray-700 font-serif text-base lg:text-lg leading-relaxed">
                         보내주신 소중한 메시지를 담당 큐레이터가 <br />
                         빠른 시일 내에 확인하여 연락드리겠습니다.
                     </p>
@@ -85,20 +85,20 @@ export default function InquiryPage() {
     return (
         <main className="min-h-screen bg-surface grain">
             {/* Header Section */}
-            <header className="pt-60 pb-20 px-6 lg:px-12 relative overflow-hidden">
+            <header className="pt-32 lg:pt-40 pb-12 lg:pb-16 px-6 lg:px-12 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto text-center relative z-10">
                     <RevealSection>
-                        <span className="text-[11px] font-black tracking-[0.6em] text-accent uppercase mb-6 block">
+                        <span className="text-[11px] font-black tracking-[0.6em] text-accent uppercase mb-4 block">
                             Inquiry
                         </span>
                     </RevealSection>
                     <RevealSection delay={0.2}>
-                        <h1 className="text-7xl lg:text-9xl font-serif font-light tracking-tighter text-charcoal mb-12 italic">
+                        <h1 className="text-5xl lg:text-7xl font-serif font-light tracking-tighter text-charcoal mb-6 italic">
                             Contact Us
                         </h1>
                     </RevealSection>
                     <RevealSection delay={0.4}>
-                        <p className="max-w-2xl mx-auto text-xl text-gray-600 font-serif italic leading-relaxed">
+                        <p className="max-w-2xl mx-auto text-lg lg:text-xl text-gray-600 font-serif leading-relaxed">
                             작품 소장부터 렌탈, 비즈니스 협업까지 <br />
                             예술공장이 제안하는 새로운 공간의 경험을 문의하세요.
                         </p>
@@ -112,7 +112,7 @@ export default function InquiryPage() {
             </header>
 
             {/* Form Section */}
-            <section className="px-6 lg:px-12 py-32 bg-white">
+            <section className="px-6 lg:px-12 py-16 lg:py-24 bg-white">
                 <div className="max-w-3xl mx-auto">
                     <form onSubmit={handleSubmit} className="space-y-16">
                         {status === 'error' && (

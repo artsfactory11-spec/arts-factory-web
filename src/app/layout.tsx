@@ -32,7 +32,7 @@ export default function RootLayout({
 
   return (
     <html lang="ko">
-      <body className="font-serif antialiased">
+      <body className="font-sans antialiased text-[#121212] bg-[#F4F1EE]">
         <GoogleAnalytics ga_id={gaId} />
         <CompareProvider>
           <AuthContext>

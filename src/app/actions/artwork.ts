@@ -46,6 +46,20 @@ export async function createArtwork(data: {
     }
 }
 
+export async function getArtworkById(id: string) {
+    try {
+        await dbConnect();
+        const artwork = await Artwork.findById(id).populate('artist_id', 'name');
+        if (!artwork) {
+            return { success: false, error: '작품을 찾을 수 없습니다.' };
+        }
+        return { success: true, artwork: JSON.parse(JSON.stringify(artwork)) };
+    } catch (error: unknown) {
+        console.error("Error fetching artwork by id:", error);
+        return { success: false, error: (error as Error).message || '작품 조회에 실패했습니다.' };
+    }
+}
+
 export interface FilterParams {
     category?: string;
     style?: string;
