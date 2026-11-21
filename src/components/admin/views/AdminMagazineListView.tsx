@@ -95,12 +95,12 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-gray-50/50 border-b border-gray-50">
-                                <th className="px-8 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">기사 정보</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">카테고리</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">조회수</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest text-center">홈 추천</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">상태</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest text-right">관리</th>
+                                <th className="px-8 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">기사 정보</th>
+                                <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">카테고리</th>
+                                <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">조회수</th>
+                                <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest text-center">홈 추천</th>
+                                <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">상태</th>
+                                <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest text-right">관리</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
@@ -115,7 +115,7 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
                                                 <p className="font-bold text-gray-900 text-sm line-clamp-1">{mag.title}</p>
                                                 <div className="flex items-center gap-2 mt-1">
                                                     <Clock className="w-3 h-3 text-gray-600" />
-                                                    <span className="text-[10px] text-gray-600 font-medium">
+                                                    <span className="text-xs text-gray-600 font-medium">
                                                         {new Date(mag.createdAt).toLocaleDateString()}
                                                     </span>
                                                 </div>
@@ -123,7 +123,7 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
                                         </div>
                                     </td>
                                     <td className="px-6 py-5">
-                                        <span className="px-3 py-1 bg-gray-100 text-gray-600 text-[10px] font-bold rounded-full uppercase tracking-tighter">
+                                        <span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full uppercase tracking-tighter">
                                             {mag.category}
                                         </span>
                                     </td>
@@ -153,11 +153,11 @@ export default function AdminMagazineListView({ onEdit, onCreate }: AdminMagazin
                                     <td className="px-6 py-5">
                                         <div className="flex items-center gap-2">
                                             {mag.is_published ? (
-                                                <span className="flex items-center gap-1.5 text-[10px] font-black text-green-500 uppercase tracking-widest">
+                                                <span className="flex items-center gap-1.5 text-xs font-black text-green-500 uppercase tracking-widest">
                                                     <CheckCircle2 className="w-3 h-3" /> 공개 중
                                                 </span>
                                             ) : (
-                                                <span className="flex items-center gap-1.5 text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                                                <span className="flex items-center gap-1.5 text-xs font-black text-gray-500 uppercase tracking-widest">
                                                     <XCircle className="w-3 h-3" /> 비공개
                                                 </span>
                                             )}

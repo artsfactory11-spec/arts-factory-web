@@ -95,7 +95,7 @@ const ArtistInquiryModal = ({ isOpen, onClose, artistName }: ArtistInquiryModalP
                                     >
                                         <X className="w-6 h-6" />
                                     </button>
-                                    <span className="text-[10px] font-black tracking-[0.3em] text-gray-600 uppercase mb-4 block">
+                                    <span className="text-xs font-black tracking-[0.25em] text-gray-600 uppercase mb-4 block">
                                         ARTIST INQUIRY
                                     </span>
                                     <h2 className="text-4xl font-black tracking-tighter text-black mb-2">
@@ -110,7 +110,7 @@ const ArtistInquiryModal = ({ isOpen, onClose, artistName }: ArtistInquiryModalP
                                 <form onSubmit={handleSubmit} className="p-10 space-y-6">
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                            <label htmlFor="name" className="text-[10px] font-black tracking-widest text-gray-600 uppercase ml-2">성함</label>
+                                            <label htmlFor="name" className="text-xs font-black tracking-widest text-gray-600 uppercase ml-2">성함</label>
                                             <div className="relative">
                                                 <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                                 <input
@@ -125,7 +125,7 @@ const ArtistInquiryModal = ({ isOpen, onClose, artistName }: ArtistInquiryModalP
                                             </div>
                                         </div>
                                         <div className="space-y-2">
-                                            <label htmlFor="phone" className="text-[10px] font-black tracking-widest text-gray-600 uppercase ml-2">연락처</label>
+                                            <label htmlFor="phone" className="text-xs font-black tracking-widest text-gray-600 uppercase ml-2">연락처</label>
                                             <div className="relative">
                                                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                                 <input
@@ -142,7 +142,7 @@ const ArtistInquiryModal = ({ isOpen, onClose, artistName }: ArtistInquiryModalP
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="email" className="text-[10px] font-black tracking-widest text-gray-600 uppercase ml-2">이메일</label>
+                                        <label htmlFor="email" className="text-xs font-black tracking-widest text-gray-600 uppercase ml-2">이메일</label>
                                         <div className="relative">
                                             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                             <input
@@ -158,7 +158,7 @@ const ArtistInquiryModal = ({ isOpen, onClose, artistName }: ArtistInquiryModalP
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="organization" className="text-[10px] font-black tracking-widest text-gray-600 uppercase ml-2">기업/단체명 (선택)</label>
+                                        <label htmlFor="organization" className="text-xs font-black tracking-widest text-gray-600 uppercase ml-2">기업/단체명 (선택)</label>
                                         <div className="relative">
                                             <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                             <input
@@ -173,7 +173,7 @@ const ArtistInquiryModal = ({ isOpen, onClose, artistName }: ArtistInquiryModalP
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="message" className="text-[10px] font-black tracking-widest text-gray-600 uppercase ml-2">문의 메시지</label>
+                                        <label htmlFor="message" className="text-xs font-black tracking-widest text-gray-600 uppercase ml-2">문의 메시지</label>
                                         <div className="relative">
                                             <MessageSquare className="absolute left-4 top-5 w-4 h-4 text-gray-500" />
                                             <textarea

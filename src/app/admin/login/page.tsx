@@ -67,7 +67,7 @@ export default function AdminLoginPage() {
                         AF
                     </div>
                     <h1 className="text-2xl font-black tracking-tighter text-white mb-2 uppercase">Admin Console</h1>
-                    <p className="text-zinc-500 text-[10px] font-bold tracking-widest uppercase">
+                    <p className="text-zinc-500 text-xs font-bold tracking-widest uppercase">
                         Restricted Access Only
                     </p>
                 </div>
@@ -81,7 +81,7 @@ export default function AdminLoginPage() {
 
                     <div className="space-y-6">
                         <div className="group relative">
-                            <label className="text-[9px] font-black tracking-widest text-zinc-500 uppercase mb-2 block group-focus-within:text-white transition-colors">
+                            <label className="text-xs font-black tracking-widest text-zinc-500 uppercase mb-2 block group-focus-within:text-white transition-colors">
                                 Administrator ID
                             </label>
                             <input
@@ -95,7 +95,7 @@ export default function AdminLoginPage() {
                         </div>
 
                         <div className="group relative">
-                            <label className="text-[9px] font-black tracking-widest text-zinc-500 uppercase mb-2 block group-focus-within:text-white transition-colors">
+                            <label className="text-xs font-black tracking-widest text-zinc-500 uppercase mb-2 block group-focus-within:text-white transition-colors">
                                 Secure Key
                             </label>
                             <input
@@ -113,14 +113,14 @@ export default function AdminLoginPage() {
                         <button
                             disabled={loading}
                             type="submit"
-                            className="w-full py-5 bg-white text-black text-[10px] font-black tracking-[0.2em] uppercase rounded-full hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full py-5 bg-white text-black text-xs sm:text-sm font-black tracking-[0.2em] uppercase rounded-full hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {loading ? 'Verifying Credentials...' : 'Access Dashboard'}
                         </button>
                     </div>
 
                     <div className="text-center pt-8 border-t border-zinc-800/50">
-                        <p className="text-[9px] text-zinc-600 font-bold uppercase tracking-widest">
+                        <p className="text-xs text-zinc-600 font-bold uppercase tracking-widest">
                             Authorized Personnel Only
                         </p>
                     </div>

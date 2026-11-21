@@ -456,7 +456,7 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                     <div className="px-10 py-8 border-b border-gray-50 flex items-center justify-between bg-gray-50/30">
                         <div className="flex items-center gap-3">
                             <h3 className="text-xl font-bold">업로드 검토 및 매칭</h3>
-                            <span className="px-3 py-1 bg-black text-white text-[10px] font-black rounded-full uppercase tracking-tighter">{items.length} Items</span>
+                            <span className="px-3 py-1 bg-black text-white text-xs font-black rounded-full uppercase tracking-tighter">{items.length} Items</span>
                         </div>
 
                         <div className="flex items-center gap-3">
@@ -483,10 +483,10 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-white">
-                                    <th className="px-10 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">작품 메타데이터</th>
-                                    <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">대상 작가</th>
-                                    <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">이미지 파일 매칭</th>
-                                    <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">진행 상태</th>
+                                    <th className="px-10 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">작품 메타데이터</th>
+                                    <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">대상 작가</th>
+                                    <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">이미지 파일 매칭</th>
+                                    <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">진행 상태</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-50">
@@ -494,10 +494,10 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                                     <tr key={item.id} className="hover:bg-gray-50/30 transition-colors">
                                         <td className="px-10 py-5 max-w-sm">
                                             <div className="font-bold text-gray-900 text-sm">{item.title}</div>
-                                            <div className="text-[10px] text-gray-600 uppercase tracking-tighter mt-1">
+                                            <div className="text-xs text-gray-600 uppercase tracking-tighter mt-1">
                                                 {item.category} | {item.style} | {item.subject} | {item.space}
                                             </div>
-                                            <div className="text-[10px] text-blue-500 font-black mt-1">
+                                            <div className="text-xs text-blue-500 font-black mt-1">
                                                 {item.width}x{item.height}cm ({item.ho}호) / ₩{item.price.toLocaleString()}
                                             </div>
                                             {item.description && (
@@ -519,29 +519,29 @@ export default function BulkUploadView({ users }: BulkUploadViewProps) {
                                                 <div className={`p-1.5 rounded-lg ${item.fileContent ? 'bg-green-50 text-green-600' : 'bg-orange-50 text-orange-600'}`}>
                                                     <Images className="w-4 h-4" />
                                                 </div>
-                                                <span className="text-[11px] font-bold text-gray-700 truncate max-w-[120px]">{item.imageFilename}</span>
+                                                <span className="text-xs sm:text-sm font-bold text-gray-700 truncate max-w-[120px]">{item.imageFilename}</span>
                                                 {item.fileContent ? (
                                                     <CheckCircle2 className="w-4 h-4 text-green-500" />
                                                 ) : (
-                                                    <span className="text-[9px] font-black text-orange-500 uppercase tracking-tighter bg-orange-50 px-1.5 py-0.5 rounded">Not Found</span>
+                                                    <span className="text-xs font-black text-orange-500 uppercase tracking-tighter bg-orange-50 px-1.5 py-0.5 rounded">Not Found</span>
                                                 )}
                                             </div>
                                         </td>
                                         <td className="px-6 py-5">
                                             {item.status === 'success' ? (
-                                                <div className="flex items-center gap-2 text-green-600 text-[10px] font-black uppercase tracking-widest">
+                                                <div className="flex items-center gap-2 text-green-600 text-xs font-black uppercase tracking-widest">
                                                     <CheckCircle2 className="w-4 h-4" /> 등록 완료
                                                 </div>
                                             ) : item.status === 'uploading' ? (
-                                                <div className="flex items-center gap-2 text-blue-600 text-[10px] font-black uppercase tracking-widest">
+                                                <div className="flex items-center gap-2 text-blue-600 text-xs font-black uppercase tracking-widest">
                                                     <Loader2 className="w-4 h-4 animate-spin" /> 처리 중
                                                 </div>
                                             ) : item.status === 'error' ? (
-                                                <div className="flex items-center gap-2 text-red-600 text-[10px] font-black uppercase tracking-widest">
+                                                <div className="flex items-center gap-2 text-red-600 text-xs font-black uppercase tracking-widest">
                                                     <AlertCircle className="w-4 h-4" /> {item.errorMsg || '실패'}
                                                 </div>
                                             ) : (
-                                                <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest italic">대기 중</span>
+                                                <span className="text-xs text-gray-500 font-bold uppercase tracking-widest italic">대기 중</span>
                                             )}
                                         </td>
                                     </tr>

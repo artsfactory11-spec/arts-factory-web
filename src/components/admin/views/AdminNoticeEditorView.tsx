@@ -118,7 +118,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                 <div className="lg:col-span-2 space-y-8">
                     <div className="bg-white rounded-[40px] p-10 border border-gray-100 shadow-sm space-y-8">
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-600 ml-1">Notice Title</label>
+                            <label className="text-xs font-black uppercase tracking-[0.2em] text-gray-600 ml-1">Notice Title</label>
                             <input
                                 type="text"
                                 placeholder="Enter notice title"
@@ -129,7 +129,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                         </div>
 
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-600 ml-1">Content Detail</label>
+                            <label className="text-xs font-black uppercase tracking-[0.2em] text-gray-600 ml-1">Content Detail</label>
                             <textarea
                                 placeholder="Enter notice description..."
                                 rows={10}
@@ -145,7 +145,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                         <div>
                             <div className="flex justify-between items-center mb-6">
                                 <h3 className="text-sm font-black uppercase tracking-widest text-black">Notice Images ({formData.images.length}/10)</h3>
-                                <label className="cursor-pointer px-4 py-2 bg-gray-50 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-black hover:text-white transition-all">
+                                <label className="cursor-pointer px-4 py-2 bg-gray-50 text-xs sm:text-sm font-black uppercase tracking-widest rounded-xl hover:bg-black hover:text-white transition-all">
                                     <Upload className="w-3 h-3 inline-block mr-2" />
                                     Add Images
                                     <input type="file" multiple accept="image/*" onChange={handleImageUpload} className="hidden" />
@@ -165,7 +165,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                                                 <X className="w-3 h-3" />
                                             </button>
                                             {idx === 0 && (
-                                                <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[8px] font-black uppercase py-1 text-center">Thumbnail</div>
+                                                <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs font-black uppercase py-1 text-center">Thumbnail</div>
                                             )}
                                         </div>
                                     ))}
@@ -190,7 +190,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
 
                         <div className="space-y-6">
                             <div className="space-y-3">
-                                <label className="text-[9px] font-black uppercase tracking-widest text-gray-700 ml-1">Start Date</label>
+                                <label className="text-xs font-black uppercase tracking-widest text-gray-700 ml-1">Start Date</label>
                                 <input
                                     type="date"
                                     title="시작 날짜"
@@ -200,7 +200,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label className="text-[9px] font-black uppercase tracking-widest text-gray-700 ml-1">End Date</label>
+                                <label className="text-xs font-black uppercase tracking-widest text-gray-700 ml-1">End Date</label>
                                 <input
                                     type="date"
                                     title="종료 날짜"
@@ -211,7 +211,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                             </div>
                             <div className="pt-4 border-t border-white/5 space-y-4">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-600">Exposure Priority</span>
+                                    <span className="text-xs font-black uppercase tracking-widest text-gray-600">Exposure Priority</span>
                                     <input
                                         type="number"
                                         title="노출 우선순위"
@@ -221,7 +221,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
                                     />
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-600">Notice Status</span>
+                                    <span className="text-xs font-black uppercase tracking-widest text-gray-600">Notice Status</span>
                                     <button
                                         onClick={() => setFormData(prev => ({ ...prev, isActive: !prev.isActive }))}
                                         title={formData.isActive ? '비활성화하기' : '활성화하기'}
@@ -236,7 +236,7 @@ export default function AdminNoticeEditorView({ initialData, onBack, onSuccess }
 
                     <div className="bg-blue-50/50 rounded-[30px] p-6 border border-blue-100 flex gap-4">
                         <AlertCircle className="w-5 h-5 text-blue-500 shrink-0" />
-                        <p className="text-[11px] text-blue-800 leading-relaxed font-medium">
+                        <p className="text-sm text-blue-800 leading-relaxed font-medium">
                             공지사항은 설정된 기간 동안만 홈페이지 모달 형식으로 자동 노출됩니다. 이미지가 없는 경우 텍스트 요약본이 노출됩니다.
                         </p>
                     </div>

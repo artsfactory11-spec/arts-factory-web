@@ -66,7 +66,7 @@ export default function SignUpPage() {
         <main className="min-h-screen bg-surface grain flex items-center justify-center py-20 px-6">
             <div className="max-w-md w-full">
                 <div className="text-center mb-16">
-                    <span className="text-[11px] font-black tracking-[0.6em] text-accent uppercase mb-6 block">
+                    <span className="text-xs sm:text-sm font-black tracking-[0.25em] text-accent uppercase mb-6 block">
                         Join Us
                     </span>
                     <h1 className="text-5xl font-serif font-light tracking-tighter text-charcoal italic">
@@ -84,7 +84,7 @@ export default function SignUpPage() {
 
                         <div className="space-y-8">
                             <div className="group relative">
-                                <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
+                                <label className="text-xs font-black tracking-widest text-gray-600 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
                                     성함
                                 </label>
                                 <div className="relative">
@@ -100,7 +100,7 @@ export default function SignUpPage() {
                             </div>
 
                             <div className="group relative">
-                                <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
+                                <label className="text-xs font-black tracking-widest text-gray-600 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
                                     이메일 주소
                                 </label>
                                 <div className="relative">
@@ -116,7 +116,7 @@ export default function SignUpPage() {
                             </div>
 
                             <div className="group relative">
-                                <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
+                                <label className="text-xs font-black tracking-widest text-gray-600 uppercase mb-2 block ml-1 transition-colors group-focus-within:text-charcoal">
                                     비밀번호
                                 </label>
                                 <div className="relative">
@@ -145,7 +145,7 @@ export default function SignUpPage() {
                                 disabled={loading}
                                 className="w-full group relative flex items-center justify-center gap-4 py-6 bg-charcoal text-white rounded-full overflow-hidden shadow-xl shadow-charcoal/10 transition-transform hover:-translate-y-1 active:scale-95 disabled:bg-gray-200"
                             >
-                                <span className="relative z-10 text-[10px] font-black tracking-[0.5em] uppercase flex items-center gap-2">
+                                <span className="relative z-10 text-xs font-black tracking-[0.25em] uppercase flex items-center gap-2">
                                     {loading ? '생성 중...' : (
                                         <>계정 생성하기 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></>
                                     )}
@@ -155,7 +155,7 @@ export default function SignUpPage() {
                         </div>
                     </form>
 
-                    <div className="mt-12 text-center text-[11px] text-gray-600 font-medium tracking-tight uppercase">
+                    <div className="mt-12 text-center text-xs sm:text-sm text-gray-600 font-medium tracking-tight uppercase">
                         이미 계정이 있으신가요? <Link href="/partner/login" className="text-charcoal underline underline-offset-4 hover:text-accent transition-colors ml-2">로그인</Link>
                     </div>
                 </div>

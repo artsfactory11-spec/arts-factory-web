@@ -28,10 +28,10 @@ export default function NoticeListView({ notices, onSelect }: NoticeListViewProp
                     <div className="flex items-center justify-between">
                         <div className="space-y-3">
                             <div className="flex items-center gap-4">
-                                <span className="px-3 py-1 bg-gray-900 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
+                                <span className="px-3 py-1 bg-gray-900 text-white text-xs font-black uppercase tracking-widest rounded-full">
                                     Official
                                 </span>
-                                <div className="flex items-center gap-2 text-[10px] text-gray-600 font-bold uppercase tracking-widest">
+                                <div className="flex items-center gap-2 text-xs text-gray-600 font-bold uppercase tracking-widest">
                                     <Calendar className="w-3 h-3" />
                                     {notice.createdAt ? new Date(notice.createdAt).toLocaleDateString() : '-'}
                                 </div>

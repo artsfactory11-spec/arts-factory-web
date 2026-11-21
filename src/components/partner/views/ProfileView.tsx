@@ -182,7 +182,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
 
                         {/* Signature Upload Area */}
                         <div className="mt-8 w-full">
-                            <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest text-center mb-3">작가 시그니처 / 서명</p>
+                            <p className="text-xs font-bold text-gray-600 uppercase tracking-widest text-center mb-3">작가 시그니처 / 서명</p>
                             <div
                                 className="w-full aspect-[3/1] bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors overflow-hidden group relative"
                                 onClick={() => signatureInputRef.current?.click()}
@@ -192,7 +192,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                 ) : (
                                     <>
                                         <FileText className="w-5 h-5 text-gray-500 group-hover:text-gray-600 mb-1" />
-                                        <span className="text-[11px] text-gray-600">이미지 등록 (WebP)</span>
+                                        <span className="text-xs sm:text-sm text-gray-600">이미지 등록 (WebP)</span>
                                     </>
                                 )}
                                 <input
@@ -211,7 +211,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                         <h4 className="font-bold text-gray-900 mb-4 px-2 tracking-tight">작가 활동 요약</h4>
                         <div className="space-y-4">
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity-exhibitions" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">누적 전시 기록</label>
+                                <label htmlFor="activity-exhibitions" className="text-xs font-bold text-gray-600 uppercase tracking-widest">누적 전시 기록</label>
                                 <input
                                     type="text"
                                     id="activity-exhibitions"
@@ -222,7 +222,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                 />
                             </div>
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity-region" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">활동 지역</label>
+                                <label htmlFor="activity-region" className="text-xs font-bold text-gray-600 uppercase tracking-widest">활동 지역</label>
                                 <input
                                     type="text"
                                     id="activity-region"
@@ -233,7 +233,7 @@ const ProfileView = ({ artistId }: { artistId: string }) => {
                                 />
                             </div>
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity-material" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">주요 매체/재료</label>
+                                <label htmlFor="activity-material" className="text-xs font-bold text-gray-600 uppercase tracking-widest">주요 매체/재료</label>
                                 <input
                                     type="text"
                                     id="activity-material"

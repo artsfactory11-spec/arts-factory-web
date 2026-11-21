@@ -43,7 +43,7 @@ const SidebarItem = ({ icon: Icon, label, active, onClick, collapsed, badgeCount
             {!collapsed && <span className="font-medium text-sm whitespace-nowrap">{label}</span>}
         </div>
         {!collapsed && badgeCount !== undefined && badgeCount > 0 && (
-            <span className={`flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-black ${active ? 'bg-white text-black' : 'bg-red-500 text-white animate-pulse'
+            <span className={`flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-xs font-black ${active ? 'bg-white text-black' : 'bg-red-500 text-white animate-pulse'
                 }`}>
                 {badgeCount > 99 ? '99+' : badgeCount}
             </span>
@@ -94,7 +94,7 @@ const AdminSidebar = ({ currentView, setView, isCollapsed, setIsCollapsed, pendi
                         <span className="text-2xl font-serif font-light tracking-tighter text-black italic leading-none">Arts Factory</span>
                         <div className="flex items-center gap-2 mt-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                            <span className="text-[9px] text-gray-600 font-black uppercase tracking-[0.2em]">Management</span>
+                            <span className="text-xs text-gray-600 font-black uppercase tracking-[0.2em]">Management</span>
                         </div>
                     </div>
                 )}
@@ -108,7 +108,7 @@ const AdminSidebar = ({ currentView, setView, isCollapsed, setIsCollapsed, pendi
 
             {/* Navigation section */}
             <nav className="flex-1 px-4 space-y-1.5">
-                {!isCollapsed && <p className="px-4 mb-4 text-[9px] font-black text-gray-500 uppercase tracking-[0.3em]">Main Menu</p>}
+                {!isCollapsed && <p className="px-4 mb-4 text-xs font-black text-gray-500 uppercase tracking-[0.25em]">Main Menu</p>}
 
                 {menuItems.map((item) => (
                     <SidebarItem
@@ -139,7 +139,7 @@ const AdminSidebar = ({ currentView, setView, isCollapsed, setIsCollapsed, pendi
                     className={`w-full flex items-center gap-3 px-5 py-4 bg-gray-50 text-gray-600 hover:bg-red-500 hover:text-white rounded-[20px] transition-all duration-500 group ${isCollapsed ? 'justify-center' : ''}`}
                 >
                     <LogOut className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                    {!isCollapsed && <span className="font-black text-[10px] uppercase tracking-widest">Sign Out</span>}
+                    {!isCollapsed && <span className="font-black text-xs uppercase tracking-widest">Sign Out</span>}
                 </button>
             </div>
         </aside>

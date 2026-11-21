@@ -190,13 +190,13 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-gray-50/50 border-b border-gray-50">
-                                <th className="px-8 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">작품 정보</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">작가</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">가격 정보 (판매/렌탈)</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest text-center">렌탈 상태</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest text-center">큐레이션</th>
-                                <th className="px-6 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest">상태</th>
-                                <th className="px-8 py-5 text-[10px] font-black text-gray-600 uppercase tracking-widest text-right">작업</th>
+                                <th className="px-8 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">작품 정보</th>
+                                <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">작가</th>
+                                <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">가격 정보 (판매/렌탈)</th>
+                                <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest text-center">렌탈 상태</th>
+                                <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest text-center">큐레이션</th>
+                                <th className="px-6 py-5 text-xs font-black text-gray-600 uppercase tracking-widest">상태</th>
+                                <th className="px-8 py-5 text-xs font-black text-gray-600 uppercase tracking-widest text-right">작업</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
@@ -210,9 +210,9 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                             <div>
                                                 <p className="font-bold text-gray-900 text-sm">{art.title}</p>
                                                 <div className="flex items-center gap-2 mt-1">
-                                                    <span className="text-[10px] text-gray-600 font-bold uppercase tracking-tighter">{art.category}</span>
+                                                    <span className="text-xs text-gray-600 font-bold uppercase tracking-tighter">{art.category}</span>
                                                     <span className="w-1 h-1 bg-gray-200 rounded-full" />
-                                                    <span className="text-[10px] text-gray-600 font-medium">{art.size}</span>
+                                                    <span className="text-xs text-gray-600 font-medium">{art.size}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -223,7 +223,7 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                     <td className="px-6 py-5">
                                         <div className="space-y-0.5">
                                             <p className="text-sm font-black text-gray-900">₩{art.price?.toLocaleString()}</p>
-                                            <p className="text-[10px] font-bold text-blue-500">월 ₩{art.rental_price?.toLocaleString()}</p>
+                                            <p className="text-xs font-bold text-blue-500">월 ₩{art.rental_price?.toLocaleString()}</p>
                                         </div>
                                     </td>
                                     <td className="px-6 py-5 text-center">
@@ -252,7 +252,7 @@ const AdminArtworkListView = ({ initialArtworks, onEdit }: AdminArtworkListViewP
                                         </button>
                                     </td>
                                     <td className="px-6 py-5">
-                                        <span className={`px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full border ${art.status === 'approved' ? 'bg-green-50 text-green-600 border-green-100' :
+                                        <span className={`px-3 py-1 text-xs font-black uppercase tracking-widest rounded-full border ${art.status === 'approved' ? 'bg-green-50 text-green-600 border-green-100' :
                                             art.status === 'rejected' ? 'bg-red-50 text-red-600 border-red-100' :
                                                 'bg-yellow-50 text-yellow-600 border-yellow-100'
                                             }`}>

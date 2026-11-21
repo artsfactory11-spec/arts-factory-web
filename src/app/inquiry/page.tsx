@@ -73,7 +73,7 @@ export default function InquiryPage() {
                     </p>
                     <button
                         onClick={() => setStatus('idle')}
-                        className="inline-block pt-8 text-[11px] font-black tracking-[0.4em] uppercase underline underline-offset-8 text-charcoal"
+                        className="inline-block pt-8 text-xs sm:text-sm font-black tracking-[0.25em] uppercase underline underline-offset-8 text-charcoal"
                     >
                         Back to Inquiry
                     </button>
@@ -88,7 +88,7 @@ export default function InquiryPage() {
             <header className="pt-32 lg:pt-40 pb-12 lg:pb-16 px-6 lg:px-12 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto text-center relative z-10">
                     <RevealSection>
-                        <span className="text-[11px] font-black tracking-[0.6em] text-accent uppercase mb-4 block">
+                        <span className="text-xs sm:text-sm font-black tracking-[0.25em] text-accent uppercase mb-4 block">
                             Inquiry
                         </span>
                     </RevealSection>
@@ -124,7 +124,7 @@ export default function InquiryPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
                             {/* Name Input */}
                             <div className="group relative">
-                                <label htmlFor="name" className="text-[11px] font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="name" className="text-sm font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     성함 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
@@ -143,7 +143,7 @@ export default function InquiryPage() {
 
                             {/* Phone Input */}
                             <div className="group relative">
-                                <label htmlFor="phone" className="text-[11px] font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="phone" className="text-sm font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     연락처 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
@@ -162,7 +162,7 @@ export default function InquiryPage() {
 
                             {/* Email Input */}
                             <div className="group relative">
-                                <label htmlFor="email" className="text-[11px] font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="email" className="text-sm font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     이메일 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
@@ -181,7 +181,7 @@ export default function InquiryPage() {
 
                             {/* Inquiry Type Select */}
                             <div className="group relative">
-                                <label htmlFor="type" className="text-[11px] font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label htmlFor="type" className="text-sm font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     문의 유형 <span className="text-accent">*</span>
                                 </label>
                                 <div className="relative">
@@ -203,7 +203,7 @@ export default function InquiryPage() {
 
                         {/* Message Textarea */}
                         <div className="group relative">
-                            <label htmlFor="message" className="text-[11px] font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                            <label htmlFor="message" className="text-sm font-black tracking-widest text-gray-600 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                 상세 내용
                             </label>
                             <div className="relative">
@@ -235,7 +235,7 @@ export default function InquiryPage() {
                                 </span>
                                 <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
                             </button>
-                            <p className="mt-12 text-[10px] text-gray-500 font-black tracking-[0.2em] uppercase">
+                            <p className="mt-12 text-xs text-gray-500 font-black tracking-[0.2em] uppercase">
                                 Typically responds within 24 hours
                             </p>
                         </div>

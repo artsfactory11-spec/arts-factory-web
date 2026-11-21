@@ -59,7 +59,7 @@ const AdminInquiryListView = () => {
                     <h2 className="text-3xl font-bold tracking-tighter">B2B 문의 내역</h2>
                     <p className="text-gray-700 mt-1">작품 구매 및 대여 신청 현황입니다.</p>
                 </div>
-                <div className="px-4 py-2 bg-black text-white text-[10px] font-black rounded-full uppercase tracking-widest">
+                <div className="px-4 py-2 bg-black text-white text-xs font-black rounded-full uppercase tracking-widest">
                     Total {inquiries.length}
                 </div>
             </div>
@@ -77,14 +77,14 @@ const AdminInquiryListView = () => {
                             <div className="flex-1 space-y-6">
                                 <div className="flex items-start justify-between">
                                     <div className="flex items-center gap-3">
-                                        <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-tighter ${getStatusColor(inquiry.status)}`}>
+                                        <span className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-tighter ${getStatusColor(inquiry.status)}`}>
                                             {getStatusLabel(inquiry.status)}
                                         </span>
-                                        <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-tighter ${inquiry.type === 'purchase' ? 'bg-black text-white shadow-lg shadow-black/10' : 'bg-gray-100 text-gray-600'}`}>
+                                        <span className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-tighter ${inquiry.type === 'purchase' ? 'bg-black text-white shadow-lg shadow-black/10' : 'bg-gray-100 text-gray-600'}`}>
                                             {inquiry.type === 'purchase' ? '구매 문의' : '대여 신청'}
                                         </span>
                                     </div>
-                                    <div className="flex items-center gap-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                    <div className="flex items-center gap-4 text-xs font-bold text-gray-500 uppercase tracking-widest">
                                         <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /> {new Date(inquiry.createdAt).toLocaleString()}</span>
                                     </div>
                                 </div>
@@ -120,19 +120,19 @@ const AdminInquiryListView = () => {
                             <div className="flex lg:flex-col justify-end gap-2 border-t lg:border-t-0 lg:border-l border-gray-100 pt-6 lg:pt-0 lg:pl-8 min-w-[160px]">
                                 <button
                                     onClick={() => handleStatusUpdate(inquiry._id, 'pending')}
-                                    className={`flex-1 lg:flex-none py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${inquiry.status === 'pending' ? 'bg-orange-50 text-orange-600' : 'hover:bg-gray-100 text-gray-600'}`}
+                                    className={`flex-1 lg:flex-none py-3 px-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-widest transition-all ${inquiry.status === 'pending' ? 'bg-orange-50 text-orange-600' : 'hover:bg-gray-100 text-gray-600'}`}
                                 >
                                     대기중
                                 </button>
                                 <button
                                     onClick={() => handleStatusUpdate(inquiry._id, 'contacted')}
-                                    className={`flex-1 lg:flex-none py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${inquiry.status === 'contacted' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100 text-gray-600'}`}
+                                    className={`flex-1 lg:flex-none py-3 px-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-widest transition-all ${inquiry.status === 'contacted' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100 text-gray-600'}`}
                                 >
                                     연락완료
                                 </button>
                                 <button
                                     onClick={() => handleStatusUpdate(inquiry._id, 'completed')}
-                                    className={`flex-1 lg:flex-none py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${inquiry.status === 'completed' ? 'bg-green-50 text-green-600 border border-green-100' : 'hover:bg-gray-100 text-gray-600'}`}
+                                    className={`flex-1 lg:flex-none py-3 px-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-widest transition-all ${inquiry.status === 'completed' ? 'bg-green-50 text-green-600 border border-green-100' : 'hover:bg-gray-100 text-gray-600'}`}
                                 >
                                     진행완료
                                 </button>

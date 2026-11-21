@@ -281,7 +281,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
             <form onSubmit={handleSubmit} className="space-y-8">
                 {/* 1. 작가 선택 (관리자 전용) */}
                 <div className="space-y-3">
-                    <label htmlFor="artist_id" className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] ml-1 flex items-center gap-2">
+                    <label htmlFor="artist_id" className="text-xs font-bold text-gray-600 uppercase tracking-[0.2em] ml-1 flex items-center gap-2">
                         <User className="w-3 h-3" /> 등록 작가 선택
                     </label>
                     <div className="relative group">
@@ -305,7 +305,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
 
                 {/* 2. 작품 이미지 업로드 */}
                 <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] ml-1">작품 이미지 업로드</label>
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-[0.2em] ml-1">작품 이미지 업로드</label>
                     <div className="relative border-2 border-dashed border-gray-200 rounded-[32px] p-8 min-h-[280px] transition-all bg-gray-50/50 group flex items-center justify-center hover:bg-gray-50 hover:border-black">
                         <input
                             type="file"
@@ -331,11 +331,11 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                                         <p className="font-bold text-gray-900 break-all leading-tight text-sm">
                                             {file ? file.name : "현재 등록된 작품 이미지"}
                                         </p>
-                                        <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest">
+                                        <p className="text-xs text-blue-600 font-black uppercase tracking-widest">
                                             {file ? "WebP 최적화 프로토콜 활성화" : "Cloud Storage 동기화 상태"}
                                         </p>
                                     </div>
-                                    <button type="button" className="text-[10px] px-5 py-2.5 bg-white border border-gray-200 text-gray-900 font-bold uppercase tracking-widest rounded-full hover:bg-black hover:text-white hover:border-black transition-all duration-300 shadow-sm">
+                                    <button type="button" className="text-xs sm:text-sm px-5 py-2.5 bg-white border border-gray-200 text-gray-900 font-bold uppercase tracking-widest rounded-full hover:bg-black hover:text-white hover:border-black transition-all duration-300 shadow-sm">
                                         이미지 변경하기
                                     </button>
                                 </div>
@@ -365,7 +365,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                                 </div>
                                 <p className="text-xl font-bold text-gray-900 tracking-tight">작품 이미지 업로드</p>
                                 <p className="text-xs text-gray-600 mt-2 font-medium">클릭하거나 파일을 이곳에 드래그하세요</p>
-                                <p className="text-[9px] text-gray-500 mt-4 font-bold uppercase tracking-[0.2em]">WebP High Performance Protocol</p>
+                                <p className="text-xs text-gray-500 mt-4 font-bold uppercase tracking-[0.2em]">WebP High Performance Protocol</p>
                             </div>
                         )}
                     </div>
@@ -383,7 +383,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 {/* 3. 작품 상세 정보 */}
                 {/* 3. 작품 제목 (Full Width) */}
                 <div className="space-y-3">
-                    <label htmlFor="title" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">작품 제목</label>
+                    <label htmlFor="title" className="text-xs font-bold text-gray-600 uppercase tracking-widest ml-1">작품 제목</label>
                     <input
                         id="title"
                         type="text"
@@ -410,7 +410,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                             { id: 'space', label: '4. 추천 설치 공간', options: ['거실용', '침실용', '아이방', '사무실/카페'] }
                         ].map((item) => (
                             <div key={item.id} className="space-y-3">
-                                <label htmlFor={item.id} className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">{item.label}</label>
+                                <label htmlFor={item.id} className="text-xs font-bold text-gray-600 uppercase tracking-widest ml-1">{item.label}</label>
                                 <div className="relative group">
                                     <select
                                         id={item.id}
@@ -436,23 +436,23 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
                         <div className="space-y-3">
-                            <label htmlFor="width" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">가로 (cm)</label>
+                            <label htmlFor="width" className="text-xs font-bold text-gray-600 uppercase tracking-widest ml-1">가로 (cm)</label>
                             <input id="width" type="number" name="width" value={formData.width} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="53" />
                         </div>
                         <div className="space-y-3">
-                            <label htmlFor="height" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">세로 (cm)</label>
+                            <label htmlFor="height" className="text-xs font-bold text-gray-600 uppercase tracking-widest ml-1">세로 (cm)</label>
                             <input id="height" type="number" name="height" value={formData.height} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="45.5" />
                         </div>
                         <div className="space-y-3">
-                            <label htmlFor="ho" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">호수 (호)</label>
+                            <label htmlFor="ho" className="text-xs font-bold text-gray-600 uppercase tracking-widest ml-1">호수 (호)</label>
                             <input id="ho" type="number" name="ho" value={formData.ho} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="10" />
                         </div>
                         <div className="space-y-3">
-                            <label htmlFor="year" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">제작 연도</label>
+                            <label htmlFor="year" className="text-xs font-bold text-gray-600 uppercase tracking-widest ml-1">제작 연도</label>
                             <input id="year" type="text" name="year" value={formData.year} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="2024" />
                         </div>
                         <div className="space-y-3 col-span-2 md:col-span-1">
-                            <label htmlFor="material" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest ml-1">재질 및 기법</label>
+                            <label htmlFor="material" className="text-xs font-bold text-gray-600 uppercase tracking-widest ml-1">재질 및 기법</label>
                             <input id="material" type="text" name="material" value={formData.material} onChange={handleInputChange} className="w-full px-6 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-black text-black font-bold outline-none transition-all" placeholder="Oil on canvas" />
                         </div>
                     </div>
@@ -461,14 +461,14 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 {/* 6. 가격 정보 (Sale & Rental) */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-black/5 p-8 rounded-[32px] border border-black/5">
                     <div className="space-y-3">
-                        <label htmlFor="price" className="text-[11px] font-black text-gray-700 uppercase tracking-[0.2em] ml-1">판매 가격 (KRW)</label>
+                        <label htmlFor="price" className="text-sm font-black text-gray-700 uppercase tracking-[0.2em] ml-1">판매 가격 (KRW)</label>
                         <div className="relative">
                             <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-gray-600">₩</span>
                             <input id="price" type="text" name="price" value={formData.price} onChange={handleInputChange} className="w-full pl-12 pr-6 py-5 bg-white border-2 border-transparent rounded-2xl focus:border-black text-2xl text-black font-black outline-none transition-all shadow-sm" placeholder="0" />
                         </div>
                     </div>
                     <div className="space-y-3">
-                        <label htmlFor="rental_price" className="text-[11px] font-black text-blue-500 uppercase tracking-[0.2em] ml-1">월 렌탈료 (KRW)</label>
+                        <label htmlFor="rental_price" className="text-sm font-black text-blue-500 uppercase tracking-[0.2em] ml-1">월 렌탈료 (KRW)</label>
                         <div className="relative">
                             <span className="absolute left-6 top-1/2 -translate-y-1/2 font-black text-blue-300">₩</span>
                             <input id="rental_price" type="text" name="rental_price" value={formData.rental_price} onChange={handleInputChange} className="w-full pl-12 pr-6 py-5 bg-white border-2 border-transparent rounded-2xl focus:border-blue-500 text-2xl text-blue-600 font-black outline-none transition-all shadow-sm" placeholder="0" />
@@ -479,12 +479,12 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 {/* 7. 작품 설명 (AI Integration) */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between px-1">
-                        <label htmlFor="description" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">작품 설명 (Story)</label>
+                        <label htmlFor="description" className="text-xs font-bold text-gray-600 uppercase tracking-widest">작품 설명 (Story)</label>
                         <button
                             type="button"
                             onClick={handleGenerateDescription}
                             disabled={aiLoading}
-                            className="text-[10px] font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-full transition-all flex items-center gap-2 disabled:opacity-50"
+                            className="text-xs sm:text-sm font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-full transition-all flex items-center gap-2 disabled:opacity-50"
                         >
                             {aiLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
                             AI 스토리 생성하기
@@ -525,7 +525,7 @@ export default function AdminUploadView({ users, initialData, onBack, onSuccess 
                 </button>
 
                 {status === 'error' && (
-                    <p className="text-red-500 text-[10px] font-black text-center uppercase tracking-widest animate-pulse">
+                    <p className="text-red-500 text-xs font-black text-center uppercase tracking-widest animate-pulse">
                         오류가 발생했습니다. 연결 상태를 확인하고 다시 시도해 주세요.
                     </p>
                 )}

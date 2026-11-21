@@ -64,7 +64,7 @@ export default function SubscriptionManagementView() {
                                         {sub.monthly_fee.toLocaleString()}원
                                     </td>
                                     <td className="px-6 py-4">
-                                        <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest ${sub.status === 'active' ? 'bg-green-100 text-green-700' :
+                                        <span className={`px-2 py-1 rounded text-xs font-bold uppercase tracking-widest ${sub.status === 'active' ? 'bg-green-100 text-green-700' :
                                                 sub.status === 'overdue' ? 'bg-red-100 text-red-700' :
                                                     'bg-gray-100 text-gray-700'
                                             }`}>

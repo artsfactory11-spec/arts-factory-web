@@ -38,10 +38,10 @@ function MagazineList({ magazines }: { magazines: IMagazine[] }) {
                     </div>
                     <div className="px-4 space-y-4">
                         <div className="flex items-center gap-4">
-                            <span className="px-4 py-1.5 bg-black text-white text-[10px] font-black rounded-full uppercase tracking-tighter shadow-xl shadow-black/10">
+                            <span className="px-4 py-1.5 bg-black text-white text-xs font-black rounded-full uppercase tracking-tighter shadow-xl shadow-black/10">
                                 {mag.category}
                             </span>
-                            <div className="flex items-center gap-4 text-gray-600 text-[10px] font-bold uppercase tracking-widest">
+                            <div className="flex items-center gap-4 text-gray-600 text-xs font-bold uppercase tracking-widest">
                                 <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {new Date(mag.createdAt).toLocaleDateString()}</span>
                                 <span className="flex items-center gap-1.5"><Eye className="w-3.5 h-3.5" /> {mag.view_count || 0}</span>
                             </div>
@@ -164,7 +164,7 @@ export default function MagazinePage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                         <div>
-                            <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-6 block animate-in fade-in slide-in-from-bottom-2 duration-700">
+                            <span className="text-xs font-black tracking-[0.25em] text-accent uppercase mb-6 block animate-in fade-in slide-in-from-bottom-2 duration-700">
                                 아트팩토리 소식
                             </span>
                             <h1 className="text-7xl md:text-8xl font-serif font-light tracking-tighter text-black mb-10 animate-in fade-in slide-in-from-bottom-3 duration-1000">

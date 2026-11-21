@@ -36,7 +36,7 @@ export default function ComparePage() {
                     <div className="space-y-6">
                         <Link
                             href="/gallery"
-                            className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-600 hover:text-black transition-colors"
+                            className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-gray-600 hover:text-black transition-colors"
                         >
                             <ChevronLeft size={14} /> Back to Gallery
                         </Link>
@@ -45,7 +45,7 @@ export default function ComparePage() {
                     </div>
                     <button
                         onClick={clearCompare}
-                        className="text-[10px] font-black uppercase tracking-widest text-red-500 hover:text-red-600 transition-colors border-b border-red-100 pb-1"
+                        className="text-xs font-black uppercase tracking-widest text-red-500 hover:text-red-600 transition-colors border-b border-red-100 pb-1"
                     >
                         Clear Comparison List
                     </button>
@@ -84,7 +84,7 @@ export default function ComparePage() {
 
                             {/* Basic Info */}
                             <div className="space-y-4">
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent">{art.category}</span>
+                                <span className="text-xs font-black uppercase tracking-[0.25em] text-accent">{art.category}</span>
                                 <h3 className="text-4xl font-serif italic tracking-tight">{art.title}</h3>
                                 <p className="text-xs font-black uppercase tracking-widest text-gray-600">{art.artist_name}</p>
                             </div>
@@ -92,21 +92,21 @@ export default function ComparePage() {
                             {/* Specs Table */}
                             <div className="space-y-8 py-10 border-y border-gray-50">
                                 <div className="space-y-2">
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-500">Materials</p>
+                                    <p className="text-xs font-black uppercase tracking-widest text-gray-500">Materials</p>
                                     <p className="text-sm font-serif italic text-gray-600">{art.material || 'Mixed Media'}</p>
                                 </div>
                                 <div className="space-y-2">
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-500">Dimensions</p>
+                                    <p className="text-xs font-black uppercase tracking-widest text-gray-500">Dimensions</p>
                                     <p className="text-sm font-serif italic text-gray-600">{art.size || 'Variable Sizes'}</p>
                                 </div>
                                 <div className="space-y-2">
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-500">Monthly Rental</p>
+                                    <p className="text-xs font-black uppercase tracking-widest text-gray-500">Monthly Rental</p>
                                     <p className="text-2xl font-black italic tracking-tighter">
                                         {art.rental_price ? `₩ ${art.rental_price.toLocaleString()}` : 'Contact for Price'}
                                     </p>
                                 </div>
                                 <div className="space-y-2">
-                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-500">Purchase Price</p>
+                                    <p className="text-xs font-black uppercase tracking-widest text-gray-500">Purchase Price</p>
                                     <p className="text-lg font-light text-gray-600">₩ {art.price.toLocaleString()}</p>
                                 </div>
                             </div>
@@ -115,14 +115,14 @@ export default function ComparePage() {
                             <div className="flex flex-col gap-4">
                                 <Link
                                     href={`/artwork/${art._id}`}
-                                    className="w-full py-5 bg-black text-white rounded-full text-[10px] font-black uppercase tracking-widest text-center hover:bg-zinc-800 transition-colors shadow-2xl shadow-black/20"
+                                    className="w-full py-5 bg-black text-white rounded-full text-xs sm:text-sm font-black uppercase tracking-widest text-center hover:bg-zinc-800 transition-colors shadow-2xl shadow-black/20"
                                 >
                                     View Details
                                 </Link>
                                 <div className="flex gap-4">
                                     <button className="flex-1 py-4 border border-gray-100 rounded-full flex items-center justify-center gap-3 hover:bg-gray-50 transition-colors">
                                         <Heart size={14} className="text-accent" />
-                                        <span className="text-[9px] font-black uppercase tracking-tighter">Save</span>
+                                        <span className="text-xs font-black uppercase tracking-tighter">Save</span>
                                     </button>
                                 </div>
                             </div>

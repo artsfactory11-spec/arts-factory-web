@@ -34,7 +34,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
         <div className="relative">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-3 px-6 py-3 bg-gray-50 hover:bg-gray-100 rounded-full text-[10px] font-black uppercase tracking-widest transition-all"
+                className="flex items-center gap-3 px-6 py-3 bg-gray-50 hover:bg-gray-100 rounded-full text-xs sm:text-sm font-black uppercase tracking-widest transition-all"
             >
                 <Share2 className="w-3.5 h-3.5" />
                 Share
@@ -55,7 +55,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
                             <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
                                 {copied ? <Check className="w-4 h-4 text-accent" /> : <LinkIcon className="w-4 h-4" />}
                             </div>
-                            <span className="text-[9px] font-black uppercase tracking-tighter">
+                            <span className="text-xs font-black uppercase tracking-tighter">
                                 {copied ? 'Copied' : 'Copy Link'}
                             </span>
                         </button>
@@ -67,7 +67,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
                             <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center group-hover:bg-[#1DA1F2] group-hover:text-white transition-colors">
                                 <Twitter className="w-4 h-4" />
                             </div>
-                            <span className="text-[9px] font-black uppercase tracking-tighter">Twitter</span>
+                            <span className="text-xs font-black uppercase tracking-tighter">Twitter</span>
                         </button>
                     </motion.div>
                 )}

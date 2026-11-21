@@ -41,7 +41,7 @@ function LoadingOverlay() {
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-gray-100/90 backdrop-blur-sm transition-opacity duration-300 pointer-events-none">
             <div className="w-10 h-10 border-2 border-accent border-t-transparent rounded-full animate-spin mb-4" />
             <p className="text-sm font-medium text-charcoal tracking-tight">갤러리 공간을 준비하고 있습니다...</p>
-            <span className="text-[11px] text-gray-500 mt-1 font-mono">
+            <span className="text-xs sm:text-sm text-gray-500 mt-1 font-mono">
                 {Math.round(progress)}%
             </span>
         </div>
@@ -73,7 +73,7 @@ export default function VRViewer({ imageUrl, artworkTitle, sizeDesc }: VRViewerP
     return (
         <div className="w-full h-[600px] bg-gray-100 rounded-3xl lg:rounded-[40px] overflow-hidden relative border border-gray-100 shadow-inner">
             <div className="absolute top-8 left-8 z-10">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 mb-1">Virtual Preview</h3>
+                <h3 className="text-xs font-black uppercase tracking-[0.25em] text-gray-500 mb-1">Virtual Preview</h3>
                 <p className="text-lg font-serif text-charcoal">{artworkTitle}</p>
             </div>
 
@@ -109,10 +109,10 @@ export default function VRViewer({ imageUrl, artworkTitle, sizeDesc }: VRViewerP
             </Canvas>
 
             <div className="absolute bottom-8 right-8 z-10 flex gap-4">
-                <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-full text-[9px] font-black uppercase tracking-tighter text-gray-700 border border-white/20 shadow-sm">
+                <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-full text-xs font-black uppercase tracking-tighter text-gray-700 border border-white/20 shadow-sm">
                     Drag to Rotate
                 </div>
-                <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-full text-[9px] font-black uppercase tracking-tighter text-gray-700 border border-white/20 shadow-sm">
+                <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-full text-xs font-black uppercase tracking-tighter text-gray-700 border border-white/20 shadow-sm">
                     Scroll to Zoom
                 </div>
             </div>

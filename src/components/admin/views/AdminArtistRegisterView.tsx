@@ -204,7 +204,7 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                         <p className="text-gray-700 text-sm mt-1">{formData.artist_specialty || '전문 분야 미입력'}</p>
 
                         <div className="mt-8 w-full">
-                            <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest text-center mb-3">작가 시그니처 / 서명</p>
+                            <p className="text-xs font-bold text-gray-600 uppercase tracking-widest text-center mb-3">작가 시그니처 / 서명</p>
                             <div
                                 className="w-full aspect-[3/1] bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors overflow-hidden group relative"
                                 onClick={() => signatureInputRef.current?.click()}
@@ -214,7 +214,7 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                                 ) : (
                                     <>
                                         <FileText className="w-5 h-5 text-gray-500 group-hover:text-gray-600 mb-1" />
-                                        <span className="text-[11px] text-gray-600">이미지 등록 (WebP)</span>
+                                        <span className="text-xs sm:text-sm text-gray-600">이미지 등록 (WebP)</span>
                                     </>
                                 )}
                                 <input
@@ -233,7 +233,7 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                         <h4 className="font-bold text-gray-900 mb-4 px-2 tracking-tight">작가 활동 정보</h4>
                         <div className="space-y-4">
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity_exhibitions" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">누적 전시 기록</label>
+                                <label htmlFor="activity_exhibitions" className="text-xs font-bold text-gray-600 uppercase tracking-widest">누적 전시 기록</label>
                                 <input
                                     id="activity_exhibitions"
                                     type="text"
@@ -245,7 +245,7 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                                 />
                             </div>
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity_region" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">활동 지역</label>
+                                <label htmlFor="activity_region" className="text-xs font-bold text-gray-600 uppercase tracking-widest">활동 지역</label>
                                 <input
                                     id="activity_region"
                                     type="text"
@@ -257,7 +257,7 @@ const AdminArtistRegisterView = ({ onSuccess, initialData, isEdit = false }: Adm
                                 />
                             </div>
                             <div className="space-y-1.5 px-2">
-                                <label htmlFor="activity_material" className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">주요 매체/재료</label>
+                                <label htmlFor="activity_material" className="text-xs font-bold text-gray-600 uppercase tracking-widest">주요 매체/재료</label>
                                 <input
                                     id="activity_material"
                                     type="text"

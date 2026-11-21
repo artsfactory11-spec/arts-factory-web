@@ -63,7 +63,7 @@ export default async function ArtworkPage({ params }: Props) {
                 <div className="flex justify-between items-center bg-gray-50/50 rounded-[40px] px-8 py-3">
                     <Link
                         href="/gallery"
-                        className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-all font-black text-[10px] tracking-widest uppercase group py-2"
+                        className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-all font-black text-xs tracking-widest uppercase group py-2"
                     >
                         <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                         Back to Gallery
@@ -95,21 +95,21 @@ export default async function ArtworkPage({ params }: Props) {
                             {artwork.artist_id.name}
                         </p>
                         <div className="flex flex-wrap gap-2">
-                            <span className="text-[10px] px-2.5 py-1 bg-black text-white font-black uppercase tracking-tighter">
+                            <span className="text-xs px-2.5 py-1 bg-black text-white font-black uppercase tracking-tighter">
                                 {artwork.category}
                             </span>
                             {artwork.style && (
-                                <span className="text-[10px] px-2.5 py-1 border border-black/10 text-gray-900 font-bold uppercase tracking-tighter">
+                                <span className="text-xs px-2.5 py-1 border border-black/10 text-gray-900 font-bold uppercase tracking-tighter">
                                     {artwork.style}
                                 </span>
                             )}
                             {artwork.subject && (
-                                <span className="text-[10px] px-2.5 py-1 border border-black/10 text-gray-900 font-bold uppercase tracking-tighter">
+                                <span className="text-xs px-2.5 py-1 border border-black/10 text-gray-900 font-bold uppercase tracking-tighter">
                                     {artwork.subject}
                                 </span>
                             )}
                             {artwork.space && (
-                                <span className="text-[10px] px-2.5 py-1 bg-gray-100 text-gray-600 font-bold uppercase tracking-tighter">
+                                <span className="text-xs px-2.5 py-1 bg-gray-100 text-gray-600 font-bold uppercase tracking-tighter">
                                     {artwork.space}
                                 </span>
                             )}
@@ -119,28 +119,28 @@ export default async function ArtworkPage({ params }: Props) {
                     <div className="space-y-12 flex-grow">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-10 gap-x-12">
                             <div>
-                                <h2 className="text-[10px] uppercase tracking-[0.3em] text-gray-900 mb-4 font-black">Dimensions</h2>
+                                <h2 className="text-xs uppercase tracking-[0.25em] text-gray-900 mb-4 font-black">Dimensions</h2>
                                 <div className="space-y-1">
                                     <p className="font-bold text-lg text-black">
                                         {artwork.width && artwork.height ? `${artwork.width} × ${artwork.height} cm` : artwork.size}
                                     </p>
                                     {artwork.ho && (
-                                        <p className="text-[11px] text-gray-700 font-medium tracking-widest">{artwork.ho}호</p>
+                                        <p className="text-xs sm:text-sm text-gray-700 font-medium tracking-widest">{artwork.ho}호</p>
                                     )}
                                 </div>
                             </div>
                             <div>
-                                <h2 className="text-[10px] uppercase tracking-[0.3em] text-gray-900 mb-4 font-black">Specifications</h2>
+                                <h2 className="text-xs uppercase tracking-[0.25em] text-gray-900 mb-4 font-black">Specifications</h2>
                                 <div className="space-y-3">
                                     {artwork.material && (
                                         <div className="flex justify-between items-center border-b border-gray-50 pb-2">
-                                            <span className="text-[11px] text-gray-700 font-medium">Material</span>
+                                            <span className="text-sm text-gray-700 font-medium">Material</span>
                                             <span className="text-xs text-black font-bold">{artwork.material}</span>
                                         </div>
                                     )}
                                     {artwork.season && artwork.season !== 'All' && (
                                         <div className="flex justify-between items-center border-b border-gray-50 pb-2">
-                                            <span className="text-[11px] text-gray-700 font-medium">Season</span>
+                                            <span className="text-sm text-gray-700 font-medium">Season</span>
                                             <span className="text-xs text-black font-bold">{artwork.season}</span>
                                         </div>
                                     )}
@@ -149,7 +149,7 @@ export default async function ArtworkPage({ params }: Props) {
                         </div>
 
                         <div>
-                            <h2 className="text-[10px] uppercase tracking-[0.3em] text-gray-900 mb-5 font-black">Description</h2>
+                            <h2 className="text-xs uppercase tracking-[0.25em] text-gray-900 mb-5 font-black">Description</h2>
                             <p className="leading-loose text-gray-800 text-[15px] whitespace-pre-wrap max-w-lg font-medium">
                                 {artwork.description || "이 작품에 대한 상세 설명이 준비 중입니다."}
                             </p>
@@ -159,19 +159,19 @@ export default async function ArtworkPage({ params }: Props) {
                     <div className="mt-20 pt-12 border-t border-gray-100">
                         <div className="grid grid-cols-2 gap-8 mb-6">
                             <div className="space-y-1">
-                                <span className="text-[10px] text-gray-900 font-black uppercase tracking-widest block mb-2">Estimated Value</span>
+                                <span className="text-xs text-gray-900 font-black uppercase tracking-widest block mb-2">Estimated Value</span>
                                 <span className="text-3xl font-black text-black tracking-tighter">₩ {artwork.price.toLocaleString()}</span>
                             </div>
                             <div className="space-y-1 border-l border-gray-100 pl-8">
-                                <span className="text-[10px] text-accent font-black uppercase tracking-widest block mb-2">Monthly Rental</span>
+                                <span className="text-xs text-accent font-black uppercase tracking-widest block mb-2">Monthly Rental</span>
                                 <span className="text-3xl font-black text-black tracking-tighter">₩ {artwork.rental_price.toLocaleString()}</span>
                             </div>
                         </div>
 
                         {/* 비고 섹션 */}
                         <div className="mb-10 bg-gray-50/50 rounded-2xl p-6">
-                            <h2 className="text-[10px] underline underline-offset-4 uppercase tracking-[0.2em] text-gray-900 mb-4 font-black">Notice (비고)</h2>
-                            <ul className="space-y-2 text-[11px] text-gray-700 font-medium leading-relaxed">
+                            <h2 className="text-xs underline underline-offset-4 uppercase tracking-[0.2em] text-gray-900 mb-4 font-black">Notice (비고)</h2>
+                            <ul className="space-y-2 text-sm text-gray-700 font-medium leading-relaxed">
                                 <li className="flex items-start gap-2">
                                     <span className="text-black font-bold">•</span>
                                     <span>부가세 포함가격</span>
@@ -193,7 +193,7 @@ export default async function ArtworkPage({ params }: Props) {
 
                         {/* 렌탈 상태 표시 */}
                         {artwork.rental_status && artwork.rental_status !== 'available' && (
-                            <div className={`mb-8 p-5 rounded-2xl text-center font-black text-[11px] tracking-[0.2em] uppercase shadow-sm ${artwork.rental_status === 'rented' ? 'bg-red-50 text-red-600' :
+                            <div className={`mb-8 p-5 rounded-2xl text-center font-black text-xs sm:text-sm tracking-[0.2em] uppercase shadow-sm ${artwork.rental_status === 'rented' ? 'bg-red-50 text-red-600' :
                                 artwork.rental_status === 'processing' ? 'bg-yellow-50 text-yellow-600' :
                                     'bg-gray-100 text-gray-700'
                                 }`}>

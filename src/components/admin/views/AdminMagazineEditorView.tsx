@@ -221,7 +221,7 @@ export default function AdminMagazineEditorView({ initialData, onBack, onSuccess
                             placeholder="여기에 소식을 작성하세요. (HTML 지원)"
                             className="w-full px-6 py-6 bg-gray-50 border-2 border-transparent rounded-3xl focus:bg-white focus:border-black text-gray-900 font-medium transition-all outline-none shadow-sm resize-none leading-relaxed"
                         />
-                        <p className="text-[10px] text-gray-600 ml-2 italic">* 추후 에디터(WYSIWYG) 라이브러리를 통해 고도화될 예정입니다.</p>
+                        <p className="text-xs text-gray-600 ml-2 italic">* 추후 에디터(WYSIWYG) 라이브러리를 통해 고도화될 예정입니다.</p>
                     </div>
                 </div>
             </form>

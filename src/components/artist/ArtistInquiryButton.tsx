@@ -14,7 +14,7 @@ export default function ArtistInquiryButton({ artistName }: ArtistInquiryButtonP
         <>
             <button
                 onClick={() => setIsModalOpen(true)}
-                className="flex-1 px-8 py-5 bg-black text-white rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-center hover:bg-zinc-800 transition-all shadow-2xl shadow-black/20"
+                className="flex-1 px-8 py-5 bg-black text-white rounded-full text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-center hover:bg-zinc-800 transition-all shadow-2xl shadow-black/20"
             >
                 Inquire about Artist
             </button>

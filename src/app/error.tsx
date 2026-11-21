@@ -46,7 +46,7 @@ export default function Error({
                             </motion.div>
                         </div>
                         <div className="space-y-4">
-                            <span className="text-[10px] font-black tracking-[0.6em] text-red-400 uppercase">Internal System Interruption</span>
+                            <span className="text-xs font-black tracking-[0.25em] text-red-400 uppercase">Internal System Interruption</span>
                             <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tighter text-black leading-tight">
                                 기술적인 오류가 <br /> 발생했습니다.
                             </h1>
@@ -81,7 +81,7 @@ export default function Error({
                 </div>
 
                 <div className="pt-24 opacity-20 hover:opacity-100 transition-opacity">
-                    <p className="text-[9px] font-mono text-gray-600 max-w-xs mx-auto break-all uppercase">
+                    <p className="text-xs font-mono text-gray-600 max-w-xs mx-auto break-all uppercase">
                         Digest: {error.digest || 'no-digest-id'}
                     </p>
                 </div>

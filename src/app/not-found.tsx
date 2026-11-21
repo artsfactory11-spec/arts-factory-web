@@ -58,7 +58,7 @@ export default function NotFound() {
                                 <Link
                                     key={item}
                                     href={`/${item.toLowerCase()}`}
-                                    className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-black transition-colors"
+                                    className="text-xs font-black uppercase tracking-[0.25em] text-gray-500 hover:text-black transition-colors"
                                 >
                                     {item}
                                 </Link>
@@ -73,7 +73,7 @@ export default function NotFound() {
                     transition={{ delay: 1 }}
                     className="fixed bottom-12 left-0 right-0 text-center"
                 >
-                    <p className="text-[10px] font-black tracking-[0.5em] text-gray-400 uppercase">
+                    <p className="text-xs font-black tracking-[0.25em] text-gray-400 uppercase">
                         Arts Factory Premium Experience
                     </p>
                 </motion.div>

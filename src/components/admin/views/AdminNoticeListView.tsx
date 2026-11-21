@@ -83,11 +83,11 @@ export default function AdminNoticeListView({ onEdit, onCreate }: AdminNoticeLis
                     <table className="w-full text-left border-collapse">
                         <thead className="bg-gray-50/50 border-b border-gray-100">
                             <tr>
-                                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-gray-600">Thumbnail</th>
-                                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-gray-600">Notice Info</th>
-                                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-gray-600">Period</th>
-                                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-gray-600">Status</th>
-                                <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-gray-600 text-right">Actions</th>
+                                <th className="px-6 py-5 text-xs font-black uppercase tracking-widest text-gray-600">Thumbnail</th>
+                                <th className="px-6 py-5 text-xs font-black uppercase tracking-widest text-gray-600">Notice Info</th>
+                                <th className="px-6 py-5 text-xs font-black uppercase tracking-widest text-gray-600">Period</th>
+                                <th className="px-6 py-5 text-xs font-black uppercase tracking-widest text-gray-600">Status</th>
+                                <th className="px-6 py-5 text-xs font-black uppercase tracking-widest text-gray-600 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
@@ -125,26 +125,26 @@ export default function AdminNoticeListView({ onEdit, onCreate }: AdminNoticeLis
                                                     {n.images && n.images.length > 0 ? (
                                                         <Image src={n.images[0].url} alt="" fill className="object-cover" />
                                                     ) : (
-                                                        <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-600 font-bold uppercase p-1 text-center">No Img</div>
+                                                        <div className="w-full h-full flex items-center justify-center text-xs text-gray-600 font-bold uppercase p-1 text-center">No Img</div>
                                                     )}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className="space-y-0.5">
                                                     <p className="font-bold text-gray-900 line-clamp-1">{n.title}</p>
-                                                    <p className="text-[10px] text-gray-600 font-medium uppercase tracking-tight">Priority: {n.priority}</p>
+                                                    <p className="text-xs text-gray-600 font-medium uppercase tracking-tight">Priority: {n.priority}</p>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className="flex flex-col gap-1">
-                                                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-gray-700">
+                                                    <div className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-gray-700">
                                                         <Calendar className="w-3 h-3 text-gray-500" />
                                                         {new Date(n.startDate).toLocaleDateString()} ~ {new Date(n.endDate).toLocaleDateString()}
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-md ${status.color}`}>
+                                                <span className={`text-xs font-black uppercase tracking-widest px-2 py-1 rounded-md ${status.color}`}>
                                                     {status.label}
                                                 </span>
                                             </td>

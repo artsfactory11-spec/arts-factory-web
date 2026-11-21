@@ -113,7 +113,7 @@ export default async function MyPage() {
                             {subscriptions.map((sub: PopulatedSubscription) => (
                                 <div key={sub._id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                                     <div className="p-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/50">
-                                        <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded ${sub.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-700'
+                                        <span className={`text-xs font-black uppercase tracking-widest px-2 py-1 rounded ${sub.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-700'
                                             }`}>
                                             {sub.status.toUpperCase()}
                                         </span>
@@ -153,7 +153,7 @@ export default async function MyPage() {
                                     <div className="space-y-1">
                                         <div className="flex items-center gap-3 mb-2">
                                             <span className="text-xs font-mono text-gray-600">#{order._id.toString().substring(0, 8)}</span>
-                                            <span className="text-[10px] font-black uppercase tracking-widest bg-gray-100 px-2 py-1 rounded">
+                                            <span className="text-xs font-black uppercase tracking-widest bg-gray-100 px-2 py-1 rounded">
                                                 {order.status.replace('_', ' ')}
                                             </span>
                                         </div>
@@ -165,7 +165,7 @@ export default async function MyPage() {
                                     </div>
                                     <div className="flex items-center gap-12">
                                         <div>
-                                            <span className="text-[10px] font-bold text-gray-600 uppercase block mb-1">Total</span>
+                                            <span className="text-xs font-bold text-gray-600 uppercase block mb-1">Total</span>
                                             <span className="font-serif text-xl">{order.total_amount.toLocaleString()} KRW</span>
                                         </div>
                                         {order.status === 'pending_deposit' && (

@@ -46,7 +46,7 @@ const ShareButton = ({ title }: { title: string }) => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-full left-1/2 -translate-x-1/2 mt-4 px-4 py-2 bg-black text-white text-[10px] font-bold rounded-lg whitespace-nowrap flex items-center gap-2"
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-4 px-4 py-2 bg-black text-white text-xs font-bold rounded-lg whitespace-nowrap flex items-center gap-2"
                     >
                         <CheckCircle2 className="w-3 h-3 text-green-400" /> 링크가 복사되었습니다
                     </motion.div>

@@ -67,7 +67,7 @@ export default function PartnerJoinPage() {
                         관리자 승인 후 파트너 대시보드 이용이 가능합니다.<br />
                         결과는 입력하신 이메일로 안내해 드립니다.
                     </p>
-                    <Link href="/" className="inline-block pt-8 text-[11px] font-black tracking-[0.4em] uppercase underline underline-offset-8 text-charcoal hover:text-accent transition-colors">
+                    <Link href="/" className="inline-block pt-8 text-xs sm:text-sm font-black tracking-[0.25em] uppercase underline underline-offset-8 text-charcoal hover:text-accent transition-colors">
                         홈으로 돌아가기
                     </Link>
                 </motion.div>
@@ -79,7 +79,7 @@ export default function PartnerJoinPage() {
         <main className="min-h-screen bg-surface grain">
             <header className="pt-60 pb-20 px-6 lg:px-12">
                 <div className="max-w-7xl mx-auto text-center">
-                    <span className="text-[11px] font-black tracking-[0.6em] text-accent uppercase mb-6 block animate-in fade-in slide-in-from-bottom-2 duration-700">
+                    <span className="text-xs sm:text-sm font-black tracking-[0.25em] text-accent uppercase mb-6 block animate-in fade-in slide-in-from-bottom-2 duration-700">
                         Join our community
                     </span>
                     <h1 className="text-7xl font-serif font-light tracking-tighter text-charcoal mb-12 italic animate-in fade-in slide-in-from-bottom-3 duration-1000">
@@ -104,7 +104,7 @@ export default function PartnerJoinPage() {
                         <div className="space-y-12">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                                 <div className="group relative">
-                                    <label className="text-[11px] font-black tracking-widest text-charcoal/70 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                    <label className="text-sm font-black tracking-widest text-charcoal/70 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                         Specialty <span className="text-accent">*</span>
                                     </label>
                                     <input
@@ -116,7 +116,7 @@ export default function PartnerJoinPage() {
                                     />
                                 </div>
                                 <div className="group relative">
-                                    <label className="text-[11px] font-black tracking-widest text-charcoal/70 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                    <label className="text-sm font-black tracking-widest text-charcoal/70 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                         Region <span className="text-accent">*</span>
                                     </label>
                                     <input
@@ -130,7 +130,7 @@ export default function PartnerJoinPage() {
                             </div>
 
                             <div className="group relative">
-                                <label className="text-[11px] font-black tracking-widest text-charcoal/70 uppercase mb-4 block transition-colors group-focus-within:text-accent">
+                                <label className="text-sm font-black tracking-widest text-charcoal/70 uppercase mb-4 block transition-colors group-focus-within:text-accent">
                                     Introduction <span className="text-accent">*</span>
                                 </label>
                                 <textarea
@@ -149,7 +149,7 @@ export default function PartnerJoinPage() {
                                 disabled={loading}
                                 className="w-full group relative flex items-center justify-center gap-4 py-8 bg-charcoal text-white rounded-full overflow-hidden shadow-2xl shadow-charcoal/20 transition-all hover:-translate-y-1 active:scale-95 disabled:bg-gray-200"
                             >
-                                <span className="relative z-10 text-[11px] font-black tracking-[0.5em] uppercase flex items-center gap-3">
+                                <span className="relative z-10 text-xs sm:text-sm font-black tracking-[0.25em] uppercase flex items-center gap-3">
                                     {loading ? 'Submitting...' : (
                                         <>Send Application <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></>
                                     )}

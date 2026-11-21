@@ -80,10 +80,10 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
         <main className="min-h-screen bg-white">
             {/* Minimal Navigation */}
             <nav className="fixed top-0 left-0 right-0 z-50 px-6 lg:px-12 py-8 flex justify-between items-center bg-white/80 backdrop-blur-md border-b border-gray-50">
-                <Link href="/artists" className="flex items-center gap-2 text-gray-600 hover:text-black transition-all font-black text-[10px] tracking-widest uppercase group">
+                <Link href="/artists" className="flex items-center gap-2 text-gray-600 hover:text-black transition-all font-black text-xs sm:text-sm tracking-widest uppercase group">
                     <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> Back to Artists
                 </Link>
-                <div className="flex gap-12 text-[10px] font-black tracking-widest uppercase text-gray-500">
+                <div className="flex gap-12 text-xs font-black tracking-widest uppercase text-gray-500">
                     <Link href="/" className="hover:text-black transition-colors">Artworks</Link>
                     <Link href="/magazine" className="hover:text-black transition-colors">Magazine</Link>
                 </div>
@@ -111,7 +111,7 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
                         </div>
                         <div className="flex-1 space-y-8 text-center lg:text-left">
                             <div className="space-y-4">
-                                <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase block mb-6">Master Artist</span>
+                                <span className="text-xs font-black tracking-[0.25em] text-accent uppercase block mb-6">Master Artist</span>
                                 <h1 className="text-7xl lg:text-9xl font-serif italic tracking-tighter text-black leading-none">
                                     {artist.name}
                                 </h1>
@@ -120,7 +120,7 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
                                 </p>
                             </div>
 
-                            <div className="pt-12 border-t border-gray-100 flex flex-col sm:flex-row gap-12 text-[10px] font-black tracking-widest text-gray-600 uppercase">
+                            <div className="pt-12 border-t border-gray-100 flex flex-col sm:flex-row gap-12 text-xs font-black tracking-widest text-gray-600 uppercase">
                                 <span className="flex items-center gap-3"><MapPin className="w-4 h-4 text-black" /> {artist.activity_region || 'Seoul, Korea'}</span>
                                 <span className="flex items-center gap-3"><Palette className="w-4 h-4 text-black" /> {artist.activity_material || 'Mixed Media'}</span>
                             </div>
@@ -134,7 +134,7 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-32">
                     <div className="space-y-12">
                         <div className="space-y-6">
-                            <h2 className="text-[10px] font-black tracking-[0.4em] text-gray-600 uppercase">Biography</h2>
+                            <h2 className="text-xs font-black tracking-[0.25em] text-gray-600 uppercase">Biography</h2>
                             <p className="text-xl font-light leading-relaxed text-gray-600 whitespace-pre-wrap">
                                 {artist.artist_bio || '작가의 상세 소개가 등록되지 않았습니다.'}
                             </p>
@@ -147,7 +147,7 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
                     </div>
 
                     <div className="space-y-12">
-                        <h2 className="text-[10px] font-black tracking-[0.4em] text-gray-600 uppercase">Career & Exhibitions</h2>
+                        <h2 className="text-xs font-black tracking-[0.25em] text-gray-600 uppercase">Career & Exhibitions</h2>
                         <div className="space-y-8">
                             {artist.activity_exhibitions ? (
                                 <p className="text-lg font-medium leading-loose text-black whitespace-pre-wrap">
@@ -156,7 +156,7 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-20 bg-white rounded-[40px] border border-gray-100 text-gray-500 gap-4">
                                     <History className="w-8 h-8 opacity-20" />
-                                    <p className="text-[10px] font-black uppercase tracking-widest">No exhibitions recorded</p>
+                                    <p className="text-xs font-black uppercase tracking-widest">No exhibitions recorded</p>
                                 </div>
                             )}
                         </div>
@@ -168,7 +168,7 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
                                 href="https://instagram.com/artsfactory_official"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="px-8 py-5 bg-white border border-gray-100 text-black rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-center hover:bg-gray-50 transition-all flex items-center justify-center gap-3"
+                                className="px-8 py-5 bg-white border border-gray-100 text-black rounded-full text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-center hover:bg-gray-50 transition-all flex items-center justify-center gap-3"
                             >
                                 <Instagram size={14} /> Arts Factory Official
                             </a>
@@ -181,7 +181,7 @@ export default async function ArtistPortfolioPage({ params }: { params: Promise<
             <section className="px-6 lg:px-12 py-32">
                 <div className="max-w-7xl mx-auto space-y-20">
                     <div className="flex flex-col items-center text-center space-y-6">
-                        <span className="text-[10px] font-black tracking-[0.4em] text-gray-500 uppercase">Portfolio</span>
+                        <span className="text-xs font-black tracking-[0.25em] text-gray-500 uppercase">Portfolio</span>
                         <h2 className="text-5xl font-black tracking-tighter">WORKS</h2>
                     </div>
 

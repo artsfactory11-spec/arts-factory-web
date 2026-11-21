@@ -71,7 +71,7 @@ export default function NoticeModal() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                                 <div className="absolute bottom-10 left-10 right-10">
-                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-3 block">NOTICE</span>
+                                    <span className="text-xs font-black uppercase tracking-[0.25em] text-accent mb-3 block">NOTICE</span>
                                     <h2 className="text-2xl font-serif italic text-white leading-tight">
                                         {currentNotice.title}
                                     </h2>
@@ -84,7 +84,7 @@ export default function NoticeModal() {
                                 </div>
                                 <div className="relative z-10">
                                     <Bell className="w-8 h-8 text-accent mb-6" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent mb-4 block">Official Notice</span>
+                                    <span className="text-xs font-black uppercase tracking-[0.25em] text-accent mb-4 block">Official Notice</span>
                                     <h2 className="text-3xl font-serif italic mb-6 leading-tight leading-relaxed">
                                         {currentNotice.title}
                                     </h2>
@@ -96,7 +96,7 @@ export default function NoticeModal() {
                         )}
 
                         <div className="p-10 pt-4 flex items-center justify-between text-black">
-                            <span className="text-[11px] font-black uppercase tracking-widest flex items-center gap-2">
+                            <span className="text-xs sm:text-sm font-black uppercase tracking-widest flex items-center gap-2">
                                 Details
                                 <ChevronRight className="w-4 h-4 text-accent transition-transform group-hover:translate-x-1" />
                             </span>
@@ -107,7 +107,7 @@ export default function NoticeModal() {
                     <div className="bg-gray-50 px-10 py-5 flex items-center justify-between border-t border-gray-100">
                         <button
                             onClick={hideForToday}
-                            className="text-[11px] font-bold text-gray-600 hover:text-black transition-colors"
+                            className="text-xs sm:text-sm font-bold text-gray-600 hover:text-black transition-colors"
                         >
                             오늘 하루 보지 않기
                         </button>

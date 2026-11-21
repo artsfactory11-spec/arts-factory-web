@@ -33,7 +33,7 @@ export default function ArtistsPage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                         <div>
-                            <span className="text-[10px] font-black tracking-[0.3em] text-gray-600 uppercase mb-4 block animate-in fade-in slide-in-from-bottom-2 duration-700">
+                            <span className="text-xs font-black tracking-[0.25em] text-gray-600 uppercase mb-4 block animate-in fade-in slide-in-from-bottom-2 duration-700">
                                 우리의 작가들을 만나보세요
                             </span>
                             <h1 className="text-7xl font-extralight tracking-tighter text-black mb-8 animate-in fade-in slide-in-from-bottom-3 duration-1000">

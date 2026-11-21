@@ -97,11 +97,11 @@ export default function NotificationBell() {
                     >
                         {/* Header */}
                         <div className="px-6 py-5 bg-gray-50/50 border-b border-gray-100 flex items-center justify-between">
-                            <h3 className="text-[11px] font-black uppercase tracking-widest text-black">Notifications</h3>
+                            <h3 className="text-xs sm:text-sm font-black uppercase tracking-widest text-black">Notifications</h3>
                             {unreadCount > 0 && (
                                 <button
                                     onClick={handleMarkAllAsRead}
-                                    className="text-[10px] font-black uppercase tracking-widest text-accent hover:text-black transition-colors"
+                                    className="text-xs font-black uppercase tracking-widest text-accent hover:text-black transition-colors"
                                 >
                                     Mark all as read
                                 </button>
@@ -121,8 +121,8 @@ export default function NotificationBell() {
                                                 <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${!n.isRead ? 'bg-accent' : 'bg-transparent'}`} />
                                                 <div className="flex-grow space-y-1">
                                                     <p className="text-xs font-bold text-black leading-snug">{n.title}</p>
-                                                    <p className="text-[11px] text-gray-700 leading-relaxed">{n.message}</p>
-                                                    <p className="text-[9px] text-gray-600 font-black uppercase tracking-widest pt-1">
+                                                    <p className="text-sm text-gray-700 leading-relaxed">{n.message}</p>
+                                                    <p className="text-xs text-gray-600 font-black uppercase tracking-widest pt-1">
                                                         {formatDistanceToNow(new Date(n.createdAt), { addSuffix: true, locale: ko })}
                                                     </p>
                                                 </div>
@@ -138,7 +138,7 @@ export default function NotificationBell() {
                                                 <Link
                                                     href={n.link}
                                                     onClick={() => handleMarkAsRead(n._id)}
-                                                    className="mt-4 flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-gray-600 hover:text-black transition-colors"
+                                                    className="mt-4 flex items-center gap-2 text-xs font-black uppercase tracking-widest text-gray-600 hover:text-black transition-colors"
                                                 >
                                                     View Details <ExternalLink size={10} />
                                                 </Link>
@@ -151,7 +151,7 @@ export default function NotificationBell() {
                                     <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mb-4">
                                         <Bell className="w-5 h-5 text-gray-400" />
                                     </div>
-                                    <p className="text-[11px] font-black uppercase tracking-widest text-gray-500">No Notifications</p>
+                                    <p className="text-xs sm:text-sm font-black uppercase tracking-widest text-gray-500">No Notifications</p>
                                 </div>
                             )}
                         </div>

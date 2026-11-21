@@ -49,7 +49,7 @@ export default async function ArtworkPage({ params }: Props) {
             <div className="max-w-7xl mx-auto mb-12">
                 <Link
                     href="/gallery"
-                    className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-all font-black text-[10px] tracking-widest uppercase group px-4 py-2 bg-gray-50 rounded-full"
+                    className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-all font-black text-xs tracking-widest uppercase group px-4 py-2 bg-gray-50 rounded-full"
                 >
                     <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                     Back to Collection
@@ -69,7 +69,7 @@ export default async function ArtworkPage({ params }: Props) {
                             {artwork.artist_id.name}
                         </p>
                         <div className="flex gap-2">
-                            <span className="text-[10px] px-3 py-1 bg-black text-white font-black uppercase tracking-widest">
+                            <span className="text-xs px-3 py-1 bg-black text-white font-black uppercase tracking-widest">
                                 {artwork.category}
                             </span>
                         </div>
@@ -77,7 +77,7 @@ export default async function ArtworkPage({ params }: Props) {
 
                     <div className="space-y-10 flex-grow">
                         <div>
-                            <h2 className="text-[10px] uppercase tracking-[0.3em] text-gray-600 mb-4 font-black">Description</h2>
+                            <h2 className="text-xs uppercase tracking-[0.25em] text-gray-600 mb-4 font-black">Description</h2>
                             <p className="font-serif leading-relaxed text-gray-700 whitespace-pre-wrap text-lg italic">
                                 {artwork.description || "이 작품에 대한 상세 설명이 준비 중입니다."}
                             </p>
@@ -86,13 +86,13 @@ export default async function ArtworkPage({ params }: Props) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8 gap-x-12">
                             {artwork.size && (
                                 <div>
-                                    <h2 className="text-[10px] uppercase tracking-[0.3em] text-gray-600 mb-2 font-black">Size</h2>
+                                    <h2 className="text-xs uppercase tracking-[0.25em] text-gray-600 mb-2 font-black">Size</h2>
                                     <p className="font-serif italic text-lg text-gray-800">{artwork.size}</p>
                                 </div>
                             )}
                             {artwork.material && (
                                 <div>
-                                    <h2 className="text-[10px] uppercase tracking-[0.3em] text-gray-600 mb-2 font-black">Material</h2>
+                                    <h2 className="text-xs uppercase tracking-[0.25em] text-gray-600 mb-2 font-black">Material</h2>
                                     <p className="font-serif italic text-lg text-gray-800">{artwork.material}</p>
                                 </div>
                             )}

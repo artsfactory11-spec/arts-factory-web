@@ -13,7 +13,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="max-w-7xl mx-auto relative z-10">
-                    <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase mb-8 block">Our Story</span>
+                    <span className="text-xs font-black tracking-[0.25em] text-accent uppercase mb-8 block">Our Story</span>
                     <h1 className="text-[12vw] lg:text-[140px] font-serif font-light tracking-tighter leading-[0.8] italic mb-12">
                         Arts <br /> Factory
                     </h1>
@@ -29,7 +29,7 @@ export default function AboutPage() {
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
                     <div className="space-y-12">
                         <div className="space-y-6">
-                            <h2 className="text-[10px] font-black tracking-[0.4em] text-gray-600 uppercase">Philosophy</h2>
+                            <h2 className="text-xs font-black tracking-[0.25em] text-gray-600 uppercase">Philosophy</h2>
                             <h3 className="text-5xl font-serif font-light tracking-tight italic">Beyond the Frame</h3>
                             <p className="text-xl font-serif italic text-gray-600 leading-loose">
                                 예술공장은 동시대의 유망한 작가들과 대중을 잇는 가장 건강한 통로입니다.
@@ -40,11 +40,11 @@ export default function AboutPage() {
                         <div className="grid grid-cols-2 gap-12 pt-12 border-t border-gray-100">
                             <div>
                                 <span className="text-3xl font-serif font-light italic text-accent">Curated</span>
-                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-600 mt-2">Selection Spirit</p>
+                                <p className="text-xs font-black uppercase tracking-widest text-gray-600 mt-2">Selection Spirit</p>
                             </div>
                             <div>
                                 <span className="text-3xl font-serif font-light italic text-accent">Healthy</span>
-                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-600 mt-2">Art Ecosystem</p>
+                                <p className="text-xs font-black uppercase tracking-widest text-gray-600 mt-2">Art Ecosystem</p>
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@ export default function AboutPage() {
             <section className="py-40 bg-black text-white px-6 lg:px-12">
                 <div className="max-w-7xl mx-auto space-y-32">
                     <div className="text-center max-w-3xl mx-auto space-y-8">
-                        <span className="text-[10px] font-black tracking-[0.5em] text-accent uppercase">Core Values</span>
+                        <span className="text-xs font-black tracking-[0.25em] text-accent uppercase">Core Values</span>
                         <h2 className="text-5xl md:text-7xl font-serif font-light tracking-tight italic">Connecting Hearts through Art</h2>
                     </div>
 

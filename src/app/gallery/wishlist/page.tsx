@@ -23,7 +23,7 @@ export default async function WishlistPage() {
         <main className="min-h-screen bg-white pt-32 pb-32 px-6 lg:px-12">
             <div className="max-w-7xl mx-auto">
                 <header className="mb-20">
-                    <span className="text-accent font-black tracking-[0.4em] text-[10px] uppercase block mb-4">Your Selection</span>
+                    <span className="text-accent font-black tracking-[0.25em] text-xs uppercase block mb-4">Your Selection</span>
                     <h1 className="text-6xl font-serif italic text-black">Wishlist</h1>
                     <div className="mt-8 h-px w-full bg-gray-100" />
                 </header>

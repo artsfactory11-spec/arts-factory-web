@@ -203,7 +203,7 @@ function CheckoutContent() {
                             </div>
                         )}
                         <div className="flex-1 min-w-0">
-                            <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2 bg-accent/10 text-accent border border-accent/20">
+                            <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider mb-2 bg-accent/10 text-accent border border-accent/20">
                                 {type === 'rental' ? '월 렌탈 서비스' : '원화 소장 구매'}
                             </span>
                             <h4 className="font-serif text-xl text-charcoal font-medium truncate mb-1">

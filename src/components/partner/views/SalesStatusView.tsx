@@ -30,7 +30,7 @@ const SalesStatusView = () => {
                         <div className="w-10 h-10 bg-green-50 text-green-500 rounded-xl flex items-center justify-center">
                             <Wallet className="w-5 h-5" />
                         </div>
-                        <span className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full uppercase">Earnings</span>
+                        <span className="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full uppercase">Earnings</span>
                     </div>
                     <p className="text-sm font-medium text-gray-600">이번 달 총 매출</p>
                     <h3 className="text-2xl font-bold text-gray-900 mt-1">2,200,000원</h3>
@@ -41,7 +41,7 @@ const SalesStatusView = () => {
                         <div className="w-10 h-10 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center">
                             <Package className="w-5 h-5" />
                         </div>
-                        <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full uppercase">Rentals</span>
+                        <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full uppercase">Rentals</span>
                     </div>
                     <p className="text-sm font-medium text-gray-600">진행 중인 렌탈</p>
                     <h3 className="text-2xl font-bold text-gray-900 mt-1">3건</h3>
@@ -52,7 +52,7 @@ const SalesStatusView = () => {
                         <div className="w-10 h-10 bg-orange-50 text-orange-500 rounded-xl flex items-center justify-center">
                             <Clock className="w-5 h-5" />
                         </div>
-                        <span className="text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full uppercase">Settlement</span>
+                        <span className="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full uppercase">Settlement</span>
                     </div>
                     <p className="text-sm font-medium text-gray-600">정산 예정 금액</p>
                     <h3 className="text-2xl font-bold text-gray-900 mt-1">850,000원</h3>

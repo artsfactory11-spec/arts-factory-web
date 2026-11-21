@@ -63,7 +63,7 @@ const PartnerSidebar = ({ currentView, setView }: PartnerSidebarProps) => {
                 {!isCollapsed && (
                     <div className="flex flex-col">
                         <span className="text-xl font-black tracking-tighter text-black">ARTS FACTORY</span>
-                        <span className="text-[10px] text-gray-600 font-bold uppercase tracking-widest leading-none mt-1">Partner Admin</span>
+                        <span className="text-xs text-gray-600 font-bold uppercase tracking-widest leading-none mt-1">Partner Admin</span>
                     </div>
                 )}
                 <button

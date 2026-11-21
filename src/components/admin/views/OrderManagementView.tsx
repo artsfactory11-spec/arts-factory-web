@@ -79,7 +79,7 @@ export default function OrderManagementView() {
                                         {order.total_amount.toLocaleString()}원
                                     </td>
                                     <td className="px-6 py-4">
-                                        <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest ${order.status === 'pending_deposit' ? 'bg-yellow-100 text-yellow-700' :
+                                        <span className={`px-2 py-1 rounded text-xs font-bold uppercase tracking-widest ${order.status === 'pending_deposit' ? 'bg-yellow-100 text-yellow-700' :
                                             order.status === 'paid' ? 'bg-green-100 text-green-700' :
                                                 'bg-gray-100 text-gray-700'
                                             }`}>

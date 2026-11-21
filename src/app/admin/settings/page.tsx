@@ -85,7 +85,7 @@ export default function AdminSettingsPage() {
             <header className="bg-white border-b border-gray-100 pt-32 pb-12 px-6 lg:px-12">
                 <div className="max-w-4xl mx-auto flex justify-between items-end">
                     <div>
-                        <Link href="/admin" className="text-[10px] font-black tracking-widest text-accent uppercase mb-4 block hover:opacity-60 transition-opacity">
+                        <Link href="/admin" className="text-xs sm:text-sm font-black tracking-widest text-accent uppercase mb-4 block hover:opacity-60 transition-opacity">
                             ← Dashboard
                         </Link>
                         <h1 className="text-5xl font-serif font-light tracking-tighter text-black">Platform Settings</h1>
@@ -93,7 +93,7 @@ export default function AdminSettingsPage() {
                     <button
                         onClick={handleSubmit}
                         disabled={saving}
-                        className="flex items-center gap-3 bg-black text-white px-8 py-4 rounded-xl text-[10px] font-black tracking-widest uppercase hover:bg-zinc-800 transition-all shadow-xl shadow-black/10 disabled:opacity-50"
+                        className="flex items-center gap-3 bg-black text-white px-8 py-4 rounded-xl text-xs sm:text-sm font-black tracking-widest uppercase hover:bg-zinc-800 transition-all shadow-xl shadow-black/10 disabled:opacity-50"
                     >
                         {saving ? <span className="animate-spin text-sm">○</span> : <Save className="w-4 h-4" />}
                         {saving ? 'Saving...' : 'Save Changes'}
@@ -145,7 +145,7 @@ export default function AdminSettingsPage() {
                             <div className="group relative">
                                 <label
                                     htmlFor="operationHours"
-                                    className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block"
+                                    className="text-xs font-black tracking-widest text-gray-600 uppercase mb-2 block"
                                 >
                                     Operation Hours (운영 시간)
                                 </label>
@@ -210,7 +210,7 @@ function FormInput({ label, name, value, onChange, type = "text" }: FormInputPro
         <div className="group relative">
             <label
                 htmlFor={id}
-                className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block transition-colors group-focus-within:text-black"
+                className="text-xs font-black tracking-widest text-gray-600 uppercase mb-2 block transition-colors group-focus-within:text-black"
             >
                 {label}
             </label>

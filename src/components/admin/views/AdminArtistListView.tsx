@@ -170,7 +170,7 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
                                     </div>
                                     <div className="flex items-center gap-2 mt-1">
                                         <p className="text-xs text-gray-600 font-bold uppercase tracking-tighter">{user.artist_specialty || '분야 미입력'}</p>
-                                        <span className={`text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-widest ${user.status === 'pending'
+                                        <span className={`text-xs px-2 py-0.5 rounded-full font-black uppercase tracking-widest ${user.status === 'pending'
                                             ? 'bg-amber-50 text-amber-500 border border-amber-100'
                                             : user.status === 'approved'
                                                 ? 'bg-emerald-50 text-emerald-500 border border-emerald-100'
@@ -248,7 +248,7 @@ const AdminArtistListView = ({ users: initialUsers, onEdit }: AdminArtistListVie
                                     <ExternalLink className="w-4 h-4" />
                                 </Link>
                             </div>
-                            <div className="flex items-center gap-2 text-[10px] font-black text-gray-500 uppercase tracking-widest leading-none">
+                            <div className="flex items-center gap-2 text-xs font-black text-gray-500 uppercase tracking-widest leading-none">
                                 <Calendar className="w-3.5 h-3.5" />
                                 {new Date(user.createdAt).toLocaleDateString()}
                             </div>

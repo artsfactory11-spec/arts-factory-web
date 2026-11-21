@@ -17,16 +17,16 @@ export default function NoticeDetailView({ notice, onBack }: NoticeDetailViewPro
                 className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors mb-12 group"
             >
                 <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                <span className="text-[10px] font-black uppercase tracking-widest">Back to List</span>
+                <span className="text-xs sm:text-sm font-black uppercase tracking-widest">Back to List</span>
             </button>
 
             <article className="space-y-16">
                 <header className="space-y-8">
                     <div className="flex items-center gap-4">
-                        <span className="px-3 py-1 bg-gray-900 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
+                        <span className="px-3 py-1 bg-gray-900 text-white text-xs font-black uppercase tracking-widest rounded-full">
                             Notice
                         </span>
-                        <div className="flex items-center gap-2 text-[11px] text-gray-600 font-bold">
+                        <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 font-bold">
                             <Calendar className="w-3 h-3" />
                             {notice.createdAt ? new Date(notice.createdAt).toLocaleDateString() : '-'}
                         </div>

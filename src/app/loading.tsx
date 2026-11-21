@@ -51,7 +51,7 @@ export default function Loading() {
                     <motion.h2
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-[10px] font-black tracking-[0.8em] text-black uppercase ml-[0.8em]"
+                        className="text-xs font-black tracking-[0.25em] text-black uppercase ml-[0.8em]"
                     >
                         Arts Factory
                     </motion.h2>

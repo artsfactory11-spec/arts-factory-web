@@ -26,13 +26,13 @@ const InquiryButtons = ({ artwork }: InquiryButtonsProps) => {
             <div className="grid grid-cols-2 gap-4">
                 <button
                     onClick={() => openModal('purchase')}
-                    className="py-4 border border-black text-black hover:bg-black hover:text-white transition-all duration-300 uppercase tracking-widest text-[11px]"
+                    className="py-4 border border-black text-black hover:bg-black hover:text-white transition-all duration-300 uppercase tracking-wider text-xs sm:text-sm font-bold"
                 >
                     작품 구매 문의
                 </button>
                 <button
                     onClick={() => openModal('rental')}
-                    className="py-4 bg-black text-white hover:bg-gray-800 transition-all duration-300 uppercase tracking-widest text-[11px]"
+                    className="py-4 bg-black text-white hover:bg-gray-800 transition-all duration-300 uppercase tracking-wider text-xs sm:text-sm font-bold"
                 >
                     대여 신청하기
                 </button>

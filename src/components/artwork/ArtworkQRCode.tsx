@@ -106,7 +106,7 @@ export default function ArtworkQRCode({ artworkId, title, artistName, price }: A
         <div className="relative">
             <button
                 onClick={() => setIsOpen(true)}
-                className="flex items-center gap-3 px-6 py-3 bg-black text-white hover:bg-zinc-800 rounded-full text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-black/10"
+                className="flex items-center gap-3 px-6 py-3 bg-black text-white hover:bg-zinc-800 rounded-full text-xs sm:text-sm font-black uppercase tracking-widest transition-all shadow-lg shadow-black/10"
             >
                 <QrCode className="w-3.5 h-3.5" />
                 View & Print QR
@@ -141,7 +141,7 @@ export default function ArtworkQRCode({ artworkId, title, artistName, price }: A
 
                             <div className="text-center mb-8">
                                 <h3 className="text-lg font-black uppercase tracking-tight mb-1">{title}</h3>
-                                <p className="text-[10px] text-gray-600 font-bold uppercase tracking-[0.2em]">Artwork QR Code</p>
+                                <p className="text-xs text-gray-600 font-bold uppercase tracking-[0.2em]">Artwork QR Code</p>
                             </div>
 
                             <div className="flex justify-center mb-10 p-6 bg-white border border-gray-100 rounded-3xl" ref={qrRef}>
@@ -154,7 +154,7 @@ export default function ArtworkQRCode({ artworkId, title, artistName, price }: A
                             </div>
 
                             <div className="space-y-4">
-                                <p className="text-[11px] text-center text-gray-700 font-medium leading-relaxed px-4">
+                                <p className="text-sm text-center text-gray-700 font-medium leading-relaxed px-4">
                                     이 QR 코드를 스캔하면 현재 작품의 상세 페이지와<br/>큐레이션 설명을 확인할 수 있습니다.
                                 </p>
                                 

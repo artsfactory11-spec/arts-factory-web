@@ -111,7 +111,7 @@ const ArtworkListView = ({ artistId, onNewClick }: { artistId: string, onNewClic
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${art.status === 'approved' ? 'bg-green-50 text-green-600' :
+                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider ${art.status === 'approved' ? 'bg-green-50 text-green-600' :
                                                 art.status === 'pending' ? 'bg-orange-50 text-orange-600' : 'bg-gray-50 text-gray-600'
                                                 }`}>
                                                 {art.status === 'approved' ? '노출 중' : art.status === 'pending' ? '심사 대기' : '미노출'}

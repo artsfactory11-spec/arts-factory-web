@@ -89,7 +89,7 @@ export default function WishlistContainer({ initialWishlist }: { initialWishlist
                                 <div className="flex-grow flex flex-col justify-between py-2">
                                     <div>
                                         <div className="flex justify-between items-start mb-2">
-                                            <span className="text-[10px] font-black uppercase tracking-widest text-accent">{item.category}</span>
+                                            <span className="text-xs font-black uppercase tracking-widest text-accent">{item.category}</span>
                                             <button
                                                 onClick={() => handleRemove(item._id)}
                                                 disabled={isRemoving === item._id}
@@ -109,11 +109,11 @@ export default function WishlistContainer({ initialWishlist }: { initialWishlist
 
                                     <div className="mt-6 flex flex-wrap gap-x-10 gap-y-4">
                                         <div className="space-y-1">
-                                            <span className="text-[9px] text-gray-600 font-black uppercase tracking-widest block">Purchase Price</span>
+                                            <span className="text-xs text-gray-600 font-black uppercase tracking-widest block">Purchase Price</span>
                                             <span className="text-lg font-bold text-black opacity-30">₩ {item.price?.toLocaleString()}</span>
                                         </div>
                                         <div className="space-y-1">
-                                            <span className="text-[9px] text-gray-600 font-black uppercase tracking-widest block">Monthly Rental</span>
+                                            <span className="text-xs text-gray-600 font-black uppercase tracking-widest block">Monthly Rental</span>
                                             <span className="text-lg font-black text-black">₩ {item.rental_price?.toLocaleString()}</span>
                                         </div>
                                     </div>
@@ -138,14 +138,14 @@ export default function WishlistContainer({ initialWishlist }: { initialWishlist
                                 <h3 className="text-xs font-black uppercase tracking-[0.4em] text-accent mb-8">Order Summary</h3>
                                 <div className="space-y-6">
                                     <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                                        <span className="text-[11px] font-medium text-gray-600 uppercase tracking-widest">Total Value</span>
+                                        <span className="text-xs sm:text-sm font-medium text-gray-600 uppercase tracking-widest">Total Value</span>
                                         <div className="text-right">
                                             <span className="text-xs text-gray-700 line-through block mb-1">₩ {totals.purchase.toLocaleString()}</span>
                                             <span className="text-xl font-bold opacity-30">₩ {totals.purchase.toLocaleString()}</span>
                                         </div>
                                     </div>
                                     <div className="flex justify-between items-end">
-                                        <span className="text-[11px] font-black text-white uppercase tracking-widest">Monthly Total</span>
+                                        <span className="text-xs sm:text-sm font-black text-white uppercase tracking-widest">Monthly Total</span>
                                         <span className="text-3xl font-black text-accent tracking-tighter">₩ {totals.rental.toLocaleString()}</span>
                                     </div>
                                 </div>
@@ -160,7 +160,7 @@ export default function WishlistContainer({ initialWishlist }: { initialWishlist
                                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Link>
 
-                            <p className="text-[10px] text-gray-700 text-center leading-relaxed px-4">
+                            <p className="text-xs text-gray-700 text-center leading-relaxed px-4">
                                 * 대량 렌탈 및 구매 문의 시 추가 혜택이 적용될 수 있습니다. 문의하기를 통해 전문 큐레이터의 상담을 받아보세요.
                             </p>
                         </div>

@@ -77,7 +77,7 @@ export default function LoginPage() {
 
                     <div className="space-y-6">
                         <div className="group relative">
-                            <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
+                            <label className="text-xs font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
                                 ID or Email
                             </label>
                             <input
@@ -91,7 +91,7 @@ export default function LoginPage() {
                         </div>
 
                         <div className="group relative">
-                            <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
+                            <label className="text-xs font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
                                 Password
                             </label>
                             <input
@@ -109,7 +109,7 @@ export default function LoginPage() {
                         <button
                             disabled={loading}
                             type="submit"
-                            className="w-full py-6 bg-black text-white text-[10px] font-black tracking-[0.4em] uppercase hover:bg-zinc-800 transition-colors shadow-xl"
+                            className="w-full py-6 bg-black text-white text-xs sm:text-sm font-black tracking-[0.25em] uppercase hover:bg-zinc-800 transition-colors shadow-xl"
                         >
                             {loading ? 'Authenticating...' : 'Sign In'}
                         </button>
@@ -118,26 +118,26 @@ export default function LoginPage() {
                         <button
                             type="button"
                             onClick={handleSeed}
-                            className="w-full mt-4 py-2 border border-dashed border-gray-200 text-[8px] font-black tracking-widest text-gray-500 uppercase hover:text-gray-700 hover:border-gray-400 transition-all"
+                            className="w-full mt-4 py-2 border border-dashed border-gray-200 text-xs font-black tracking-widest text-gray-500 uppercase hover:text-gray-700 hover:border-gray-400 transition-all"
                         >
                             {seedMessage || "Initialize Management Account"}
                         </button>
                     </div>
 
                     <div className="text-center space-y-4 pt-6">
-                        <p className="text-[10px] text-gray-600 font-medium uppercase tracking-tight">
+                        <p className="text-xs text-gray-600 font-medium uppercase tracking-tight">
                             아직 계정이 없으신가요?
                         </p>
                         <div className="flex flex-col gap-4">
                             <Link
                                 href="/signup"
-                                className="inline-block text-[10px] font-black tracking-[0.2em] text-charcoal uppercase border-b border-charcoal/20 hover:border-charcoal transition-all"
+                                className="inline-block text-xs font-black tracking-[0.2em] text-charcoal uppercase border-b border-charcoal/20 hover:border-charcoal transition-all"
                             >
                                 일반 회원가입
                             </Link>
                             <Link
                                 href="/partner/join"
-                                className="inline-block text-[10px] font-black tracking-[0.2em] text-accent uppercase border-b border-accent/20 hover:border-accent transition-all"
+                                className="inline-block text-xs font-black tracking-[0.2em] text-accent uppercase border-b border-accent/20 hover:border-accent transition-all"
                             >
                                 작가(파트너) 신청하기
                             </Link>

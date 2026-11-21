@@ -132,9 +132,9 @@ export default function GalleryItem({ artwork }: GalleryItemProps) {
                         className="absolute inset-0 bg-black/30 backdrop-blur-[4px] flex flex-col justify-end p-8 text-white transition-all"
                     >
                         <div className="flex justify-between items-start mb-2">
-                            <span className="text-[10px] uppercase tracking-[0.3em] opacity-80">{artwork.category}</span>
+                            <span className="text-xs uppercase tracking-wider opacity-90">{artwork.category}</span>
                             {artwork.rental_status && artwork.rental_status !== 'available' && (
-                                <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${artwork.rental_status === 'rented' ? 'bg-red-500 text-white' :
+                                <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${artwork.rental_status === 'rented' ? 'bg-red-500 text-white' :
                                     artwork.rental_status === 'processing' ? 'bg-yellow-500 text-black' :
                                         'bg-gray-500 text-white'
                                     }`}>
@@ -143,19 +143,19 @@ export default function GalleryItem({ artwork }: GalleryItemProps) {
                                 </span>
                             )}
                         </div>
-                        <h3 className="text-xl font-light leading-tight mb-1 font-serif italic">{artwork.title}</h3>
-                        <p className="text-sm opacity-90 font-extralight tracking-widest uppercase mb-4">{artwork.artist_name}</p>
+                        <h3 className="text-xl font-normal leading-tight mb-1 font-serif">{artwork.title}</h3>
+                        <p className="text-sm opacity-90 font-light tracking-wider uppercase mb-4">{artwork.artist_name}</p>
 
-                        <div className="flex flex-col border-t border-white/20 pt-4 gap-1">
+                        <div className="flex flex-col border-t border-white/20 pt-4 gap-1.5">
                             {artwork.rental_price && (
                                 <div className="flex justify-between items-center">
-                                    <span className="text-[10px] font-extralight uppercase">월 렌탈료</span>
-                                    <span className="text-sm font-light">₩ {artwork.rental_price.toLocaleString()}</span>
+                                    <span className="text-xs font-normal uppercase">월 렌탈료</span>
+                                    <span className="text-sm font-medium">₩ {artwork.rental_price.toLocaleString()}</span>
                                 </div>
                             )}
-                            <div className="flex justify-between items-center opacity-80">
-                                <span className="text-[10px] font-extralight uppercase">구매가</span>
-                                <span className="text-sm font-light">₩ {artwork.price.toLocaleString()}</span>
+                            <div className="flex justify-between items-center opacity-90">
+                                <span className="text-xs font-normal uppercase">구매가</span>
+                                <span className="text-sm font-medium">₩ {artwork.price.toLocaleString()}</span>
                             </div>
                         </div>
                     </motion.div>
@@ -164,13 +164,13 @@ export default function GalleryItem({ artwork }: GalleryItemProps) {
                 {/* 하단 텍스트 정보 (모바일 및 기본 상태 가독성) */}
                 <div className="mt-5 space-y-2 px-2">
                     <div className="flex justify-between items-start">
-                        <h3 className="text-lg font-black text-black leading-none">{artwork.title}</h3>
-                        <span className="text-[9px] font-black tracking-widest text-gray-700 uppercase shrink-0 pt-0.5">
+                        <h3 className="text-lg font-bold text-black leading-snug">{artwork.title}</h3>
+                        <span className="text-xs font-bold tracking-wider text-gray-700 uppercase shrink-0 pt-0.5">
                             {artwork.category}
                         </span>
                     </div>
-                    <p className="text-[10px] text-gray-600 uppercase tracking-[0.2em] font-black">{artwork.artist_name}</p>
-                    <p className="text-xs text-black font-semibold pt-1">
+                    <p className="text-xs text-gray-600 uppercase tracking-wider font-bold">{artwork.artist_name}</p>
+                    <p className="text-sm text-black font-bold pt-1">
                         ₩ {artwork.price.toLocaleString()}
                     </p>
                 </div>

@@ -40,25 +40,25 @@ export default function TaxBenefits() {
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-50 flex flex-col items-center">
                                     <Building2 className="w-10 h-10 text-[#1e3a8a] mb-1" />
-                                    <span className="text-[10px] font-black bg-gray-100 px-2 py-0.5 rounded">TAX</span>
+                                    <span className="text-xs font-black bg-gray-100 px-2 py-0.5 rounded">TAX</span>
                                 </div>
                             </div>
 
                             {/* 라벨 (절세 효과 34%) */}
                             <div className="absolute top-0 left-0 -translate-x-4 -translate-y-4">
                                 <div className="bg-white/90 backdrop-blur-sm border border-[#C6A68F]/30 p-3 rounded-2xl shadow-lg ring-4 ring-[#C6A68F]/5">
-                                    <span className="block text-[10px] font-black text-[#A36B5E] mb-1">절세 효과</span>
+                                    <span className="block text-xs font-black text-[#A36B5E] mb-1">절세 효과</span>
                                     <span className="text-2xl font-black text-[#A36B5E]">34%</span>
-                                    <p className="text-[8px] text-gray-600 mt-1 leading-tight font-medium">최고 법인세율을<br />기준으로 산정된<br />절세 수치입니다.</p>
+                                    <p className="text-xs text-gray-600 mt-1 leading-tight font-medium">최고 법인세율을<br />기준으로 산정된<br />절세 수치입니다.</p>
                                 </div>
                             </div>
 
                             {/* 라벨 (실제 지불 66%) */}
                             <div className="absolute bottom-0 right-0 translate-x-4 translate-y-4">
                                 <div className="bg-[#1e3a8a] p-3 rounded-2xl shadow-lg border border-white/10">
-                                    <span className="block text-[10px] font-black text-white/50 mb-1">실제 지불 비중</span>
+                                    <span className="block text-xs font-black text-white/50 mb-1">실제 지불 비중</span>
                                     <span className="text-2xl font-black text-white leading-none">66%</span>
-                                    <p className="text-[8px] text-white/40 mt-1 leading-tight font-medium">지방세, 부가세, 법인세가<br />포함된 부담 영역입니다.</p>
+                                    <p className="text-xs text-white/40 mt-1 leading-tight font-medium">지방세, 부가세, 법인세가<br />포함된 부담 영역입니다.</p>
                                 </div>
                             </div>
                         </div>
@@ -74,9 +74,9 @@ export default function TaxBenefits() {
                             <div className="bg-gray-100 py-3 px-1 text-center font-bold text-xs text-gray-700">
                                 사업자 유형별 비중 대조
                             </div>
-                            <table className="w-full text-[11px] border-collapse">
+                            <table className="w-full text-xs sm:text-sm border-collapse">
                                 <thead>
-                                    <tr className="border-b border-gray-50 uppercase font-black text-[9px] text-gray-600 tracking-tighter">
+                                    <tr className="border-b border-gray-50 uppercase font-black text-xs text-gray-600 tracking-tighter">
                                         <th className="py-2 px-1 border-r border-gray-50">구분</th>
                                         <th className="py-2 px-1 border-r border-gray-50 bg-[#1e3a8a]/[0.02] text-[#1e3a8a]">법인사업자</th>
                                         <th className="py-2 px-1 bg-[#d97706]/[0.02] text-[#d97706]">개인사업자</th>
@@ -103,10 +103,10 @@ export default function TaxBenefits() {
                                     </tr>
                                     <tr>
                                         <td className="py-3 px-2 text-center text-gray-700 font-medium leading-tight">관련 세목</td>
-                                        <td className="py-3 px-1 text-center text-[9px] leading-tight font-medium text-gray-600 border-r border-gray-50">
+                                        <td className="py-3 px-1 text-center text-xs leading-tight font-medium text-gray-600 border-r border-gray-50">
                                             지방세, 부가세,<br />법인세
                                         </td>
-                                        <td className="py-3 px-1 text-center text-[9px] leading-tight font-medium text-gray-600">
+                                        <td className="py-3 px-1 text-center text-xs leading-tight font-medium text-gray-600">
                                             지방세, 부가세,<br />소득세
                                         </td>
                                     </tr>
@@ -135,25 +135,25 @@ export default function TaxBenefits() {
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-50 flex flex-col items-center">
                                     <User className="w-10 h-10 text-[#d97706] mb-1" />
-                                    <span className="text-[10px] font-black bg-gray-100 px-2 py-0.5 rounded">TAX</span>
+                                    <span className="text-xs font-black bg-gray-100 px-2 py-0.5 rounded">TAX</span>
                                 </div>
                             </div>
 
                             {/* 라벨 (절세 효과 51%) */}
                             <div className="absolute top-0 right-0 translate-x-4 -translate-y-4">
                                 <div className="bg-white/90 backdrop-blur-sm border border-[#d97706]/30 p-3 rounded-2xl shadow-lg ring-4 ring-[#d97706]/5">
-                                    <span className="block text-[10px] font-black text-[#d97706] mb-1">최대 51%의<br />강력한 절세 효과</span>
+                                    <span className="block text-xs font-black text-[#d97706] mb-1">최대 51%의<br />강력한 절세 효과</span>
                                     <span className="text-2xl font-black text-[#d97706]">51%</span>
-                                    <p className="text-[8px] text-gray-600 mt-1 leading-tight font-medium">비용처리를 통한<br />강력한 절세효과를<br />누릴 수 있습니다.</p>
+                                    <p className="text-xs text-gray-600 mt-1 leading-tight font-medium">비용처리를 통한<br />강력한 절세효과를<br />누릴 수 있습니다.</p>
                                 </div>
                             </div>
 
                             {/* 라벨 (실제 지불 49%) */}
                             <div className="absolute bottom-0 left-0 -translate-x-4 translate-y-4">
                                 <div className="bg-[#d97706] p-3 rounded-2xl shadow-lg border border-white/10">
-                                    <span className="block text-[10px] font-black text-white/50 mb-1">실제 지불 비중</span>
+                                    <span className="block text-xs font-black text-white/50 mb-1">실제 지불 비중</span>
                                     <span className="text-2xl font-black text-white leading-none">49%</span>
-                                    <p className="text-[8px] text-white/40 mt-1 leading-tight font-medium">지방세, 부가세, 소득세를<br />제외한 지불 비중입니다.</p>
+                                    <p className="text-xs text-white/40 mt-1 leading-tight font-medium">지방세, 부가세, 소득세를<br />제외한 지불 비중입니다.</p>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +162,7 @@ export default function TaxBenefits() {
                 </div>
             </div>
 
-            <div className="mt-8 text-center text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">
+            <div className="mt-8 text-center text-xs font-bold text-gray-500 uppercase tracking-[0.2em]">
                 * 렌탈 및 구매 시 비용 처리를 통해 위와 같은 절세 혜택을 누릴 수 있습니다. 세부 사항은 담당 세무사 혹은 고객센터로 문의 바랍니다.
             </div>
         </div>

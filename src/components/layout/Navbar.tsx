@@ -16,7 +16,7 @@ function UserIconLink() {
         return (
             <Link
                 href="/login"
-                className="text-xs font-bold text-gray-700 hover:text-charcoal transition-colors uppercase tracking-widest"
+                className="text-sm font-bold text-gray-700 hover:text-charcoal transition-colors uppercase tracking-widest"
             >
                 Login
             </Link>
@@ -81,7 +81,7 @@ export default function Navbar() {
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`text-[13px] font-bold tracking-tight transition-colors relative ${pathname === item.href ? 'text-charcoal' : 'text-gray-700 hover:text-charcoal'
+                            className={`text-sm lg:text-[15px] font-bold tracking-tight transition-colors relative ${pathname === item.href ? 'text-charcoal' : 'text-gray-700 hover:text-charcoal'
                                 }`}
                         >
                             {item.name}
@@ -106,7 +106,7 @@ export default function Navbar() {
                         <NotificationBell />
                         <Link
                             href="/inquiry"
-                            className="px-8 py-3 bg-charcoal text-white text-[12px] font-bold hover:bg-accent transition-all duration-500 shadow-2xl shadow-charcoal/10 rounded-full"
+                            className="px-8 py-3 bg-charcoal text-white text-sm font-bold hover:bg-accent transition-all duration-500 shadow-2xl shadow-charcoal/10 rounded-full"
                         >
                             문의하기
                         </Link>

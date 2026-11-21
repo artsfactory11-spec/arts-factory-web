@@ -78,13 +78,13 @@ export default function AdminDashboard({ initialArtworks }: AdminDashboardProps)
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">작품</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">작가</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">상세 정보</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">판매/렌탈가</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">상태</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">추천</th>
-                            <th className="px-6 py-4 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-[0.1em]">관리</th>
+                            <th className="px-6 py-4 text-left text-xs sm:text-sm font-semibold text-gray-600 uppercase tracking-[0.1em]">작품</th>
+                            <th className="px-6 py-4 text-left text-xs sm:text-sm font-semibold text-gray-600 uppercase tracking-[0.1em]">작가</th>
+                            <th className="px-6 py-4 text-left text-xs sm:text-sm font-semibold text-gray-600 uppercase tracking-[0.1em]">상세 정보</th>
+                            <th className="px-6 py-4 text-left text-xs sm:text-sm font-semibold text-gray-600 uppercase tracking-[0.1em]">판매/렌탈가</th>
+                            <th className="px-6 py-4 text-left text-xs sm:text-sm font-semibold text-gray-600 uppercase tracking-[0.1em]">상태</th>
+                            <th className="px-6 py-4 text-left text-xs sm:text-sm font-semibold text-gray-600 uppercase tracking-[0.1em]">추천</th>
+                            <th className="px-6 py-4 text-left text-xs sm:text-sm font-semibold text-gray-600 uppercase tracking-[0.1em]">관리</th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-100">
@@ -97,7 +97,7 @@ export default function AdminDashboard({ initialArtworks }: AdminDashboardProps)
                                         </div>
                                         <div className="ml-4">
                                             <div className="text-sm font-medium text-gray-900">{art.title}</div>
-                                            <div className="text-[10px] text-gray-600 uppercase tracking-tighter">{art.category}</div>
+                                            <div className="text-xs text-gray-600 uppercase tracking-tighter">{art.category}</div>
                                         </div>
                                     </div>
                                 </td>
@@ -117,7 +117,7 @@ export default function AdminDashboard({ initialArtworks }: AdminDashboardProps)
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <span className={`px-3 py-1 inline-flex text-[10px] leading-4 font-semibold rounded-full border ${art.status === 'approved' ? 'bg-green-50 text-green-700 border-green-100' :
+                                    <span className={`px-3 py-1 inline-flex text-xs leading-4 font-semibold rounded-full border ${art.status === 'approved' ? 'bg-green-50 text-green-700 border-green-100' :
                                         art.status === 'rejected' ? 'bg-red-50 text-red-700 border-red-100' : 'bg-yellow-50 text-yellow-700 border-yellow-100'
                                         }`}>
                                         {art.status === 'approved' ? '승인완료' : art.status === 'rejected' ? '거절됨' : '승인대기'}

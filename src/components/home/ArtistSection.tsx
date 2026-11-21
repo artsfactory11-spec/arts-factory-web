@@ -17,7 +17,7 @@ const ArtistSection = ({ artists }: ArtistSectionProps) => {
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                     <div>
-                        <span className="text-[10px] font-black tracking-[0.3em] text-gray-600 uppercase mb-4 block">
+                        <span className="text-xs font-black tracking-[0.25em] text-gray-600 uppercase mb-4 block">
                             Our Visionary Creators
                         </span>
                         <h2 className="text-5xl font-extralight tracking-tighter text-black">

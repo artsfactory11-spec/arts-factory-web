@@ -204,10 +204,10 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                                 </div>
                                 <div className="space-y-1">
                                     <p className="font-semibold text-gray-900 break-all leading-tight">{file.name}</p>
-                                    <p className="text-[11px] text-blue-600 font-medium">자동 최적화 (WebP) 시스템 적용 중</p>
+                                    <p className="text-xs sm:text-sm text-blue-600 font-medium">자동 최적화 (WebP) 시스템 적용 중</p>
                                 </div>
                                 <div className="pt-2">
-                                    <button className="text-[10px] px-3 py-1.5 border border-black text-black font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors duration-300">
+                                    <button className="text-xs sm:text-sm px-3 py-1.5 border border-black text-black font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors duration-300">
                                         파일 변경하기
                                     </button>
                                 </div>
@@ -218,7 +218,7 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                                 {isPreviewLoading ? (
                                     <div className="flex flex-col items-center gap-2">
                                         <Loader2 className="w-8 h-8 animate-spin text-gray-500" />
-                                        <span className="text-[10px] text-gray-600 font-medium tracking-tight">이미지 최적화 중...</span>
+                                        <span className="text-xs text-gray-600 font-medium tracking-tight">이미지 최적화 중...</span>
                                     </div>
                                 ) : preview ? (
                                     <>
@@ -231,7 +231,7 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                                             unoptimized
                                         />
                                         <div className="absolute inset-0 bg-black/5 pointer-events-none" />
-                                        <div className="absolute bottom-1 right-1 bg-black/60 backdrop-blur-sm text-[8px] text-white px-1.5 py-0.5 rounded italic">
+                                        <div className="absolute bottom-1 right-1 bg-black/60 backdrop-blur-sm text-xs text-white px-1.5 py-0.5 rounded italic">
                                             Preview
                                         </div>
                                     </>
@@ -241,8 +241,8 @@ export default function UploadForm({ artistId }: { artistId: string }) {
                                             <ImageIcon className="w-6 h-6 text-gray-500" />
                                         </div>
                                         <div className="space-y-1">
-                                            <p className="text-[10px] text-gray-700 font-bold leading-tight">미리보기 미지원 포맷</p>
-                                            <p className="text-[9px] text-gray-600 leading-tight">TIFF 등 전문 포맷은<br />등록 후 갤러리에서 확인 가능합니다</p>
+                                            <p className="text-xs text-gray-700 font-bold leading-tight">미리보기 미지원 포맷</p>
+                                            <p className="text-xs text-gray-600 leading-tight">TIFF 등 전문 포맷은<br />등록 후 갤러리에서 확인 가능합니다</p>
                                         </div>
                                     </div>
                                 )}

@@ -43,7 +43,7 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
                 </div>
 
                 {/* Specialty Badge */}
-                <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest px-3 py-1 bg-gray-50 rounded-full mb-3">
+                <span className="text-xs font-bold text-gray-600 uppercase tracking-widest px-3 py-1 bg-gray-50 rounded-full mb-3">
                     {artist.artist_specialty || "Contemporary Artist"}
                 </span>
 
@@ -75,7 +75,7 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
                 <div className="w-full pt-6 border-t border-gray-50 flex items-center justify-between mt-auto">
                     <div className="flex gap-2">
                         {/* 개인 SNS 제거 - 예술공장 일원화 정책 */}
-                        <div className="px-3 py-1 bg-black text-white text-[8px] font-black uppercase tracking-widest rounded-full">
+                        <div className="px-3 py-1 bg-black text-white text-xs font-black uppercase tracking-widest rounded-full">
                             Verified Artist
                         </div>
                     </div>
@@ -83,7 +83,7 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
                     {artist.signature_url ? (
                         <img src={artist.signature_url} alt="Signature" className="h-6 object-contain opacity-40 group-hover:opacity-80 transition-opacity" />
                     ) : (
-                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest italic font-serif">Original Artist</span>
+                        <span className="text-xs text-gray-500 font-bold uppercase tracking-widest italic font-serif">Original Artist</span>
                     )}
                 </div>
             </div>

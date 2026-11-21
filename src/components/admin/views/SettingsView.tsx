@@ -179,7 +179,7 @@ const SettingsView = () => {
                     <div className="space-y-10 animate-in fade-in duration-500">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="space-y-3">
-                                <label htmlFor="siteName" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">사이트명</label>
+                                <label htmlFor="siteName" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">사이트명</label>
                                 <div className="relative group">
                                     <Globe className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-black transition-colors" />
                                     <input
@@ -190,7 +190,7 @@ const SettingsView = () => {
                                 </div>
                             </div>
                             <div className="space-y-3">
-                                <label htmlFor="siteDescription" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">사이트 한줄 설명</label>
+                                <label htmlFor="siteDescription" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">사이트 한줄 설명</label>
                                 <input
                                     id="siteDescription"
                                     type="text" name="siteDescription" value={settings.siteDescription} onChange={handleInputChange}
@@ -203,7 +203,7 @@ const SettingsView = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="space-y-3">
-                                <label htmlFor="companyName" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">상호명 (법인명)</label>
+                                <label htmlFor="companyName" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">상호명 (법인명)</label>
                                 <input
                                     id="companyName"
                                     type="text" name="companyName" value={settings.companyName} onChange={handleInputChange}
@@ -211,7 +211,7 @@ const SettingsView = () => {
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label htmlFor="representative" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">대표자 성명</label>
+                                <label htmlFor="representative" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">대표자 성명</label>
                                 <input
                                     id="representative"
                                     type="text" name="representative" value={settings.representative} onChange={handleInputChange}
@@ -219,7 +219,7 @@ const SettingsView = () => {
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label htmlFor="businessNumber" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">사업자 등록번호</label>
+                                <label htmlFor="businessNumber" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">사업자 등록번호</label>
                                 <div className="relative group">
                                     <FileText className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-black transition-colors" />
                                     <input
@@ -230,7 +230,7 @@ const SettingsView = () => {
                                 </div>
                             </div>
                             <div className="space-y-3">
-                                <label htmlFor="mailOrderNumber" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">통신판매업 신고번호</label>
+                                <label htmlFor="mailOrderNumber" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">통신판매업 신고번호</label>
                                 <input
                                     id="mailOrderNumber"
                                     type="text" name="mailOrderNumber" value={settings.mailOrderNumber} onChange={handleInputChange}
@@ -245,7 +245,7 @@ const SettingsView = () => {
                 {activeTab === 'cs' && (
                     <div className="space-y-10 animate-in fade-in duration-500">
                         <div className="space-y-3">
-                            <label htmlFor="address" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">사업장 주소</label>
+                            <label htmlFor="address" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">사업장 주소</label>
                             <div className="relative group">
                                 <MapPin className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-black transition-colors" />
                                 <input
@@ -258,7 +258,7 @@ const SettingsView = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="space-y-3">
-                                <label htmlFor="phone" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">고객센터 전화번호</label>
+                                <label htmlFor="phone" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">고객센터 전화번호</label>
                                 <div className="relative group">
                                     <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-black transition-colors" />
                                     <input
@@ -269,7 +269,7 @@ const SettingsView = () => {
                                 </div>
                             </div>
                             <div className="space-y-3">
-                                <label htmlFor="fax" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">팩스 번호 (선택)</label>
+                                <label htmlFor="fax" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">팩스 번호 (선택)</label>
                                 <input
                                     id="fax"
                                     type="text" name="fax" value={settings.fax} onChange={handleInputChange}
@@ -277,7 +277,7 @@ const SettingsView = () => {
                                 />
                             </div>
                             <div className="md:col-span-2 space-y-3">
-                                <label htmlFor="email" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">대표 이메일 주소</label>
+                                <label htmlFor="email" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">대표 이메일 주소</label>
                                 <div className="relative group">
                                     <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-black transition-colors" />
                                     <input
@@ -288,7 +288,7 @@ const SettingsView = () => {
                                 </div>
                             </div>
                             <div className="md:col-span-2 space-y-3">
-                                <label htmlFor="operationHours" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">운영 시간 (푸터 표시용)</label>
+                                <label htmlFor="operationHours" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">운영 시간 (푸터 표시용)</label>
                                 <textarea
                                     id="operationHours"
                                     name="operationHours" value={settings.operationHours} onChange={handleInputChange}
@@ -305,7 +305,7 @@ const SettingsView = () => {
                     <div className="space-y-10 animate-in fade-in duration-500">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="space-y-3">
-                                <label htmlFor="bankName" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">은행명</label>
+                                <label htmlFor="bankName" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">은행명</label>
                                 <div className="relative group">
                                     <Landmark className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-black transition-colors" />
                                     <input
@@ -316,7 +316,7 @@ const SettingsView = () => {
                                 </div>
                             </div>
                             <div className="space-y-3">
-                                <label htmlFor="accountHolder" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">예금주</label>
+                                <label htmlFor="accountHolder" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">예금주</label>
                                 <input
                                     id="accountHolder"
                                     type="text" name="accountHolder" value={settings.accountHolder} onChange={handleInputChange}
@@ -324,7 +324,7 @@ const SettingsView = () => {
                                 />
                             </div>
                             <div className="md:col-span-2 space-y-3">
-                                <label htmlFor="accountNumber" className="text-[10px] font-black text-gray-600 uppercase tracking-widest ml-1">계좌번호</label>
+                                <label htmlFor="accountNumber" className="text-xs font-black text-gray-600 uppercase tracking-widest ml-1">계좌번호</label>
                                 <div className="relative group">
                                     <CreditCard className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-black transition-colors" />
                                     <input
@@ -347,7 +347,7 @@ const SettingsView = () => {
                                     <Instagram className="w-7 h-7" />
                                 </div>
                                 <div className="flex-1 space-y-1">
-                                    <label htmlFor="sns_instagram" className="text-[9px] font-black text-pink-400 uppercase tracking-widest ml-1">인스타그램 URL</label>
+                                    <label htmlFor="sns_instagram" className="text-xs font-black text-pink-400 uppercase tracking-widest ml-1">인스타그램 URL</label>
                                     <input
                                         id="sns_instagram"
                                         type="text" name="sns.instagram" value={settings.snsLinks.instagram} onChange={handleInputChange}
@@ -363,7 +363,7 @@ const SettingsView = () => {
                                     <Youtube className="w-7 h-7" />
                                 </div>
                                 <div className="flex-1 space-y-1">
-                                    <label htmlFor="sns_youtube" className="text-[9px] font-black text-red-400 uppercase tracking-widest ml-1">유튜브 채널 URL</label>
+                                    <label htmlFor="sns_youtube" className="text-xs font-black text-red-400 uppercase tracking-widest ml-1">유튜브 채널 URL</label>
                                     <input
                                         id="sns_youtube"
                                         type="text" name="sns.youtube" value={settings.snsLinks.youtube} onChange={handleInputChange}
@@ -379,7 +379,7 @@ const SettingsView = () => {
                                     <Chrome className="w-7 h-7" />
                                 </div>
                                 <div className="flex-1 space-y-1">
-                                    <label htmlFor="sns_blog" className="text-[9px] font-black text-green-400 uppercase tracking-widest ml-1">네이버 블로그 / 웹사이트</label>
+                                    <label htmlFor="sns_blog" className="text-xs font-black text-green-400 uppercase tracking-widest ml-1">네이버 블로그 / 웹사이트</label>
                                     <input
                                         id="sns_blog"
                                         type="text" name="sns.blog" value={settings.snsLinks.blog} onChange={handleInputChange}
@@ -395,7 +395,7 @@ const SettingsView = () => {
                                     <Video className="w-7 h-7" />
                                 </div>
                                 <div className="flex-1 space-y-1">
-                                    <label htmlFor="sns_kakaotalk" className="text-[9px] font-black text-yellow-500 uppercase tracking-widest ml-1">카카오톡 채널 링크</label>
+                                    <label htmlFor="sns_kakaotalk" className="text-xs font-black text-yellow-500 uppercase tracking-widest ml-1">카카오톡 채널 링크</label>
                                     <input
                                         id="sns_kakaotalk"
                                         type="text" name="sns.kakaotalk" value={settings.snsLinks.kakaotalk} onChange={handleInputChange}

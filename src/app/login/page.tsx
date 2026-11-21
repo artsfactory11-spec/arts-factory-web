@@ -62,7 +62,7 @@ export default function LoginPage() {
 
                     <div className="space-y-6">
                         <div className="group relative">
-                            <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
+                            <label className="text-xs font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
                                 Email
                             </label>
                             <input
@@ -76,7 +76,7 @@ export default function LoginPage() {
                         </div>
 
                         <div className="group relative">
-                            <label className="text-[10px] font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
+                            <label className="text-xs font-black tracking-widest text-gray-600 uppercase mb-2 block group-focus-within:text-black">
                                 Password
                             </label>
                             <input
@@ -94,19 +94,19 @@ export default function LoginPage() {
                         <button
                             disabled={loading}
                             type="submit"
-                            className="w-full py-6 bg-black text-white text-[10px] font-black tracking-[0.4em] uppercase hover:bg-zinc-800 transition-colors shadow-xl"
+                            className="w-full py-6 bg-black text-white text-xs sm:text-sm font-black tracking-[0.25em] uppercase hover:bg-zinc-800 transition-colors shadow-xl"
                         >
                             {loading ? 'Authenticating...' : 'Sign In'}
                         </button>
                     </div>
 
                     <div className="text-center space-y-4 pt-6">
-                        <p className="text-[10px] text-gray-600 font-medium uppercase tracking-tight">
+                        <p className="text-xs text-gray-600 font-medium uppercase tracking-tight">
                             아직 회원이 아닌가요?
                         </p>
                         <Link
                             href="/signup"
-                            className="inline-block text-[10px] font-black tracking-[0.2em] text-charcoal uppercase border-b border-charcoal/20 hover:border-charcoal transition-all"
+                            className="inline-block text-xs font-black tracking-[0.2em] text-charcoal uppercase border-b border-charcoal/20 hover:border-charcoal transition-all"
                         >
                             회원가입하기
                         </Link>

@@ -146,11 +146,11 @@ export default function GalleryContainer({
                     <div className="flex flex-wrap gap-x-8 gap-y-4 items-center">
                         {/* 1. 장르 */}
                         <div className="flex items-center gap-2 group cursor-pointer">
-                            <span className="text-[10px] text-gray-600 uppercase font-black tracking-widest group-hover:text-black transition-colors">장르</span>
+                            <span className="text-xs text-gray-600 uppercase font-bold tracking-wider group-hover:text-black transition-colors">장르</span>
                             <select
                                 value={filter.category}
                                 onChange={(e) => handleFilterChange({ category: e.target.value })}
-                                className="text-xs border-none bg-transparent font-black focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
+                                className="text-xs sm:text-sm border-none bg-transparent font-bold focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
                                 title="장르 선택"
                             >
                                 <option value="All">전체</option>
@@ -160,11 +160,11 @@ export default function GalleryContainer({
 
                         {/* 2. 스타일 */}
                         <div className="flex items-center gap-2 group cursor-pointer border-l border-gray-100 pl-8">
-                            <span className="text-[10px] text-gray-600 uppercase font-black tracking-widest group-hover:text-black transition-colors">스타일</span>
+                            <span className="text-xs text-gray-600 uppercase font-bold tracking-wider group-hover:text-black transition-colors">스타일</span>
                             <select
                                 value={filter.style}
                                 onChange={(e) => handleFilterChange({ style: e.target.value })}
-                                className="text-xs border-none bg-transparent font-black focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
+                                className="text-xs sm:text-sm border-none bg-transparent font-bold focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
                                 title="스타일 선택"
                             >
                                 <option value="All">전체</option>
@@ -174,11 +174,11 @@ export default function GalleryContainer({
 
                         {/* 3. 주제 */}
                         <div className="flex items-center gap-2 group cursor-pointer border-l border-gray-100 pl-8">
-                            <span className="text-[10px] text-gray-600 uppercase font-black tracking-widest group-hover:text-black transition-colors">주제</span>
+                            <span className="text-xs text-gray-600 uppercase font-bold tracking-wider group-hover:text-black transition-colors">주제</span>
                             <select
                                 value={filter.subject}
                                 onChange={(e) => handleFilterChange({ subject: e.target.value })}
-                                className="text-xs border-none bg-transparent font-black focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
+                                className="text-xs sm:text-sm border-none bg-transparent font-bold focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
                                 title="주제 선택"
                             >
                                 <option value="All">전체</option>
@@ -188,11 +188,11 @@ export default function GalleryContainer({
 
                         {/* 4. 공간 */}
                         <div className="flex items-center gap-2 group cursor-pointer border-l border-gray-100 pl-8">
-                            <span className="text-[10px] text-gray-600 uppercase font-black tracking-widest group-hover:text-black transition-colors">공간</span>
+                            <span className="text-xs text-gray-600 uppercase font-bold tracking-wider group-hover:text-black transition-colors">공간</span>
                             <select
                                 value={filter.space}
                                 onChange={(e) => handleFilterChange({ space: e.target.value })}
-                                className="text-xs border-none bg-transparent font-black focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
+                                className="text-xs sm:text-sm border-none bg-transparent font-bold focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
                                 title="공간 선택"
                             >
                                 <option value="All">전체</option>
@@ -202,11 +202,11 @@ export default function GalleryContainer({
 
                         {/* 5. 계절 */}
                         <div className="flex items-center gap-2 group cursor-pointer border-l border-gray-100 pl-8">
-                            <span className="text-[10px] text-gray-600 uppercase font-black tracking-widest group-hover:text-black transition-colors">계절</span>
+                            <span className="text-xs text-gray-600 uppercase font-bold tracking-wider group-hover:text-black transition-colors">계절</span>
                             <select
                                 value={filter.season}
                                 onChange={(e) => handleFilterChange({ season: e.target.value })}
-                                className="text-xs border-none bg-transparent font-black focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
+                                className="text-xs sm:text-sm border-none bg-transparent font-bold focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
                                 title="계절 선택"
                             >
                                 <option value="All">전체</option>
@@ -216,11 +216,11 @@ export default function GalleryContainer({
 
                         {/* 6. 가격 */}
                         <div className="flex items-center gap-2 group cursor-pointer border-l border-gray-100 pl-8">
-                            <span className="text-[10px] text-gray-600 uppercase font-black tracking-widest group-hover:text-black transition-colors">가격</span>
+                            <span className="text-xs text-gray-600 uppercase font-bold tracking-wider group-hover:text-black transition-colors">가격</span>
                             <select
                                 value={filter.price_range}
                                 onChange={(e) => handleFilterChange({ price_range: e.target.value })}
-                                className="text-xs border-none bg-transparent font-black focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
+                                className="text-xs sm:text-sm border-none bg-transparent font-bold focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
                                 title="가격 선택"
                             >
                                 <option value="All">전체</option>
@@ -233,11 +233,11 @@ export default function GalleryContainer({
 
                         {/* 7. 크기 */}
                         <div className="flex items-center gap-2 group cursor-pointer border-l border-gray-100 pl-8">
-                            <span className="text-[10px] text-gray-600 uppercase font-black tracking-widest group-hover:text-black transition-colors">크기</span>
+                            <span className="text-xs text-gray-600 uppercase font-bold tracking-wider group-hover:text-black transition-colors">크기</span>
                             <select
                                 value={filter.size}
                                 onChange={(e) => handleFilterChange({ size: e.target.value })}
-                                className="text-xs border-none bg-transparent font-black focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
+                                className="text-xs sm:text-sm border-none bg-transparent font-bold focus:ring-0 cursor-pointer p-0 hover:text-blue-500 transition-colors"
                                 title="크기 선택"
                             >
                                 <option value="All">전체</option>
@@ -252,10 +252,10 @@ export default function GalleryContainer({
                     <div className="flex items-center gap-4">
                         <button
                             onClick={resetFilters}
-                            className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-600 hover:text-black transition-colors"
+                            className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-600 hover:text-black transition-colors"
                         >
                             Reset
-                            <RotateCcw className="w-3 h-3" />
+                            <RotateCcw className="w-3.5 h-3.5" />
                         </button>
                     </div>
                 </div>
@@ -264,7 +264,7 @@ export default function GalleryContainer({
             {/* 활동 필터 태그 */}
             {Object.entries(filter).some(([key, v]) => key !== 'artist_id' && v !== 'All') && (
                 <div className="flex flex-wrap gap-2 items-center">
-                    <span className="text-[10px] font-black uppercase text-gray-500 mr-2">활동 필터</span>
+                    <span className="text-xs font-bold uppercase text-gray-500 mr-2">활동 필터</span>
                     {Object.entries(filter).map(([key, value]) => {
                         if (value === 'All') return null;
                         let displayValue = value;
@@ -285,16 +285,16 @@ export default function GalleryContainer({
                             <button
                                 key={key}
                                 onClick={() => handleFilterChange({ [key]: 'All' })}
-                                className="flex items-center gap-1.5 px-4 py-1.5 bg-gray-50 hover:bg-black hover:text-white rounded-full text-[11px] font-bold transition-all text-gray-700"
+                                className="flex items-center gap-1.5 px-4 py-1.5 bg-gray-50 hover:bg-black hover:text-white rounded-full text-xs sm:text-sm font-medium transition-all text-gray-700"
                             >
                                 {displayValue}
-                                <X size={12} />
+                                <X size={14} />
                             </button>
                         );
                     })}
                     <button
                         onClick={resetFilters}
-                        className="text-[10px] font-black uppercase text-accent hover:underline ml-2"
+                        className="text-xs font-bold uppercase text-accent hover:underline ml-2"
                     >
                         Clear All
                     </button>
