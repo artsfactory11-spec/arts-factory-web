@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import dbConnect from "@/lib/mongodb";
 import Artwork from "@/models/Artwork";
 import User from "@/models/User";
@@ -13,22 +15,42 @@ import NoticeModal from "@/components/home/NoticeModal";
 // --- Data Fetching Components ---
 
 async function HeroStats() {
-  await dbConnect();
-  const artworkCount = await Artwork.countDocuments({ status: 'approved' });
-  const artistCount = await User.countDocuments({ role: 'partner', status: 'approved' });
+  const conn = await dbConnect();
+  if (!conn) {
+    return (
+      <div className="flex gap-8 lg:gap-12 mt-6 lg:mt-8">
+        <div className="flex flex-col">
+          <span className="text-3xl lg:text-4xl font-serif font-light tracking-tighter">50+</span>
+          <span className="text-[9px] font-black text-gray-600 uppercase tracking-[0.2em] mt-1">엄선된 작품들</span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-3xl lg:text-4xl font-serif font-light tracking-tighter">20+</span>
+          <span className="text-[9px] font-black text-gray-600 uppercase tracking-[0.2em] mt-1">활동 작가군</span>
+        </div>
+      </div>
+    );
+  }
 
-  return (
-    <div className="flex gap-8 lg:gap-12 mt-6 lg:mt-8">
-      <div className="flex flex-col">
-        <span className="text-3xl lg:text-4xl font-serif font-light tracking-tighter">{artworkCount}+</span>
-        <span className="text-[9px] font-black text-gray-600 uppercase tracking-[0.2em] mt-1">엄선된 작품들</span>
+  try {
+    const artworkCount = await Artwork.countDocuments({ status: 'approved' });
+    const artistCount = await User.countDocuments({ role: 'partner', status: 'approved' });
+
+    return (
+      <div className="flex gap-8 lg:gap-12 mt-6 lg:mt-8">
+        <div className="flex flex-col">
+          <span className="text-3xl lg:text-4xl font-serif font-light tracking-tighter">{artworkCount}+</span>
+          <span className="text-[9px] font-black text-gray-600 uppercase tracking-[0.2em] mt-1">엄선된 작품들</span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-3xl lg:text-4xl font-serif font-light tracking-tighter">{artistCount}+</span>
+          <span className="text-[9px] font-black text-gray-600 uppercase tracking-[0.2em] mt-1">활동 작가군</span>
+        </div>
       </div>
-      <div className="flex flex-col">
-        <span className="text-3xl lg:text-4xl font-serif font-light tracking-tighter">{artistCount}+</span>
-        <span className="text-[9px] font-black text-gray-600 uppercase tracking-[0.2em] mt-1">활동 작가군</span>
-      </div>
-    </div>
-  );
+    );
+  } catch (error) {
+    console.error("HeroStats query error:", error);
+    return null;
+  }
 }
 
 interface IArtwork {
@@ -41,131 +63,150 @@ interface IArtwork {
 }
 
 async function FeaturedSection() {
-  await dbConnect();
+  const conn = await dbConnect();
+  if (!conn) return null;
 
-  // 1. 관리자가 지정한 큐레이션 작품 조회
-  let featured = await Artwork.find({ isCurated: true, status: 'approved' })
-    .sort({ createdAt: -1 })
-    .limit(2)
-    .populate('artist_id', 'name');
-
-  // 2. 큐레이션 작품이 부족할 경우 최신 작품으로 보완
-  if (featured.length < 2) {
-    const additional = await Artwork.find({ isCurated: { $ne: true }, status: 'approved' })
+  try {
+    // 1. 관리자가 지정한 큐레이션 작품 조회
+    let featured = await Artwork.find({ isCurated: true, status: 'approved' })
       .sort({ createdAt: -1 })
-      .limit(2 - featured.length)
+      .limit(2)
       .populate('artist_id', 'name');
-    featured = [...featured, ...additional];
-  }
 
-  if (featured.length === 0) return null;
+    // 2. 큐레이션 작품이 부족할 경우 최신 작품으로 보완
+    if (featured.length < 2) {
+      const additional = await Artwork.find({ isCurated: { $ne: true }, status: 'approved' })
+        .sort({ createdAt: -1 })
+        .limit(2 - featured.length)
+        .populate('artist_id', 'name');
+      featured = [...featured, ...additional];
+    }
 
-  return (
-    <section className="px-6 lg:px-12 py-20 lg:py-28 bg-surface overflow-hidden relative">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          <div className="lg:col-span-5 lg:sticky lg:top-48 z-10">
-            <span className="text-[10px] font-black tracking-[0.6em] text-accent uppercase mb-6 block">큐레이션 시리즈</span>
-            <h2 className="text-5xl lg:text-7xl font-serif font-light tracking-tighter leading-[0.9] italic mb-8 text-charcoal">
-              The <br /> Modern <br /> Archive
-            </h2>
-            <p className="text-gray-600 font-serif text-lg leading-relaxed max-w-sm">
-              예술적 가치와 투자 가치를 동시에 지닌, 아트팩토리 전문가들이 엄선한 이달의 핵심 컬렉션입니다.
-            </p>
-            <div className="mt-10 w-20 h-[1px] bg-accent/30" />
-          </div>
+    if (featured.length === 0) return null;
 
-          <div className="lg:col-span-7 space-y-20 lg:space-y-28 relative">
-            {featured.map((item: IArtwork, i: number) => (
-              <RevealSection key={item._id.toString()} delay={i * 0.2}>
-                <div className={`relative group ${i % 2 !== 0 ? 'lg:ml-20' : 'lg:mr-20'}`}>
-                  <div className="aspect-[4/5] overflow-hidden rounded-3xl lg:rounded-[40px] shadow-[0_30px_60px_rgba(0,0,0,0.08)] bg-white p-4 transition-transform duration-1000 group-hover:-translate-y-4 relative">
-                    <Image src={item.firebase_image_url} alt={item.title} fill className="object-cover rounded-2xl lg:rounded-3xl transition-transform duration-1000 group-hover:scale-105" />
+    return (
+      <section className="px-6 lg:px-12 py-20 lg:py-28 bg-surface overflow-hidden relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div className="lg:col-span-5 lg:sticky lg:top-48 z-10">
+              <span className="text-[10px] font-black tracking-[0.6em] text-accent uppercase mb-6 block">큐레이션 시리즈</span>
+              <h2 className="text-5xl lg:text-7xl font-serif font-light tracking-tighter leading-[0.9] italic mb-8 text-charcoal">
+                The <br /> Modern <br /> Archive
+              </h2>
+              <p className="text-gray-600 font-serif text-lg leading-relaxed max-w-sm">
+                예술적 가치와 투자 가치를 동시에 지닌, 아트팩토리 전문가들이 엄선한 이달의 핵심 컬렉션입니다.
+              </p>
+              <div className="mt-10 w-20 h-[1px] bg-accent/30" />
+            </div>
+
+            <div className="lg:col-span-7 space-y-20 lg:space-y-28 relative">
+              {featured.map((item: IArtwork, i: number) => (
+                <RevealSection key={item._id.toString()} delay={i * 0.2}>
+                  <div className={`relative group ${i % 2 !== 0 ? 'lg:ml-20' : 'lg:mr-20'}`}>
+                    <div className="aspect-[4/5] overflow-hidden rounded-3xl lg:rounded-[40px] shadow-[0_30px_60px_rgba(0,0,0,0.08)] bg-white p-4 transition-transform duration-1000 group-hover:-translate-y-4 relative">
+                      <Image src={item.firebase_image_url} alt={item.title} fill className="object-cover rounded-2xl lg:rounded-3xl transition-transform duration-1000 group-hover:scale-105" />
+                    </div>
+                    <div className="absolute -bottom-8 -left-4 lg:left-auto lg:-right-8 bg-white/80 backdrop-blur-xl p-8 rounded-2xl lg:rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.05)] border border-white/20 max-w-xs group-hover:-translate-y-4 transition-transform duration-700">
+                      <span className="text-[9px] font-black tracking-[0.3em] text-accent uppercase mb-3 block">Selection 0{i + 1}</span>
+                      <h3 className="text-2xl font-serif mb-2 text-charcoal">{item.title}</h3>
+                      <p className="text-[9px] text-gray-600 font-bold uppercase tracking-[0.2em]">Artist. {item.artist_id?.name || 'Unknown'}</p>
+                    </div>
                   </div>
-                  <div className="absolute -bottom-8 -left-4 lg:left-auto lg:-right-8 bg-white/80 backdrop-blur-xl p-8 rounded-2xl lg:rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.05)] border border-white/20 max-w-xs group-hover:-translate-y-4 transition-transform duration-700">
-                    <span className="text-[9px] font-black tracking-[0.3em] text-accent uppercase mb-3 block">Selection 0{i + 1}</span>
-                    <h3 className="text-2xl font-serif mb-2 text-charcoal">{item.title}</h3>
-                    <p className="text-[9px] text-gray-600 font-bold uppercase tracking-[0.2em]">Artist. {item.artist_id?.name || 'Unknown'}</p>
-                  </div>
-                </div>
-              </RevealSection>
-            ))}
+                </RevealSection>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
+  } catch (error) {
+    console.error("FeaturedSection query error:", error);
+    return null;
+  }
 }
 
 import ArtworkSlider from "@/components/home/ArtworkSlider";
 
 async function ArtworkContent() {
-  await dbConnect();
-  const artworks = await Artwork.find({ status: 'approved' })
-    .sort({ createdAt: -1 })
-    .limit(40)
-    .populate('artist_id', 'name');
+  const conn = await dbConnect();
+  if (!conn) return null;
 
-  const formattedArtworks = JSON.parse(JSON.stringify(artworks));
-  return <ArtworkSlider artworks={formattedArtworks} />;
+  try {
+    const artworks = await Artwork.find({ status: 'approved' })
+      .sort({ createdAt: -1 })
+      .limit(40)
+      .populate('artist_id', 'name');
+
+    const formattedArtworks = JSON.parse(JSON.stringify(artworks));
+    return <ArtworkSlider artworks={formattedArtworks} />;
+  } catch (error) {
+    console.error("ArtworkContent query error:", error);
+    return null;
+  }
 }
 
 async function ArtistSpotlight() {
-  await dbConnect();
+  const conn = await dbConnect();
+  if (!conn) return null;
 
-  // 1. 관리자가 지정한 스포트라이트 작가 조회
-  let artist = await User.findOne({ isSpotlight: true, role: 'partner', status: 'approved' });
+  try {
+    // 1. 관리자가 지정한 스포트라이트 작가 조회
+    let artist = await User.findOne({ isSpotlight: true, role: 'partner', status: 'approved' });
 
-  // 2. 지정된 작가가 없으면 가장 최근 등록된 승인된 작가 노출
-  if (!artist) {
-    artist = await User.findOne({ role: 'partner', status: 'approved' }).sort({ createdAt: -1 });
-  }
+    // 2. 지정된 작가가 없으면 가장 최근 등록된 승인된 작가 노출
+    if (!artist) {
+      artist = await User.findOne({ role: 'partner', status: 'approved' }).sort({ createdAt: -1 });
+    }
 
-  if (!artist) return null;
+    if (!artist) return null;
 
-  return (
-    <section className="py-20 lg:py-28 bg-charcoal text-white relative overflow-hidden flex items-center">
-      <ParallaxText
-        text="SPOTLIGHT"
-        speed={-180}
-        className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none select-none overflow-hidden text-[65vw] font-black italic whitespace-nowrap -left-32 text-white"
-      />
+    return (
+      <section className="py-20 lg:py-28 bg-charcoal text-white relative overflow-hidden flex items-center">
+        <ParallaxText
+          text="SPOTLIGHT"
+          speed={-180}
+          className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none select-none overflow-hidden text-[65vw] font-black italic whitespace-nowrap -left-32 text-white"
+        />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <RevealSection>
-            <div className="relative">
-              <div className="aspect-[3/4] rounded-3xl lg:rounded-[40px] overflow-hidden border border-white/5 p-4 bg-white/5 backdrop-blur-sm relative">
-                <Image src={artist.avatar_url || "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=2067&auto=format&fit=crop"} alt="Artist" fill className="object-cover rounded-2xl lg:rounded-[32px] grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000" />
-              </div>
-              <div className="absolute top-8 -right-8 lg:top-12 lg:-right-12 w-44 h-44 lg:w-52 lg:h-52 bg-accent rounded-full flex flex-col items-center justify-center text-charcoal shadow-[0_20px_40px_rgba(197,160,89,0.3)] rotate-12">
-                <span className="text-[10px] lg:text-[11px] font-black uppercase tracking-tight text-center leading-tight">Artist <br /> of the month</span>
-              </div>
-            </div>
-          </RevealSection>
-
-          <div className="space-y-12 lg:space-y-16">
-            <RevealSection delay={0.3}>
-              <div className="space-y-6 lg:space-y-8">
-                <span className="text-[10px] font-black tracking-[0.6em] text-accent uppercase block">이달의 작가</span>
-                <h2 className="text-6xl sm:text-7xl lg:text-[110px] font-serif font-light leading-[0.85] tracking-tighter">
-                  {artist.name}
-                </h2>
-                <p className="text-xl lg:text-2xl text-gray-300 font-serif leading-relaxed max-w-xl">
-                  {artist.artist_bio || `"나의 작업은 보이지 않는 감정의 흐름을 캔버스 위에 고착시키는 과정이다."`}
-                </p>
-              </div>
-              <div className="flex gap-12 pt-10 lg:pt-12 border-t border-white/5">
-                <Link href="/artists" className="group inline-flex items-center gap-8 px-10 py-5 lg:px-12 lg:py-6 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white hover:text-charcoal transition-all duration-500">
-                  포트폴리오 보기 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </Link>
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <RevealSection>
+              <div className="relative">
+                <div className="aspect-[3/4] rounded-3xl lg:rounded-[40px] overflow-hidden border border-white/5 p-4 bg-white/5 backdrop-blur-sm relative">
+                  <Image src={artist.avatar_url || "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=2067&auto=format&fit=crop"} alt="Artist" fill className="object-cover rounded-2xl lg:rounded-[32px] grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000" />
+                </div>
+                <div className="absolute top-8 -right-8 lg:top-12 lg:-right-12 w-44 h-44 lg:w-52 lg:h-52 bg-accent rounded-full flex flex-col items-center justify-center text-charcoal shadow-[0_20px_40px_rgba(197,160,89,0.3)] rotate-12">
+                  <span className="text-[10px] lg:text-[11px] font-black uppercase tracking-tight text-center leading-tight">Artist <br /> of the month</span>
+                </div>
               </div>
             </RevealSection>
+
+            <div className="space-y-12 lg:space-y-16">
+              <RevealSection delay={0.3}>
+                <div className="space-y-6 lg:space-y-8">
+                  <span className="text-[10px] font-black tracking-[0.6em] text-accent uppercase block">이달의 작가</span>
+                  <h2 className="text-6xl sm:text-7xl lg:text-[110px] font-serif font-light leading-[0.85] tracking-tighter">
+                    {artist.name}
+                  </h2>
+                  <p className="text-xl lg:text-2xl text-gray-300 font-serif leading-relaxed max-w-xl">
+                    {artist.artist_bio || `"나의 작업은 보이지 않는 감정의 흐름을 캔버스 위에 고착시키는 과정이다."`}
+                  </p>
+                </div>
+                <div className="flex gap-12 pt-10 lg:pt-12 border-t border-white/5">
+                  <Link href="/artists" className="group inline-flex items-center gap-8 px-10 py-5 lg:px-12 lg:py-6 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white hover:text-charcoal transition-all duration-500">
+                    포트폴리오 보기 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </Link>
+                </div>
+              </RevealSection>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
+  } catch (error) {
+    console.error("ArtistSpotlight query error:", error);
+    return null;
+  }
 }
 
 interface IMagazine {
@@ -177,57 +218,63 @@ interface IMagazine {
 }
 
 async function MagazineSection() {
-  await dbConnect();
+  const conn = await dbConnect();
+  if (!conn) return null;
 
-  // 1. 관리자가 지정한 홈 노출 기사 조회
-  let highlights = await Magazine.find({ isFeatured: true, is_published: true })
-    .sort({ createdAt: -1 })
-    .limit(2);
-
-  // 2. 부족할 경우 최신 기사로 보완
-  if (highlights.length < 2) {
-    const additional = await Magazine.find({ isFeatured: { $ne: true }, is_published: true })
+  try {
+    // 1. 관리자가 지정한 홈 노출 기사 조회
+    let highlights = await Magazine.find({ isFeatured: true, is_published: true })
       .sort({ createdAt: -1 })
-      .limit(2 - highlights.length);
-    highlights = [...highlights, ...additional];
-  }
+      .limit(2);
 
-  if (highlights.length === 0) return null;
+    // 2. 부족할 경우 최신 기사로 보완
+    if (highlights.length < 2) {
+      const additional = await Magazine.find({ isFeatured: { $ne: true }, is_published: true })
+        .sort({ createdAt: -1 })
+        .limit(2 - highlights.length);
+      highlights = [...highlights, ...additional];
+    }
 
-  return (
-    <section className="px-6 lg:px-12 py-20 lg:py-28 bg-white">
-      <div className="max-w-7xl mx-auto">
-        <RevealSection>
-          <div className="flex flex-col items-center text-center mb-12 lg:mb-16 space-y-4">
-            <span className="text-[10px] font-black tracking-[0.6em] text-accent uppercase">예술적 관점</span>
-            <h2 className="text-4xl lg:text-6xl font-serif font-light tracking-tighter">매거진 하이라이트</h2>
-          </div>
-        </RevealSection>
+    if (highlights.length === 0) return null;
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {highlights.map((mag: IMagazine, i: number) => (
-            <RevealSection key={mag._id.toString()} delay={i * 0.2}>
-              <div className={`group space-y-8 ${i % 2 !== 0 ? 'lg:mt-16' : ''}`}>
-                <div className="aspect-[4/3] bg-gray-50 rounded-3xl lg:rounded-[40px] overflow-hidden relative shadow-lg">
-                  <Image src={mag.thumbnail_url} alt={mag.title} fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
-                  <div className="absolute top-8 left-8">
-                    <span className="px-5 py-2 bg-white/90 backdrop-blur-md rounded-full text-[9px] font-black uppercase tracking-[0.2em]">{mag.category}</span>
+    return (
+      <section className="px-6 lg:px-12 py-20 lg:py-28 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <RevealSection>
+            <div className="flex flex-col items-center text-center mb-12 lg:mb-16 space-y-4">
+              <span className="text-[10px] font-black tracking-[0.6em] text-accent uppercase">예술적 관점</span>
+              <h2 className="text-4xl lg:text-6xl font-serif font-light tracking-tighter">매거진 하이라이트</h2>
+            </div>
+          </RevealSection>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            {highlights.map((mag: IMagazine, i: number) => (
+              <RevealSection key={mag._id.toString()} delay={i * 0.2}>
+                <div className={`group space-y-8 ${i % 2 !== 0 ? 'lg:mt-16' : ''}`}>
+                  <div className="aspect-[4/3] bg-gray-50 rounded-3xl lg:rounded-[40px] overflow-hidden relative shadow-lg">
+                    <Image src={mag.thumbnail_url} alt={mag.title} fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
+                    <div className="absolute top-8 left-8">
+                      <span className="px-5 py-2 bg-white/90 backdrop-blur-md rounded-full text-[9px] font-black uppercase tracking-[0.2em]">{mag.category}</span>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="text-2xl lg:text-3xl font-serif leading-tight group-hover:text-accent transition-colors">{mag.title}</h3>
+                    <p className="text-gray-600 font-sans text-base leading-relaxed line-clamp-2">
+                      {mag.content.replace(/<[^>]*>/g, '').substring(0, 100)}...
+                    </p>
+                    <Link href={`/magazine/${mag._id}`} className="inline-block text-[10px] font-black uppercase tracking-widest border-b border-black pb-2">기사 자세히 보기</Link>
                   </div>
                 </div>
-                <div className="space-y-4">
-                  <h3 className="text-2xl lg:text-3xl font-serif leading-tight group-hover:text-accent transition-colors">{mag.title}</h3>
-                  <p className="text-gray-600 font-sans text-base leading-relaxed line-clamp-2">
-                    {mag.content.replace(/<[^>]*>/g, '').substring(0, 100)}...
-                  </p>
-                  <Link href={`/magazine/${mag._id}`} className="inline-block text-[10px] font-black uppercase tracking-widest border-b border-black pb-2">기사 자세히 보기</Link>
-                </div>
-              </div>
-            </RevealSection>
-          ))}
+              </RevealSection>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
+  } catch (error) {
+    console.error("MagazineSection query error:", error);
+    return null;
+  }
 }
 
 export default function Home() {
