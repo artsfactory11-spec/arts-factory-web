@@ -38,6 +38,7 @@ const navItems = [
     { name: '작품', href: '/gallery' },
     { name: '작가', href: '/artists' },
     { name: '매거진', href: '/magazine' },
+    { name: '아트물류', href: '/logistics' },
     { name: '파트너', href: '/partner' },
 ];
 
@@ -94,7 +95,13 @@ export default function Navbar() {
                             )}
                         </Link>
                     ))}
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-5">
+                        <Link
+                            href="/logistics#calculator"
+                            className="px-3.5 py-1.5 bg-[#C5A059] hover:bg-[#b59048] text-[#121212] text-xs font-bold rounded-full transition-all shadow-sm flex items-center gap-1.5"
+                        >
+                            물류 견적
+                        </Link>
                         <UserIconLink />
                         <Link
                             href="/gallery/wishlist"
@@ -141,6 +148,20 @@ export default function Navbar() {
                                 {item.name}
                             </Link>
                         ))}
+                        <div className="pt-6 flex flex-col gap-3">
+                            <Link
+                                href="/logistics#calculator"
+                                className="w-full py-3.5 bg-[#C5A059] text-[#121212] text-center font-bold text-sm rounded-full shadow-sm"
+                            >
+                                물류 견적 계산기 바로가기
+                            </Link>
+                            <Link
+                                href="/inquiry"
+                                className="w-full py-3.5 bg-charcoal text-white text-center font-bold text-sm rounded-full"
+                            >
+                                문의하기
+                            </Link>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
