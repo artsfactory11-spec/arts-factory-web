@@ -7,7 +7,7 @@ import { Calculator, ArrowRight, Shield, Award, CheckCircle2 } from 'lucide-reac
 
 export default function LogisticsHero() {
     return (
-        <section className="relative pt-36 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#F4F1EE]">
+        <section className="relative pt-14 pb-16 lg:pt-24 lg:pb-28 overflow-hidden bg-[#F4F1EE]">
             {/* Background Aesthetic Elements */}
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-[#C5A059]/15 to-transparent rounded-full blur-3xl pointer-events-none -mr-40 -mt-20" />
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#121212]/5 rounded-full blur-3xl pointer-events-none -ml-40" />
@@ -50,7 +50,7 @@ export default function LogisticsHero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, delay: 0.3 }}
-                        className="flex flex-wrap items-center gap-4 mb-16"
+                        className="flex flex-wrap items-center gap-4 mb-10 lg:mb-12"
                     >
                         <a
                             href="#calculator"

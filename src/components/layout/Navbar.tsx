@@ -77,7 +77,7 @@ export default function Navbar() {
                 </Link>
 
                 {/* Desktop Menu */}
-                <div className="hidden md:flex items-center gap-14">
+                <div className="hidden md:flex items-center gap-10 lg:gap-12">
                     {navItems.map((item) => (
                         <Link
                             key={item.href}
@@ -95,13 +95,7 @@ export default function Navbar() {
                             )}
                         </Link>
                     ))}
-                    <div className="flex items-center gap-5">
-                        <Link
-                            href="/logistics#calculator"
-                            className="px-3.5 py-1.5 bg-[#C5A059] hover:bg-[#b59048] text-[#121212] text-xs font-bold rounded-full transition-all shadow-sm flex items-center gap-1.5"
-                        >
-                            물류 견적
-                        </Link>
+                    <div className="flex items-center gap-6">
                         <UserIconLink />
                         <Link
                             href="/gallery/wishlist"
@@ -148,16 +142,10 @@ export default function Navbar() {
                                 {item.name}
                             </Link>
                         ))}
-                        <div className="pt-6 flex flex-col gap-3">
-                            <Link
-                                href="/logistics#calculator"
-                                className="w-full py-3.5 bg-[#C5A059] text-[#121212] text-center font-bold text-sm rounded-full shadow-sm"
-                            >
-                                물류 견적 계산기 바로가기
-                            </Link>
+                        <div className="pt-6">
                             <Link
                                 href="/inquiry"
-                                className="w-full py-3.5 bg-charcoal text-white text-center font-bold text-sm rounded-full"
+                                className="w-full py-3.5 bg-charcoal text-white text-center font-bold text-sm rounded-full block"
                             >
                                 문의하기
                             </Link>

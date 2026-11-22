@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle2, Printer, FileText, Building2, User, Phone, Mail, Calendar, MessageSquare } from 'lucide-react';
 import { createInquiry } from '@/app/actions/inquiry';
+import { getSettings } from '@/app/actions/settings';
 
 interface LogisticsQuoteModalProps {
     isOpen: boolean;
@@ -45,6 +46,17 @@ export default function LogisticsQuoteModal({ isOpen, onClose, quoteData }: Logi
         memo: '',
     });
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+    const [settings, setSettings] = useState<any>(null);
+
+    useEffect(() => {
+        let isMounted = true;
+        getSettings().then(res => {
+            if (res?.success && res.settings && isMounted) {
+                setSettings(res.settings);
+            }
+        }).catch(err => console.error("Error loading settings:", err));
+        return () => { isMounted = false; };
+    }, []);
 
     if (!isOpen) return null;
 
@@ -327,11 +339,11 @@ ${artworkListText}
                                     <div className="grid grid-cols-2 gap-4 text-xs border border-gray-200 p-4 rounded-xl bg-gray-50/50">
                                         <div className="space-y-1">
                                             <p className="font-bold text-gray-500 uppercase tracking-wider mb-1">공급자 (운송·설치사)</p>
-                                            <p><strong>상호:</strong> 아트팩토리 (Arts Factory Logistics)</p>
-                                            <p><strong>사업자등록번호:</strong> 120-88-00000</p>
-                                            <p><strong>대표자:</strong> 대표이사</p>
-                                            <p><strong>소재지:</strong> 서울특별시 종로구 삼청로 갤러리스트릿</p>
-                                            <p><strong>담당:</strong> 미술품 물류사업팀 (02-000-0000)</p>
+                                            <p><strong>상호:</strong> {settings?.companyName || '(주)아츠팩토리'}</p>
+                                            <p><strong>사업자등록번호:</strong> {settings?.businessNumber || '227-13-96095'}</p>
+                                            <p><strong>대표자:</strong> {settings?.representative || '이효주'}</p>
+                                            <p><strong>소재지:</strong> {settings?.address || '광주광역시 동구 문화전당로23번길 7, 2층 202호(남동)'}</p>
+                                            <p><strong>대표연락처:</strong> {settings?.phone || '062.224.0801'}{settings?.email ? ` (${settings.email})` : ''}</p>
                                         </div>
                                         <div className="space-y-1 border-l border-gray-200 pl-4">
                                             <p className="font-bold text-gray-500 uppercase tracking-wider mb-1">공급받는 자 (신청 기관)</p>
@@ -407,7 +419,7 @@ ${artworkListText}
                                     </table>
 
                                     <div className="text-center pt-4 border-t border-gray-200 text-xs text-gray-500">
-                                        위와 같이 정히 견적합니다. &nbsp;&nbsp; <strong>아트팩토리 주식회사 (직인생략)</strong>
+                                        위와 같이 정히 견적합니다. &nbsp;&nbsp; <strong>{settings?.companyName || '(주)아츠팩토리'} (직인생략)</strong>
                                     </div>
                                 </div>
 
