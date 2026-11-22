@@ -384,31 +384,106 @@ ${artworkListText}
                                         </div>
                                     </div>
 
-                                    {/* Artwork List Summary in Printable Quote */}
-                                    <div className="p-3 bg-gray-50 rounded-xl border border-gray-200 text-xs">
-                                        <p className="font-bold text-gray-700 mb-1">
-                                            운송 대상 작품 내역 (총 {quoteData.totalPieces}점 / 평가액 {(quoteData.totalValueKRW / 10000).toLocaleString()}만 원)
-                                        </p>
-                                        <ul className="text-gray-600 space-y-0.5 pl-3 list-disc">
-                                            {quoteData.artworks.map((a: any, idx: number) => {
-                                                let desc = '';
-                                                if (a.type === 'painting') {
-                                                    const dim = (a.width && a.height) ? ` (${a.width}×${a.height}cm)` : '';
-                                                    desc = `[평면회화] ${a.title || '작품'} (${a.sizeTier}호${dim}) × ${a.quantity}점`;
-                                                } else if (a.type === 'glass_frame') {
-                                                    desc = `[유리/아크릴액자] ${a.title || '작품'} (${a.width || '-'}×${a.height || '-'}×${a.depth || '-'}cm) × ${a.quantity}점`;
-                                                } else if (a.type === 'sculpture') {
-                                                    desc = `[도자/조각] ${a.title || '작품'} (${a.width || '-'}×${a.height || '-'}×${a.depth || '-'}cm${a.weight ? `, ${a.weight}kg` : ''}) × ${a.quantity}점`;
-                                                } else {
-                                                    desc = `[대형/설치미술] ${a.title || '작품'} × ${a.quantity}점 (현장 실측 요망)`;
-                                                }
-                                                return <li key={idx}>{desc}</li>;
-                                            })}
-                                        </ul>
+                                    {/* 1. Artwork Manifest Table */}
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between items-center text-xs">
+                                            <h3 className="font-bold text-gray-800 text-sm">1. 운송 대상 작품 명세</h3>
+                                            <span className="text-gray-600">
+                                                총 <strong>{quoteData.totalPieces}점</strong> &nbsp;|&nbsp; 평가액 합계: <strong>₩ {quoteData.totalValueKRW.toLocaleString()}</strong> ({(quoteData.totalValueKRW / 10000).toLocaleString()}만 원)
+                                            </span>
+                                        </div>
+                                        <div className="overflow-x-auto border border-gray-200 rounded-lg">
+                                            <table className="w-full text-xs border-collapse">
+                                                <thead>
+                                                    <tr className="bg-gray-100 text-gray-700 font-semibold border-b border-gray-200">
+                                                        <th className="border-r border-gray-200 p-2 text-center w-10">No.</th>
+                                                        <th className="border-r border-gray-200 p-2 text-left">작품명</th>
+                                                        <th className="border-r border-gray-200 p-2 text-center w-28">작품 구분</th>
+                                                        <th className="border-r border-gray-200 p-2 text-left">규격 및 실측 치수</th>
+                                                        <th className="border-r border-gray-200 p-2 text-center w-14">수량</th>
+                                                        <th className="border-r border-gray-200 p-2 text-right w-28">작품 평가액</th>
+                                                        <th className="p-2 text-center w-28">비고</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="divide-y divide-gray-200">
+                                                    {quoteData.artworks.map((a: any, idx: number) => {
+                                                        let typeLabel = '평면 회화';
+                                                        let dimensionText = '';
+                                                        let notes = '-';
+
+                                                        if (a.type === 'painting') {
+                                                            typeLabel = '평면 회화';
+                                                            const dimParts = [];
+                                                            if (a.width && a.height) dimParts.push(`${a.width}×${a.height}`);
+                                                            if (a.depth) dimParts.push(`${a.depth}`);
+                                                            const dimStr = dimParts.length > 0 ? ` (${dimParts.join('×')}cm)` : '';
+                                                            dimensionText = `${a.sizeTier}호${dimStr}`;
+                                                        } else if (a.type === 'glass_frame') {
+                                                            typeLabel = '유리/액자';
+                                                            if (a.width && a.height) {
+                                                                dimensionText = `외곽 ${a.width}×${a.height}${a.depth ? `×${a.depth}` : ''}cm`;
+                                                            } else {
+                                                                dimensionText = '외곽 실측 규격';
+                                                            }
+                                                            notes = '파손주의 완충';
+                                                        } else if (a.type === 'sculpture') {
+                                                            typeLabel = '도자/조각';
+                                                            if (a.width && a.height) {
+                                                                dimensionText = `입체 ${a.width}×${a.height}${a.depth ? `×${a.depth}` : ''}cm`;
+                                                            } else {
+                                                                dimensionText = '입체 실측 규격';
+                                                            }
+                                                            if (a.weight) {
+                                                                notes = `중량 ${a.weight}kg`;
+                                                            }
+                                                        } else {
+                                                            typeLabel = '대형/설치';
+                                                            dimensionText = '현장 실측 요망';
+                                                            notes = a.details || '설치 환경 협의';
+                                                        }
+
+                                                        const itemTotalValue = (a.declaredValue || 0) * 10000;
+
+                                                        return (
+                                                            <tr key={idx} className="hover:bg-gray-50/50">
+                                                                <td className="border-r border-gray-200 p-2 text-center text-gray-500">{idx + 1}</td>
+                                                                <td className="border-r border-gray-200 p-2 font-medium text-gray-900">{a.title || `작품 ${idx + 1}`}</td>
+                                                                <td className="border-r border-gray-200 p-2 text-center text-gray-700">{typeLabel}</td>
+                                                                <td className="border-r border-gray-200 p-2 text-gray-700 font-mono text-[11px]">{dimensionText}</td>
+                                                                <td className="border-r border-gray-200 p-2 text-center font-semibold text-gray-800">{a.quantity}점</td>
+                                                                <td className="border-r border-gray-200 p-2 text-right font-mono text-gray-800">
+                                                                    ₩ {itemTotalValue.toLocaleString()}
+                                                                </td>
+                                                                <td className="p-2 text-center text-gray-600 text-[11px] truncate max-w-[120px]">{notes}</td>
+                                                            </tr>
+                                                        );
+                                                    })}
+                                                </tbody>
+                                                <tfoot className="bg-gray-50 font-bold border-t border-gray-200 text-gray-800">
+                                                    <tr>
+                                                        <td colSpan={4} className="border-r border-gray-200 p-2 text-center">
+                                                            작품 내역 소계 (총 {quoteData.artworks.length}개 품목)
+                                                        </td>
+                                                        <td className="border-r border-gray-200 p-2 text-center text-black">
+                                                            {quoteData.totalPieces}점
+                                                        </td>
+                                                        <td className="border-r border-gray-200 p-2 text-right font-mono text-black">
+                                                            ₩ {quoteData.totalValueKRW.toLocaleString()}
+                                                        </td>
+                                                        <td className="p-2 text-center text-gray-400 text-[11px]">-</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
                                     </div>
 
-                                    {/* Items Table */}
-                                    <table className="w-full text-xs border-collapse border border-gray-200">
+                                    {/* 2. Service & Cost Breakdown Table */}
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between items-center text-xs">
+                                            <h3 className="font-bold text-gray-800 text-sm">2. 운송 및 작업 견적 내역</h3>
+                                            <span className="text-gray-500">특수차량, 인건비, 포장·설치 및 보험료</span>
+                                        </div>
+                                        <table className="w-full text-xs border-collapse border border-gray-200">
                                         <thead>
                                             <tr className="bg-gray-100 text-gray-700">
                                                 <th className="border border-gray-200 p-2 text-center">항목</th>
@@ -470,6 +545,7 @@ ${artworkListText}
                                             </tr>
                                         </tfoot>
                                     </table>
+                                </div>
 
                                     <div className="text-center pt-4 border-t border-gray-200 text-xs text-gray-500">
                                         위와 같이 정히 견적합니다. &nbsp;&nbsp; <strong>{settings?.companyName || '(주)아츠팩토리'} (직인생략)</strong>
