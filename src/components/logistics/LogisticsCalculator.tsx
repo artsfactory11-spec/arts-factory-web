@@ -102,6 +102,7 @@ export default function LogisticsCalculator() {
 
     // 모달 상태
     const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+    const [quoteModalInitialTab, setQuoteModalInitialTab] = useState<'form' | 'print'>('form');
 
     // 작품 추가
     const handleAddArtwork = () => {
@@ -1027,7 +1028,10 @@ export default function LogisticsCalculator() {
                             <div className="space-y-3 pt-2">
                                 <button
                                     type="button"
-                                    onClick={() => setIsQuoteModalOpen(true)}
+                                    onClick={() => {
+                                        setQuoteModalInitialTab('form');
+                                        setIsQuoteModalOpen(true);
+                                    }}
                                     className="w-full py-4 bg-[#C5A059] hover:bg-[#b08e4c] text-[#121212] font-bold text-sm rounded-full transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#C5A059]/20"
                                 >
                                     <FileSpreadsheet className="w-4 h-4" />
@@ -1035,7 +1039,10 @@ export default function LogisticsCalculator() {
                                 </button>
                                 <button
                                     type="button"
-                                    onClick={() => setIsQuoteModalOpen(true)}
+                                    onClick={() => {
+                                        setQuoteModalInitialTab('print');
+                                        setIsQuoteModalOpen(true);
+                                    }}
                                     className="w-full py-3.5 bg-white/10 hover:bg-white/15 text-white font-bold text-xs sm:text-sm rounded-full transition-all flex items-center justify-center gap-2"
                                 >
                                     <Printer className="w-4 h-4" />
@@ -1054,6 +1061,7 @@ export default function LogisticsCalculator() {
             {/* 견적서 발급 및 상담 신청 모달 */}
             <LogisticsQuoteModal
                 isOpen={isQuoteModalOpen}
+                initialTab={quoteModalInitialTab}
                 onClose={() => setIsQuoteModalOpen(false)}
                 quoteData={{
                     tripType,

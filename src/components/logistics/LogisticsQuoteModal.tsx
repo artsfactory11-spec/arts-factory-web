@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle2, Printer, FileText, Building2, User, Phone, Mail, Calendar, MessageSquare } from 'lucide-react';
 import { createInquiry } from '@/app/actions/inquiry';
@@ -9,6 +10,7 @@ import { getSettings } from '@/app/actions/settings';
 interface LogisticsQuoteModalProps {
     isOpen: boolean;
     onClose: () => void;
+    initialTab?: 'form' | 'print';
     quoteData: {
         tripType: string;
         originRegion: string;
@@ -35,8 +37,9 @@ interface LogisticsQuoteModalProps {
     };
 }
 
-export default function LogisticsQuoteModal({ isOpen, onClose, quoteData }: LogisticsQuoteModalProps) {
-    const [activeTab, setActiveTab] = useState<'form' | 'print'>('form');
+export default function LogisticsQuoteModal({ isOpen, onClose, initialTab = 'form', quoteData }: LogisticsQuoteModalProps) {
+    const [activeTab, setActiveTab] = useState<'form' | 'print'>(initialTab);
+    const [mounted, setMounted] = useState(false);
     const [formData, setFormData] = useState({
         organization: '',
         name: '',
@@ -49,6 +52,16 @@ export default function LogisticsQuoteModal({ isOpen, onClose, quoteData }: Logi
     const [settings, setSettings] = useState<any>(null);
 
     useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (initialTab) {
+            setActiveTab(initialTab);
+        }
+    }, [initialTab, isOpen]);
+
+    useEffect(() => {
         let isMounted = true;
         getSettings().then(res => {
             if (res?.success && res.settings && isMounted) {
@@ -58,7 +71,7 @@ export default function LogisticsQuoteModal({ isOpen, onClose, quoteData }: Logi
         return () => { isMounted = false; };
     }, []);
 
-    if (!isOpen) return null;
+    if (!isOpen || !mounted) return null;
 
     const todayStr = new Date().toISOString().split('T')[0];
     const quoteNo = `AF-LOG-${todayStr.replace(/-/g, '')}-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -124,27 +137,28 @@ ${artworkListText}
         }
     };
 
-    return (
+    return createPortal(
         <AnimatePresence>
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            <div id="quote-modal-root" className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
                 {/* Backdrop */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={onClose}
-                    className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm print:hidden"
                 />
 
                 {/* Modal Container */}
                 <motion.div
+                    id="quote-modal-box"
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
                     className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden my-8 z-10 border border-gray-100 flex flex-col max-h-[90vh]"
                 >
                     {/* Header */}
-                    <div className="bg-[#121212] text-white p-6 sm:p-8 flex items-center justify-between border-b border-white/10 shrink-0">
+                    <div className="bg-[#121212] text-white p-6 sm:p-8 flex items-center justify-between border-b border-white/10 shrink-0 print:hidden">
                         <div>
                             <span className="text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] block mb-1">
                                 Official Quotation Service
@@ -163,7 +177,7 @@ ${artworkListText}
                     </div>
 
                     {/* Tab Selection */}
-                    <div className="flex border-b border-gray-200 bg-gray-50 shrink-0">
+                    <div className="flex border-b border-gray-200 bg-gray-50 shrink-0 print:hidden">
                         <button
                             type="button"
                             onClick={() => setActiveTab('form')}
@@ -191,7 +205,7 @@ ${artworkListText}
                     </div>
 
                     {/* Body Content (Scrollable) */}
-                    <div className="p-6 sm:p-8 overflow-y-auto flex-grow">
+                    <div className="p-6 sm:p-8 overflow-y-auto flex-grow print:p-0 print:overflow-visible">
                         {activeTab === 'form' ? (
                             status === 'success' ? (
                                 <div className="py-12 text-center space-y-4">
@@ -462,7 +476,7 @@ ${artworkListText}
                                     </div>
                                 </div>
 
-                                <div className="flex gap-4">
+                                <div className="flex gap-4 print:hidden">
                                     <button
                                         type="button"
                                         onClick={() => window.print()}
@@ -477,6 +491,7 @@ ${artworkListText}
                     </div>
                 </motion.div>
             </div>
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body
     );
 }

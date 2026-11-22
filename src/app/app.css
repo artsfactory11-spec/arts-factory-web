@@ -105,3 +105,77 @@
     transition: mask-position 1s ease-out;
   }
 }
+
+/* ==========================================================================
+   미술품 물류 공식 견적서 전용 인쇄 (@media print) 최적화
+   ========================================================================== */
+@media print {
+  /* 1. 웹사이트 본문(네비게이션, 푸터, 메인 랜딩 섹션 전체) 숨김 */
+  nav,
+  main,
+  footer,
+  .no-print,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* 2. html 및 body 높이와 배경 강제 리셋 (불필요한 13페이지 스크롤 여백 제거) */
+  html,
+  body {
+    background: #ffffff !important;
+    color: #121212 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 3. 모달 컨테이너를 전체화면 fixed에서 일반 문서 흐름으로 리셋 */
+  #quote-modal-root {
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  #quote-modal-box {
+    position: static !important;
+    transform: none !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+  }
+
+  /* 4. 견적서 서식(#printable-quote)만 단독 A4 문서로 정돈 */
+  #printable-quote {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 16px 20px !important;
+    border: 1.5px solid #121212 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* 5. A4 용지 규격 및 기본 여백 지정 */
+  @page {
+    size: A4 portrait;
+    margin: 12mm 10mm;
+  }
+}
