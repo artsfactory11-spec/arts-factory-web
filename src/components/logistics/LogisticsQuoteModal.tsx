@@ -68,8 +68,24 @@ export default function LogisticsQuoteModal({ isOpen, onClose, quoteData }: Logi
         setStatus('submitting');
 
         const artworkListText = quoteData.artworks
-            .map((a, i) => `  ${i + 1}. [${a.type}] ${a.title || '작품'} (${a.sizeTier}호 규격) x ${a.quantity}점 / 평가액: ${(a.declaredValue || 0)}만원`)
+            .map((a, i) => {
+                let sizeInfo = '';
+                if (a.type === 'painting') {
+                    const dim = (a.width && a.height) ? ` (실측: ${a.width}×${a.height}${a.depth ? `×${a.depth}` : ''}cm)` : '';
+                    sizeInfo = `${a.sizeTier}호 규격${dim}`;
+                } else if (a.type === 'glass_frame') {
+                    sizeInfo = `액자외곽실측: ${a.width || '-'}×${a.height || '-'}${a.depth ? `×${a.depth}` : ''}cm`;
+                } else if (a.type === 'sculpture') {
+                    sizeInfo = `입체실측: ${a.width || '-'}×${a.height || '-'}×${a.depth || '-'}cm${a.weight ? ` (${a.weight}kg)` : ''}`;
+                } else if (a.type === 'installation') {
+                    sizeInfo = `대형/설치 미술 [현장실측 필요] ${a.details ? `(특이사항: ${a.details})` : ''}`;
+                }
+                return `  ${i + 1}. [${a.type}] ${a.title || '작품'} - ${sizeInfo} x ${a.quantity}점 / 평가액: ${(a.declaredValue || 0)}만원`;
+            })
             .join('\n');
+
+        const hasInstallation = quoteData.artworks.some((a: any) => a.type === 'installation');
+        const installationNote = hasInstallation ? '\n※ [안내] 대형·설치 미술품이 포함되어 담당 테크니션 팀의 현장 실측 후 최종 확정 견적이 안내됩니다.' : '';
 
         const summaryMessage = `[아트물류 견적 요청]
 - 기관/갤러리명: ${formData.organization || '미기재'}
@@ -85,7 +101,7 @@ ${artworkListText}
   * 공급가액: ₩ ${quoteData.subtotal.toLocaleString()}
   * 부가세(10%): ₩ ${quoteData.vat.toLocaleString()}
   * 총 합계(VAT포함): ₩ ${quoteData.totalWithVat.toLocaleString()}
-- 추가 요청사항: ${formData.memo || '없음'}`;
+- 추가 요청사항: ${formData.memo || '없음'}${installationNote}`;
 
         try {
             const res = await createInquiry({
@@ -352,6 +368,29 @@ ${artworkListText}
                                             <p><strong>운송 구간:</strong> {quoteData.originRegion} ➔ {quoteData.destRegion}</p>
                                             <p><strong>차량/인력:</strong> {quoteData.recommendedTruck} ({quoteData.handlersCount}인)</p>
                                         </div>
+                                    </div>
+
+                                    {/* Artwork List Summary in Printable Quote */}
+                                    <div className="p-3 bg-gray-50 rounded-xl border border-gray-200 text-xs">
+                                        <p className="font-bold text-gray-700 mb-1">
+                                            운송 대상 작품 내역 (총 {quoteData.totalPieces}점 / 평가액 {(quoteData.totalValueKRW / 10000).toLocaleString()}만 원)
+                                        </p>
+                                        <ul className="text-gray-600 space-y-0.5 pl-3 list-disc">
+                                            {quoteData.artworks.map((a: any, idx: number) => {
+                                                let desc = '';
+                                                if (a.type === 'painting') {
+                                                    const dim = (a.width && a.height) ? ` (${a.width}×${a.height}cm)` : '';
+                                                    desc = `[평면회화] ${a.title || '작품'} (${a.sizeTier}호${dim}) × ${a.quantity}점`;
+                                                } else if (a.type === 'glass_frame') {
+                                                    desc = `[유리/아크릴액자] ${a.title || '작품'} (${a.width || '-'}×${a.height || '-'}×${a.depth || '-'}cm) × ${a.quantity}점`;
+                                                } else if (a.type === 'sculpture') {
+                                                    desc = `[도자/조각] ${a.title || '작품'} (${a.width || '-'}×${a.height || '-'}×${a.depth || '-'}cm${a.weight ? `, ${a.weight}kg` : ''}) × ${a.quantity}점`;
+                                                } else {
+                                                    desc = `[대형/설치미술] ${a.title || '작품'} × ${a.quantity}점 (현장 실측 요망)`;
+                                                }
+                                                return <li key={idx}>{desc}</li>;
+                                            })}
+                                        </ul>
                                     </div>
 
                                     {/* Items Table */}
