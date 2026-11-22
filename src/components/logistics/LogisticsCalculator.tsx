@@ -697,6 +697,18 @@ export default function LogisticsCalculator() {
                                 </AnimatePresence>
                             </div>
 
+                            {/* 하단 작품 추가 버튼 */}
+                            <button
+                                type="button"
+                                onClick={handleAddArtwork}
+                                className="w-full py-4 border-2 border-dashed border-[#C5A059]/40 hover:border-[#C5A059] bg-[#F4F1EE]/50 hover:bg-[#F4F1EE] text-[#121212] font-bold text-sm rounded-2xl transition-all duration-300 flex items-center justify-center gap-2.5 group shadow-sm hover:shadow-md"
+                            >
+                                <div className="w-6 h-6 rounded-full bg-[#121212] text-white flex items-center justify-center group-hover:bg-[#C5A059] group-hover:text-[#121212] transition-colors">
+                                    <Plus className="w-4 h-4" />
+                                </div>
+                                <span>새 작품 추가하기</span>
+                            </button>
+
                             <div className="flex items-center justify-between text-xs text-gray-600 bg-gray-50 px-4 py-3 rounded-xl border border-gray-100">
                                 <span>총 등록 수량: <strong className="text-black font-bold">{quote.totalPieces}점</strong></span>
                                 <span>총 작품 평가액: <strong className="text-black font-bold">₩ {(quote.totalValueKRW / 10000).toLocaleString()}만 원 ({formatKoreanCurrency(quote.totalValueKRW / 10000)})</strong></span>
